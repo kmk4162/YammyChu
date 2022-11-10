@@ -1,3 +1,20 @@
+body {
+  background-color:beige;
+}
+
+.logo-img{
+  height:5rem;
+  padding:0;
+}
+
+.nav-img{
+  padding:0;
+}
+
+.nav-item{
+  color:white;
+}
+
 footer{
   padding-top: 5rem;
   background-color: black;
