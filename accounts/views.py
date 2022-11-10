@@ -9,6 +9,7 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.decorators import login_required
 from articles.models import Team
+from django.http import JsonResponse
 
 def signup(request):
     teams = Team.objects.all()
@@ -56,7 +57,42 @@ def profile(request, pk):
     user = User.objects.get(pk=pk)
     print(user.nickname)
     context = {
+        'request_user': user,
         'pk': pk,
+        'username': user.username,
+        'email': user.email,
+        'name': user.last_name,
         'nickname': user.nickname,
     }
     return render(request, 'accounts/profile.html', context)
+
+def follow(request, pk):
+    if request.user.is_authenticated:
+        user = User.objects.get(pk=pk)
+        if user != request.user:
+            if user.followers.filter(pk=request.user.pk).exists():
+                user.followers.remove(request.user)
+                is_followed = False
+            else:
+                user.followers.add(request.user)
+                is_followed = True
+            follow_user = user.followers.filter(pk=request.user.pk)
+            following_user = user.followings.filter(pk=request.user.pk)
+            print(follow_user)
+            follow_user_list = []
+            following_user_list = []
+            for follow in follow_user:
+                follow_user_list.append({'pk': follow.pk, 'username': follow.username,})
+            for following in following_user:
+                following_user_list.append({'pk': following.pk, 'username': following.username,})
+            print("팔로우됨?")
+            context = {
+                'is_followed': is_followed,
+                'follow_user': follow_user_list,
+                'following_user': following_user_list,
+                'followers_count': user.followers.count(),
+                'followings_count': user.followings.count(),
+            }
+            return JsonResponse(context)
+        return redirect('accounts:profile', user.pk)
+    return redirect('accounts:login')

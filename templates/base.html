@@ -62,7 +62,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-0" style="background-color:black;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0 ">
   <div class="container row">
     <a class="navbar-brand col-3" href="{% url 'articles:index' %}">
       <img class="logo-img nav-img" src="{% static 'images/logo_test2.png' %}" alt="" >
@@ -76,11 +76,11 @@
           <a class="nav-link active" aria-current="page" href="#">팀별 먹거리</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">커뮤니티</a>
+          <a class="nav-link active" href="#">커뮤니티</a>
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link ms-2" href="">
+          <a class="nav-link ms-2" href="{% url 'accounts:profile' request.user.pk %}">
             {{ request.user.nickname }}님의 프로필
           </a>
         </li>

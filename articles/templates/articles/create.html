@@ -3,5 +3,12 @@
 {% load static %}
 
 {% block content %}
-
+<div class="container my-5">
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form article_form %}
+    {% comment %} 버튼 색깔도 테마 따라 바꾸면 괜찮을듯! {% endcomment %}
+    {% bootstrap_button content="작성완료" button_type="submit" %}
+  </form>
+</div>
 {% endblock %}
