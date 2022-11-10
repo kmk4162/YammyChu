@@ -1,6 +1,6 @@
 from .models import User
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import (
@@ -55,8 +55,9 @@ def logout(request):
 
 def profile(request, pk):
     user = User.objects.get(pk=pk)
-    print(user.nickname)
+    team = Team.objects.get(pk=user.team_id)
     context = {
+        'logo': team.logo,
         'request_user': user,
         'pk': pk,
         'username': user.username,
@@ -96,3 +97,29 @@ def follow(request, pk):
             return JsonResponse(context)
         return redirect('accounts:profile', user.pk)
     return redirect('accounts:login')
+
+def update(request):
+    teams = Team.objects.all()
+    user = User.objects.get(pk=request.user.pk)
+    print("유저유저유저유저")
+    print(user)
+    print(request.method)
+    if request.method == 'POST':
+        print("POSTPOSTPOSTPOST")
+        print(request.POST.get("team"))
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            print("validvalidvalidvalid")
+            user = form.save(commit=False)
+            user.team = Team.objects.get(pk=int(request.POST.get("team")))
+            print(user.team)
+            user.save()
+            return redirect('accounts:detail', request.user.pk)
+    else:
+        print("NONONONONO")
+        form = CustomUserChangeForm(instance=user)
+    context = {
+        'form': form,
+        "teams":teams,
+    }
+    return render(request, 'accounts/update.html', context)

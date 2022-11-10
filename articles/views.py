@@ -1,17 +1,21 @@
 from django.shortcuts import render, redirect
-from .models import Article, Comment
+from .models import Article, Comment, Team
 from .forms import ArticleForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
 
 def index(request):
-    
-    return render(request, 'articles/index.html')
+    teams = Team.objects.all()
+    context = {
+        "teams": teams,
+    }
+    return render(request, "articles/index.html", context)
+
 
 @login_required
 def create(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         article_form = ArticleForm(request.POST)
         if article_form.is_valid():
             article = article_form.save(commit=False)
@@ -21,22 +25,22 @@ def create(request):
     else:
         article_form = ArticleForm()
     context = {
-        'article_form': article_form,
+        "article_form": article_form,
     }
     return render(request, 'articles/create.html', context)
 
 @login_required
 def update(request, article_pk):
     article = Article.objects.get(pk=article_pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         article_form = ArticleForm(request.POST, instance=article)
         if article_form.is_valid():
             article_form.save()
-            return redirect('articles:community')
+            return redirect("articles:community")
     else:
         article_form = ArticleForm()
     context = {
-        'article_form': article_form,
+        "article_form": article_form,
     }
     return render(request, 'articles/update.html', context)
 
@@ -125,12 +129,14 @@ def comments_delete(request, article_pk, comment_pk):
 @login_required
 def like(request):
 
-    return redirect('articles:index')
+    return redirect("articles:index")
+
 
 @login_required
 def community(request):
 
     return render(request, 'articles/community.html')
+
 
 def detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)
@@ -141,4 +147,4 @@ def detail(request, article_pk):
         'comment_form' : comment_form,
         'comments' : comments,
     }
-    return render(request, 'articles/detail.html', context)
+    return render(request, "articles/detail.html", context)

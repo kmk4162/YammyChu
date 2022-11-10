@@ -8,34 +8,36 @@
         <div id="map" style="width:100%;height:350px;"></div>
     </div>
     <div class='col-4'>
+        {% if store.image %}
+        <img src="{{ store.image.url }}" alt="{{ store.image }}">
+        {% else %}
         <img src="{% static 'images/슈렉.jpg' %}" style='width:100%'>
+        {% endif %}
     </div>
 </div>
 <div class='container'>
     <div class='d-flex justify-content-between my-5'>
-        <span class='h1'>이글이글불곱창</span>
-        {% comment %} <span>{{ store.name }}</span> {% endcomment %}
-        <span class='h3'>★ 4.5</span>
-        {% comment %} <span class='h3'>★ {{ store.average_star }}</span> {% endcomment %}
+        <span class='h1'>{{ store.name }}</span>
+        <span class='h3'>★ {{ store.grade_avg }}</span>
     </div>
     <div class='d-flex justify-content-center'>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">홈</button>
             </li>
             <li class="nav-item" role="presentation">
-            <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">Review</button>
+                <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">리뷰 보기</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="review-create-tab" data-bs-toggle="tab" data-bs-target="#review-create-tab-pane" type="button" role="tab" aria-controls="review-create-tab-pane" aria-selected="false">리뷰 작성</button>
             </li>
         </ul>
     </div>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-            <p>가게 이름 : 이글이글불곱창</p>
+            <p>가게 이름 : {{ store.name }}</p>
             <p>주메뉴 : 곱창</p>
-            <p>도로명주소 : 대전시 어쩌구</p>
-            {% comment %} <p>{{ store.name }}</p>
-            <p>{{ store.menu }}</p>
-            <p>{{ store.address }}</p> {% endcomment %}
+            <p>도로명주소 : {{ store.address }}</p>
         </div>
         <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
             <table class="table">
@@ -63,20 +65,29 @@
                         <td>2022.11.10</td>
                     </tr>
                     </tbody>
-                {% comment %} {% for review in store.reviews_set.all %}
+                {% for review in store.store_reviews.all %}
                 <tbody>
                     <tr>
-                        <td>{{ review.star }}</td>
+                        <td>{{ review.grade }}</td>
                         <td>{{ review.content }}</td>
                         <td>{{ review.user.username }}</td>
-                        <td>{{ review.user.created_at}}</td>
+                        <td>{{ review.created_at|date:'Y.m.d' }}</td>
                     </tr>
                 </tbody>
-                {% endfor %} {% endcomment %}
+                {% endfor %}
             </table>
         </div>
+        <div class="tab-pane fade" id="review-create-tab-pane" role="tabpanel" aria-labelledby="review-create-tab" tabindex="0">
+            <form action="{% url 'foods:create' store.pk %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form review_form %}
+                <div class="d-flex justify-content-between">
+                    <input type="file" name="image" style="cursor:pointer;" multiple>
+                    <input type="submit" value="작성하기" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
     </div>  
-    {% comment %} {% bootstrap_form review_form %} {% endcomment %}  
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
 <script>
@@ -93,7 +104,7 @@
     var geocoder = new kakao.maps.services.Geocoder();
     
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('대전광역시 중구 대종로 373', function(result, status) {
+    geocoder.addressSearch('{{ store.address }}', function(result, status) {
     
         // 정상적으로 검색이 완료됐으면 
          if (status === kakao.maps.services.Status.OK) {
@@ -108,7 +119,7 @@
     
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">이글이글불곱창</div>'
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">{{ store.name }}</div>'
             });
             infowindow.open(map, marker);
     
