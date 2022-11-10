@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+from articles.models import Team
+
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(

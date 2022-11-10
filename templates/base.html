@@ -64,7 +64,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0 ">
   <div class="container row">
-    <a class="navbar-brand col-3" href="{% url 'foods:home' %}">
+    <a class="navbar-brand col-3" href="{% url 'articles:index' %}">
       <img class="logo-img nav-img" src="{% static 'images/logo_test2.png' %}" alt="" >
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,9 +94,6 @@
           <a class="nav-link ms-2" href="{% url 'accounts:signup' %}">회원가입</a>
         </li>
         {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="#">회원가입</a>
-        </li>
       </ul>
 
       {% comment %} <ul class="text-end">

@@ -1,5 +1,5 @@
 body {
-  background-color:beige;
+  background-color: beige;
 }
 
 .container{
@@ -16,71 +16,72 @@ body {
   padding:0;
 }
 
-.nav-img{
-  padding:0;
+.nav-img {
+  padding: 0;
 }
 
-.nav-item{
-  color:white;
+.nav-item {
+  color: white;
 }
 
-footer{
+footer {
   padding-top: 5rem;
   background-color: black;
-  height:15rem;
+  height: 15rem;
   text-align: center;
-  color:#ffffff;
+  color: #ffffff;
+  margin-top: 15rem
 }
 
-.movie-box { 
-  padding: 0px; 
-  margin: 0px; 
-  border-style:solid; 
-  border-width: 10px; 
+.movie-box {
+  padding: 0px;
+  margin: 0px;
+  border-style: solid;
+  border-width: 10px;
   border-color: rgb(255, 0, 0);
 }
 
-.jb-box { 
-  width: 100vw; 
-  height: 20rem; 
+.jb-box {
+  width: 100vw;
+  height: 20rem;
   overflow: hidden;
-  margin: 0px auto; 
-  position: relative; 
+  margin: 0px auto;
+  position: relative;
 }
 
-video { 
-  width: 100%; 
+video {
+  width: 100%;
 }
 
-.jb-text { 
-  position: absolute; 
-  top: 50%; 
-  width: 100%; 
+.jb-text {
+  position: absolute;
+  top: 50%;
+  width: 100%;
 }
 
-.jb-text p { 
-  margin-top: -24px; 
-  text-align: center; 
-  font-size: 48px; 
-  color: #000000; 
+.jb-text p {
+  margin-top: -24px;
+  text-align: center;
+  font-size: 48px;
+  color: #000000;
 }
 
-.team-choice-box{
-  width:100%;
+.team-choice-box {
+  width: 100%;
   background-color: rgb(195, 195, 195);
   border-radius: 10px;
 }
 
-.card{
-  width:200px;
-  height:200px;
+.card {
+  width: 200px;
+  height: 200px;
 }
 
-.card-text{
-  font-size:20px;
+.card-text {
+  font-size: 20px;
 }
 
-.community-top5-review{
+.community-top5-review {
   background-color: #000000ba;
   color:white;
   text-align:center;
