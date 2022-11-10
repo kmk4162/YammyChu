@@ -1,10 +1,22 @@
+
 from django.shortcuts import render, redirect
 from .models import Store, Review, ReviewImage
 from .forms import ReviewForm
 from django.contrib.auth.decorators import login_required
+from articles.models import Stadium, Team
+from django.contrib.auth import get_user_model
 
-def home(request):
-    return render(request, "foods/home.html")
+
+def home(request, team_pk):
+    team = Team.objects.get(pk=team_pk)
+    stadium = Stadium.objects.get(pk=team.stadium_id)
+    context = {
+        "team": team,
+        "stadium": stadium,
+    }
+    return render(request, "foods/home.html", context)
+
+
 
 def detail(request, store_pk):
     store = Store.objects.get(pk=store_pk)

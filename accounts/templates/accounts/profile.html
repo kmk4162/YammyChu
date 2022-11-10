@@ -4,40 +4,186 @@
 
 {% block content %}
 <div class="container">
-  <div class="border mx-auto m-5 p-5 text-center" style="width: 600px; height: 600px; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-    <div class="d-flex p-2" style="height:15%;">
-      <div style="width:30%;">
-        <h3>팀 로고</h3>
+  <div class="border mx-auto m-5 p-5 text-center bg-white" style="width: 600px; height: 600px; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+    <div class="d-flex p-2 justify-content-center">
+      <div>
+        <img src="{{ logo.url }}" class="rounded-circle" style="width: 5rem; height: 5rem;">
       </div>
-      <div style="width:75%;">
+      <div class="ms-3 my-auto">
         <h3>{{ nickname }} 님의 프로필</h3>
       </div>
     </div>
-    <div style="height:80%;">
-      <div class="border m-2" style="height:20%; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-        팔로워 팔로잉
+    <div class="d-flex justify-content-center my-2">
+      <div data-bs-toggle="modal" data-bs-target="#exampleModal1" class="me-0 p-3 text-center" style="cursor : pointer;">
+        <p class="fw-bold">follower</p>
+        <p id="followers-count" class="mb-0 fw-bold">{{ request_user.followers.all|length }}</p>
       </div>
-      <div class="border m-2" style="height:20%; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-        {{ nickname }}님이 좋아요한 스낵바
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">follower list</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="follow-user">
+              {% if not request_user.followers.all.count %}
+                <p>팔로우한 사람이 없어요</p>
+              {% else %}
+                {% for follower in request_user.followers.all %}
+                  <a href="{% url 'accounts:profile' follower.pk %}" class="text-decoration-none fw-bold text-dark">{{ follower.username }}</a>
+                  <br>
+                {% endfor %}
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="border m-2" style="height:20%; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-        {{ nickname }}님이 좋아요한 게시글
+      <span class="vl mt-2"></span>
+      <div data-bs-toggle="modal" data-bs-target="#exampleModal2" class="me-0 p-3 text-center" style="cursor : pointer;">
+        <p class="fw-bold">following</p>
+        <p id="followings-count" class="mb-0 fw-bold">{{ request_user.followings.all|length }}</p>
       </div>
-      <div class="border m-2" style="height:20%; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-        {{ nickname }}님이 작성한 게시글
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">following list</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              {% if not request_user.followings.all.count %}
+                <p>팔로잉한 사람이 없어요</p>
+              {% else %}
+                {% for following in request_user.followings.all %}
+                <a href="{% url 'accounts:profile' following.pk %}" class="text-decoration-none fw-bold text-dark">{{ following.username }}</a>
+                <br>
+                {% endfor %}
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col" style="width: 100%;">
-        <a href="" class="btn btn-dark">정보 수정</a>
+    <div>
+      <p>아이디 | {{ request_user.username }}</p>
+      <p>이름 | {{ request_user.last_name }}</p>
+      <p>이메일 | {{ request_user.email }}</p>
+    </div>
+    <div>
+      <div class="row mx-auto mt-5" style="width: 100%;">
+        <div class="col p-3" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+          <p>{{ request_user.nickname }} 님이 좋아하는 스낵바</p>
+          {% for restaurant in request_user.like_restaurants.all %}
+            <a href="{% url 'bars:detail' restaurant.pk %}" class="text-decoration-none">
+              <p class="fw-bold text-dark">{{ restaurant.name }}</p>
+            </a>
+          {% endfor %}
+        </div>
+        <div class="col p-3 mx-4" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+          <p>{{ request_user.nickname }} 님이 좋아하는 리뷰</p>
+          {% for review in request_user.review_set.all %}
+            <a href="{% url 'bars:detail' review.restaurant_id %}" class="text-decoration-none">
+              <p class="fw-bold text-dark">{{review.content}}</p>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="col p-3" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+          <p>{{ request_user.nickname }} 님이 작성한 리뷰</p>
+          {% for comment in request_user.comment_set.all %}
+            <a href="{% url 'bars:detail' comment.review.restaurant_id %}" class="text-decoration-none">
+              <p class="fw-bold text-dark">{{comment.content}}</p>
+            </a>
+            {% endfor %}
+        </div>
       </div>
+    </div>
+    <div class="row m-4">
+      {% if request.user.is_authenticated %}
+      {% if request.user != request_user %}
       <div class="col" style="width: 100%;">
-        <a href="" class="btn btn-dark">정보 수정</a>
-      </div>
-      <div class="col" style="width: 100%;">
-        <a href="" class="btn btn-dark">정보 수정</a>
-      </div>
+          <form id="follow-form" data-user-id="{{ request_user.pk }}">
+            {% csrf_token %}
+            {% if request.user in request_user.followers.all %}
+              <input type="submit" value="unfollow" class="btn btn-outline-dark">
+            {% else %}
+              <input type="submit" value="follow" class="btn btn-dark">
+            {% endif %}
+          </form>
+        </div>
+        {% endif %}
+      {% endif %}
+      {% if request.user == request_user %}
+        <div class="col" style="width: 100%;">
+          <a href="{% url 'accounts:update' %}" class="btn btn-dark">정보 수정</a>
+        </div>
+        <div class="col" style="width: 100%;">
+          <a href="" class="btn btn-dark">비밀번호 변경</a>
+        </div>
+        <div class="col" style="width: 100%;">
+          <a href="" class="btn btn-dark">탈퇴하기</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const form = document.querySelector('#follow-form')
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const userId = event.target.dataset.userId
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+    axios({
+      method: 'post',
+      url: `/accounts/${userId}/follow/`,
+      headers: {'X-CSRFToken': csrftoken,},
+    }) 
+    .then((response) => {
+      const isFollowed = response.data.is_followed
+      const followBtn = document.querySelector('#follow-form > input[type=submit]')
+      if (isFollowed === true) {
+        followBtn.value = 'unfollow'
+      } else {
+        followBtn.value = 'follow'
+      }
+      const followersCountTag = document.querySelector('#followers-count')
+      const followingsCountTag = document.querySelector('#followings-count')
+      const followersCount = response.data.followers_count
+      const followingsCount = response.data.followings_count
+      followersCountTag.innerText = followersCount
+      followingsCountTag.innerText = followingsCount
+      const followUser = document.querySelector('#follow-user')
+      const followingUser = document.querySelector('#following-user')
+      followUser.textContent = ""
+      const follow_user = response.data.follow_user
+      console.log(follow_user[0].pk)
+      if (followersCount == 0) {
+        followUser.insertAdjacentHTML('beforeend', `
+          <p>팔로우한 사람이 없어요</p>
+        `)
+      }
+      else {
+        console.log("follow")
+        for (let i = 0; i < follow_user.length; i++) {
+          followUser.insertAdjacentHTML('beforeend', `
+            <a href="{% url 'accounts:profile' {{ follow_user.i.pk }}" class="text-decoration-none fw-bold text-dark">${follow_user[i].username}</a>   
+          `)
+        }
+      }
+    
+    })
+    .catch((error) => {
+      console.log(error.response)
+      })
+  })
+</script>
 {% endblock %}

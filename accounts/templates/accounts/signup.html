@@ -11,13 +11,14 @@
                 <form action="{% url 'accounts:signup' %}" method="POST">
                     {% csrf_token %}
                     {% bootstrap_form form %}
-                    <div>
-                        <div class="p-3 mb-3 d-flex flex-column justify-content start border border-1 rounded-2">
-                            <label class="mb-2">팀 선택</label>
-                            <div class="d-flex justify-content-between">
-                                <div class="form-check">
-                                <input class="form-check-input" type="radio" name="" value="" id="type1" style="width:80px; height:80px; background-image:url('{% static 'images/SSG.png' %}')">
+                    <div class="p-3 mb-3 d-flex flex-column justify-content">
+                        <label class="mb-2">팀 선택</label>
+                        <div class="d-flex justify-content-between">
+                            {% for team in teams %}
+                            <div class="form_check">
+                                <input class="form-check-input border border-1 border-black" type="radio" name="team" value="{{ team.pk }}" id="team" style="width:50px; height:50px; background-image:url('{{ team.logo.url }}')">
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="d-grid">
