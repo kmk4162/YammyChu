@@ -80,7 +80,7 @@
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link ms-2" href="">
+          <a class="nav-link ms-2" href="{% url 'accounts:profile' request.user.pk %}">
             {{ request.user.nickname }}님의 프로필
           </a>
         </li>
