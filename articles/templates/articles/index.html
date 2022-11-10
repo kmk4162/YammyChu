@@ -119,10 +119,12 @@
     </section>
     <section class="row d-flex justify-content-center mt-5">
       <div class="col-12 col-md-8">
-        <h3>{{ user.team.name }}유저들의 최신 글
+        <h3>
+          <img src="{{ user.team.logo.url }}" style="width:5rem; height:5rem">
+          {{ user.team.name }}팬들의 최신 글
           <span class="small"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기><a></span>
         </h3>
-        <div class="pb-1 pt-4" style="border-top:thick inset {{ user.team.color }}; border-bottom:thick inset {{ user.team.color }}">
+        <div class="pb-1 pt-4" style="border-top:thick double {{ user.team.color }}; border-bottom:thick double {{ user.team.color }}">
           <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
           <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
           <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
@@ -133,7 +135,7 @@
           <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
         </div>
       </div>
-      <div class="col-8 col-md-4 mt-4 mt-md-0">
+      <div class="col-8 col-md-4 mt-4">
         <h3 class="">2022 KBO 팀순위<h3>
         <table class="table table-borderless border border-2 rounded-1 bg-white" style="font-size:1rem">
           <thead class="mb-4">
