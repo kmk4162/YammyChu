@@ -21,7 +21,7 @@
 <div class="movie-box">
   <div class="jb-box">
     <video muted autoplay loop>
-      <source src="videos/intro.mp4" type="video/mp4">
+      <source src="{% static 'movies/intro.mp4' %}" type="video/mp4">
       <strong>Your browser does not support the video tag.</strong>
     </video>
     <div class="jb-text">
@@ -29,9 +29,12 @@
     </div>
   </div>
 </div>
-
 <div class="container">
+  {% if user.is_authenticated and user.team %}
+  <div class="team-choice-box row my-5 d-flex justify-content-center" style="background-color:{{ user.team.color }}">
+  {% else %}
   <div class="team-choice-box row my-5 d-flex justify-content-center">
+  {% endif %}
     <h2 class="text-center fw-bold my-3">Food by TEAM</h2>
     {% for team in teams %}
     <div class="card text-bg-light col-2 m-3">
@@ -45,56 +48,21 @@
     {% endfor %}
   </div>
 
-  <div class="team-choice-box row my-5 d-flex justify-content-center">
-    <h2 class="text-center fw-bold my-3">커뮤니티</h2>
-
-    <div class="card text-bg-light col-4 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      <div class="card-img-overlay community-top5-review">
-        <h2 class="card-title my-2">실시간 TOP5 리뷰 </h2>
-        <p class="card-text">1. 한화는 야구 빼고 다하네요!</p>
-        <p class="card-text">2. 한화는 야구 빼고 다하네요!</p>
-        <p class="card-text">3. 한화는 야구 빼고 다하네요!</p>
-        <p class="card-text">4. 한화는 야구 빼고 다하네요!</p>
-        <p class="card-text">5. 한화는 야구 빼고 다하네요!</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-
-    <div class="card text-bg-light col-4 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      <div class="card-img-overlay community-top5-review">
-        <h2 class="card-title my-2">기아 타이거즈 갤러리</h2>
-        <p class="card-text">구단별로 색깔 다르게! 글 5개 최신순으로?</p>
-        <p class="card-text">구단별로 색깔 다르게! 글 5개 최신순으로?</p>
-        <p class="card-text">구단별로 색깔 다르게! 글 5개 최신순으로?</p>
-        <p class="card-text">구단별로 색깔 다르게! 글 5개 최신순으로?</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-
-    <div class="card text-bg-light col-3 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      <div class="card-img-overlay community-top5-review row">
-        <h2 class="card-title my-2">팀 순위</h2>
-        <div class="col-6">
-          <p class="card-text">1. 구단 로고</p>
-          <p class="card-text">2. 구단 로고</p>
-          <p class="card-text">3. 구단 로고</p>
-          <p class="card-text">4. 구단 로고</p>
-          <p class="card-text">5. 구단 로고</p>
-        </div>
-        <div class="col-6">
-          <p class="card-text">6. 구단 로고</p>
-          <p class="card-text">7. 구단 로고</p>
-          <p class="card-text">8. 구단 로고</p>
-          <p class="card-text">9. 구단 로고</p>
-          <p class="card-text">10. 구단 로고</p>
+      <div class="team-choice-box row my-5 d-flex justify-content-center">
+        <h2 class="text-center fw-bold my-3">커뮤니티</h2>
+        <div class="card text-bg-light col-4 m-3">
+          <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
+          <div class="card-img-overlay community-top5-review">
+            <h4 class="card-title my-2">실시간 TOP5 리뷰 </h4>
+            <div class="row text-start mx-2">
+              <a class="text-decoration-none text-white mb-1" href="">1. 인기리뷰</a>
+              <a class="text-decoration-none text-white mb-1" href="">2. 인기리뷰</a>
+              <a class="text-decoration-none text-white mb-1" href="">3. 인기리뷰</a>
+            <div>
+          </div>
         </div>
       </div>
-    </div>
-
-    
+    </div> 
   </div>
-</div> 
+</div>
 {% endblock %}
