@@ -62,3 +62,46 @@ class CustomUserCreationForm(UserCreationForm):
             "nickname",
         )
 
+class CustomUserChangeForm(UserChangeForm):
+    email = forms.EmailField(
+    label=_("Email"),
+    required=True,
+    widget=forms.EmailInput(
+        attrs={
+            "class": "form-control",
+            "placeholder": _("Email address"),
+            "required": "True",
+            }
+        ),
+    )
+    nickname = forms.CharField(
+        label=_("닉네임"),
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": _("닉네임"),
+                "required": "True",
+            }
+        ),
+    )
+    last_name = forms.CharField(
+        label=_("이름"),
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": _("이름"),
+                "required": "True",
+            }
+        ),
+    )
+    class Meta(UserChangeForm.Meta):
+        model = get_user_model()
+        fields = (
+            "username",
+            "email",
+            "last_name",
+            "nickname",
+            "team",
+        )

@@ -3,6 +3,21 @@
 {% load static %}
 
 {% block content %}
+<div class="intro-box" id="box" style="z-index:100;">
+  <video class='intro-mv' muted autoplay loop>
+    <source src="{% static 'movies/intro.mp4' %}" type="video/mp4">
+    <strong>Your browser does not support the video tag.</strong>
+  </video>
+  <div class="jb-text">
+    <p></p>
+  </div>
+</div>
+<script type="text/javascript" src="{% static 'JS/movie.js'%}"></script>
+
+
+
+
+
 <div class="movie-box">
   <div class="jb-box">
     <video muted autoplay loop>
@@ -21,96 +36,16 @@
   <div class="team-choice-box row my-5 d-flex justify-content-center">
   {% endif %}
     <h2 class="text-center fw-bold my-3">Food by TEAM</h2>
-
+    {% for team in teams %}
     <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
+      <a href="{% url 'foods:home' team.pk %}"><img src="{{ team.logo.url }}" class="card-img" alt="..."></a>
       {% comment %} <div class="card-img-overlay">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
         <p class="card-text"><small>Last updated 3 mins ago</small></p>
       </div> {% endcomment %}
     </div>
-
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
-
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
-
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
-
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
-
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
-
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
-    
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
-    
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
-    
-    <div class="card text-bg-light col-2 m-3">
-      <img src="{% static "images/logo.png" %}" class="card-img" alt="...">
-      {% comment %} <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
-      </div> {% endcomment %}
-    </div>
+    {% endfor %}
   </div>
 
       <div class="team-choice-box row my-5 d-flex justify-content-center">

@@ -72,7 +72,7 @@
     <div class="col-2">
     </div>
     <a class="navbar-brand col-2" href="{% url 'articles:index' %}">
-      <img class="logo-img nav-img" src="{% static 'images/logo_test2.png' %}" alt="" >
+      <img class="logo-img nav-img" src="{% static 'images/logo_white.png' %}" alt="" >
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -82,10 +82,10 @@
       </div>
       <ul class="navbar-nav col-7 d-flex justify-content-center">
         <li class="nav-item">
-          <a class="nav-main-menu" href="#">팀별 먹거리</a>
+          <a class="nav-main-menu" href="{% url 'articles:index' %}">팀별 먹거리</a>
         </li>
         <li class="nav-item">
-          <a class="nav-main-menu" href="#">커뮤니티</a>
+          <a class="nav-main-menu" href="{% url 'articles:community' %}">커뮤니티</a>
         </li>
       </ul>
       <ul class="navbar-nav col-4">
@@ -117,6 +117,8 @@
   <p>made by 김광표 김다겸 김문경 김준환 이주용 최근영</p>
   <p>ⓒ Y.M.C Corp.</p>
 </footer>
+
+<script src="{% static 'JS/movie.js' %}"></script>
 {% bootstrap_javascript %}
 </body>
 

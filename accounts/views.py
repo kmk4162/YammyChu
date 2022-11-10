@@ -1,6 +1,6 @@
 from .models import User
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import (
@@ -55,8 +55,9 @@ def logout(request):
 
 def profile(request, pk):
     user = User.objects.get(pk=pk)
-    print(user.nickname)
+    team = Team.objects.get(pk=user.team_id)
     context = {
+        'logo': team.logo,
         'request_user': user,
         'pk': pk,
         'username': user.username,
@@ -96,3 +97,22 @@ def follow(request, pk):
             return JsonResponse(context)
         return redirect('accounts:profile', user.pk)
     return redirect('accounts:login')
+
+def update(request):
+    teams = Team.objects.all()
+    if request.method == 'POST':
+        print("POSTPOSTPOSTPOST")
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        print(form, request.POST)
+        if form.is_valid():
+            print(11111111111111)
+            form.save()
+            return redirect('accounts:detail', request.user.pk)
+    else:
+        print("NONONONONO")
+        form = CustomUserChangeForm(instance=request.user)
+    context = {
+        'form': form,
+        "teams":teams,
+    }
+    return render(request, 'accounts/update.html', context)
