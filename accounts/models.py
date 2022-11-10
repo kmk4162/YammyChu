@@ -3,5 +3,5 @@ from django.db import models
 from pkg_resources import require
 
 class User(AbstractUser):
-    nickname = models.CharField(max_length=10)
+    nickname = models.CharField(max_length=10, unique=True)
     first_name = None
