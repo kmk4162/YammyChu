@@ -1,10 +1,10 @@
-
 from django.shortcuts import render, redirect
 from .models import Store, Review, ReviewImage
 from .forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from articles.models import Stadium, Team
 from django.contrib.auth import get_user_model
+from django.db.models import Avg
 
 
 def home(request, team_pk):
@@ -19,7 +19,7 @@ def home(request, team_pk):
 
 
 def detail(request, store_pk):
-    store = Store.objects.get(pk=store_pk)
+    store = Store.objects.annotate(grade_avg=Avg('store_reviews__grade')).get(pk=store_pk)
     review_form = ReviewForm()
     context = {'store': store, 'review_form': review_form}
     return render(request, 'foods/detail.html', context)
