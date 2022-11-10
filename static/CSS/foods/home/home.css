@@ -9,9 +9,10 @@
     margin-bottom: 2rem;
 }
 
-.symbol img {
+.symbol img[class="team_logo"] {
     width: 30%;
     height: auto;
+    border-radius: 100%;
 }
 
 .symbol div {
@@ -25,7 +26,7 @@
 }
 
 .card-box {
-    background-color: #ffa600;
+    background-color: #000000;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -41,7 +42,7 @@
 }
 
 .store-box {
-    background-color: #ffa600;
+    background-color: #000000;
     display: flex;
     justify-content: center;
     flex-direction: column;
