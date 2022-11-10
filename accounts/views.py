@@ -1,3 +1,4 @@
+from .models import User
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -41,3 +42,12 @@ def logout(request):
     auth_logout(request)
     messages.success(request, "로그아웃 되었습니다.")
     return redirect("articles:index")
+
+def profile(request, pk):
+    user = User.objects.get(pk=pk)
+    print(user.nickname)
+    context = {
+        'pk': pk,
+        'nickname': user.nickname,
+    }
+    return render(request, 'accounts/profile.html', context)
