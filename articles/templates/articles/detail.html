@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block content %}
+<div class="my-5 text-bg-light">
+  {% comment %} <h2 class="text-center fw-bold my-3">커뮤니티</h2> {% endcomment %}
+  <h1>제목: {{ article.title }}</h1>
+  <div class="d-flex justify-content-between">
+    <p>작성자: {{ article.user }}</p>
+    <div>
+      <p>작성시간: {{ article.created_at }}</p>
+      <p>수정시간: {{ article.updated_at }}</p>
+    </div>
+  </div>
+  <p>카테고리: {{ article.category }}</p>
+  <h2>내용: {{ article.content }}</h2>
+  <p class="text-center">조회수: {{ article.hits }}</p>
+  {% comment %} <h2>좋아요: {{ article.user_article_like }}</h2> {% endcomment %}
+</div>
+{% endblock %}
