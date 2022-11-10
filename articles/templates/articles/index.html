@@ -3,6 +3,21 @@
 {% load static %}
 
 {% block content %}
+<div class="intro-box" id="box" style="z-index:100;">
+  <video class='intro-mv' muted autoplay loop>
+    <source src="{% static 'movies/intro.mp4' %}" type="video/mp4">
+    <strong>Your browser does not support the video tag.</strong>
+  </video>
+  <div class="jb-text">
+    <p></p>
+  </div>
+</div>
+<script type="text/javascript" src="{% static 'JS/movie.js'%}"></script>
+
+
+
+
+
 <div class="movie-box">
   <div class="jb-box">
     <video muted autoplay loop>

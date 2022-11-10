@@ -1,3 +1,10 @@
+.intro-box { width: 100vw; height: 100vh; overflow: hidden;margin: 0px auto; position: relative; }
+.intro-mv { width: 100%; }
+.jb-text { position: absolute; top: 50%; width: 100%; }
+.jb-text p { margin-top: -24px; text-align: center; font-size: 48px; color: #ffffff; }
+
+
+
 body {
   background-color: beige;
 }
