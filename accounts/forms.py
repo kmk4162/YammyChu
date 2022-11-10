@@ -98,10 +98,8 @@ class CustomUserChangeForm(UserChangeForm):
     )
     class Meta(UserChangeForm.Meta):
         model = get_user_model()
-        fields = (
-            "username",
+        fields = [
             "email",
             "last_name",
             "nickname",
-            "team",
-        )
+        ]
