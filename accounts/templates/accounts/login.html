@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load django_bootstrap5 %}
+<div class="container d-flex justify-content-center py-5">
+    <div class="col-8 ">
+        <div class="rounded-4 shadow-lg p-2">
+            <h1 class="text-center mt-5 fs-3 fw-bold text-black">로그인</h1>
+            <div class="card-body">
+                <form action="{% url 'accounts:login' %}" method="POST" class="px-5 py-3">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary mt-5 mb-2" type="submit">로그인</button>
+                        <a class="btn btn-outline-primary text-black" href="{% url 'accounts:signup' %}"
+                            role="button">회원가입 하기</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

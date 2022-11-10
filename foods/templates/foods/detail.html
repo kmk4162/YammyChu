@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-8'>
+        <div id="map" style="width:100%;height:350px;"></div>
+    </div>
+    <div class='col-4'>
+        <img src="{% static 'images/슈렉.jpg' %}" style='width:100%'>
+    </div>
+</div>
+<div class='container'>
+    <div class='d-flex justify-content-between my-5'>
+        <span class='h1'>이글이글불곱창</span>
+        {% comment %} <span>{{ store.name }}</span> {% endcomment %}
+        <span class='h3'>★ 4.5</span>
+        {% comment %} <span class='h3'>★ {{ store.average_star }}</span> {% endcomment %}
+    </div>
+    <div class='d-flex justify-content-center'>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
+            </li>
+            <li class="nav-item" role="presentation">
+            <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">Review</button>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <p>가게 이름 : 이글이글불곱창</p>
+            <p>주메뉴 : 곱창</p>
+            <p>도로명주소 : 대전시 어쩌구</p>
+            {% comment %} <p>{{ store.name }}</p>
+            <p>{{ store.menu }}</p>
+            <p>{{ store.address }}</p> {% endcomment %}
+        </div>
+        <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">별점</th>
+                        <th scope="col">내용</th>
+                        <th scope="col">유저</th>
+                        <th scope="col">작성일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3</td>
+                        <td>개노맛인데 싸서 봐줄만함</td>
+                        <td>yaong</td>
+                        <td>2022.11.10</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td>5</td>
+                        <td>개존맛인데 저사람 혀 이상함</td>
+                        <td>mungmung</td>
+                        <td>2022.11.10</td>
+                    </tr>
+                    </tbody>
+                {% comment %} {% for review in store.reviews_set.all %}
+                <tbody>
+                    <tr>
+                        <td>{{ review.star }}</td>
+                        <td>{{ review.content }}</td>
+                        <td>{{ review.user.username }}</td>
+                        <td>{{ review.user.created_at}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %} {% endcomment %}
+            </table>
+        </div>
+    </div>  
+    {% comment %} {% bootstrap_form review_form %} {% endcomment %}  
+</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };  
+    
+    // 지도를 생성합니다    
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
+    
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+    
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch('대전광역시 중구 대종로 373', function(result, status) {
+    
+        // 정상적으로 검색이 완료됐으면 
+         if (status === kakao.maps.services.Status.OK) {
+    
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+    
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">이글이글불곱창</div>'
+            });
+            infowindow.open(map, marker);
+    
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        } 
+    });    
+</script>
+{% endblock %}
