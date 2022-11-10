@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="border mx-auto m-5 p-5 text-center" style="width: 600px; height: 600px; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+    <div class="d-flex p-2" style="height:15%;">
+      <div style="width:30%;">
+        <h3>팀 로고</h3>
+      </div>
+      <div style="width:75%;">
+        <h3>{{ nickname }} 님의 프로필</h3>
+      </div>
+    </div>
+    <div style="height:80%;">
+      <div class="border m-2" style="height:20%; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+        팔로워 팔로잉
+      </div>
+      <div class="border m-2" style="height:20%; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+        {{ nickname }}님이 좋아요한 스낵바
+      </div>
+      <div class="border m-2" style="height:20%; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+        {{ nickname }}님이 좋아요한 게시글
+      </div>
+      <div class="border m-2" style="height:20%; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+        {{ nickname }}님이 작성한 게시글
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" style="width: 100%;">
+        <a href="" class="btn btn-dark">정보 수정</a>
+      </div>
+      <div class="col" style="width: 100%;">
+        <a href="" class="btn btn-dark">정보 수정</a>
+      </div>
+      <div class="col" style="width: 100%;">
+        <a href="" class="btn btn-dark">정보 수정</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
