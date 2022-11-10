@@ -4,12 +4,12 @@
 
 {% block content %}
 <div class="container">
-  <div class="border mx-auto m-5 p-5 text-center" style="width: 600px; height: 600px; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-    <div class="d-flex p-2">
-      <div style="width:30%;">
-        <h3>팀 로고</h3>
+  <div class="border mx-auto m-5 p-5 text-center bg-white" style="width: 600px; height: 600px; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+    <div class="d-flex p-2 justify-content-center">
+      <div>
+        <img src="{{ logo.url }}" class="rounded-circle" style="width: 5rem; height: 5rem;">
       </div>
-      <div style="width:70%;">
+      <div class="ms-3 my-auto">
         <h3>{{ nickname }} 님의 프로필</h3>
       </div>
     </div>
@@ -73,14 +73,14 @@
       </div>
     </div>
     <div>
-      <p>아이디 {{ username }}</p>
-      <p>이름 {{ name }}</p>
-      <p>이메일 {{ email }}</p>
+      <p>아이디 | {{ request_user.username }}</p>
+      <p>이름 | {{ request_user.last_name }}</p>
+      <p>이메일 | {{ request_user.email }}</p>
     </div>
     <div>
       <div class="row mx-auto mt-5" style="width: 100%;">
         <div class="col p-3" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-          <p>좋아하는 술집</p>
+          <p>{{ request_user.nickname }} 님이 좋아하는 스낵바</p>
           {% for restaurant in request_user.like_restaurants.all %}
             <a href="{% url 'bars:detail' restaurant.pk %}" class="text-decoration-none">
               <p class="fw-bold text-dark">{{ restaurant.name }}</p>
@@ -88,7 +88,7 @@
           {% endfor %}
         </div>
         <div class="col p-3 mx-4" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-          <p>쓴 리뷰</p>
+          <p>{{ request_user.nickname }} 님이 좋아하는 리뷰</p>
           {% for review in request_user.review_set.all %}
             <a href="{% url 'bars:detail' review.restaurant_id %}" class="text-decoration-none">
               <p class="fw-bold text-dark">{{review.content}}</p>
@@ -96,7 +96,7 @@
             {% endfor %}
         </div>
         <div class="col p-3" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-          <p>쓴 댓글</p>
+          <p>{{ request_user.nickname }} 님이 작성한 리뷰</p>
           {% for comment in request_user.comment_set.all %}
             <a href="{% url 'bars:detail' comment.review.restaurant_id %}" class="text-decoration-none">
               <p class="fw-bold text-dark">{{comment.content}}</p>
@@ -105,10 +105,10 @@
         </div>
       </div>
     </div>
-    <div class="row m-2">
+    <div class="row m-4">
+      {% if request.user.is_authenticated %}
+      {% if request.user != request_user %}
       <div class="col" style="width: 100%;">
-        {% if request.user.is_authenticated %}
-        {% if request.user != request_user %}
           <form id="follow-form" data-user-id="{{ request_user.pk }}">
             {% csrf_token %}
             {% if request.user in request_user.followers.all %}
@@ -117,15 +117,20 @@
               <input type="submit" value="follow" class="btn btn-dark">
             {% endif %}
           </form>
+        </div>
         {% endif %}
       {% endif %}
-      </div>
-      <div class="col" style="width: 100%;">
-        <a href="" class="btn btn-dark">정보 수정</a>
-      </div>
-      <div class="col" style="width: 100%;">
-        <a href="" class="btn btn-dark">정보 수정</a>
-      </div>
+      {% if request.user == request_user %}
+        <div class="col" style="width: 100%;">
+          <a href="{% url 'accounts:update' %}" class="btn btn-dark">정보 수정</a>
+        </div>
+        <div class="col" style="width: 100%;">
+          <a href="" class="btn btn-dark">비밀번호 변경</a>
+        </div>
+        <div class="col" style="width: 100%;">
+          <a href="" class="btn btn-dark">탈퇴하기</a>
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>
