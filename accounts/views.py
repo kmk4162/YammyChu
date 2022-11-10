@@ -9,7 +9,7 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.decorators import login_required
 from articles.models import Team
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 
 def signup(request):
     teams = Team.objects.all()
@@ -101,22 +101,14 @@ def follow(request, pk):
 def update(request):
     teams = Team.objects.all()
     user = User.objects.get(pk=request.user.pk)
-    print("유저유저유저유저")
-    print(user)
-    print(request.method)
     if request.method == 'POST':
-        print("POSTPOSTPOSTPOST")
-        print(request.POST.get("team"))
-        form = CustomUserChangeForm(request.POST, instance=user)
+        form = CustomUserChangeForm(data=request.POST, instance=request.user)
         if form.is_valid():
-            print("validvalidvalidvalid")
             user = form.save(commit=False)
             user.team = Team.objects.get(pk=int(request.POST.get("team")))
-            print(user.team)
             user.save()
-            return redirect('accounts:detail', request.user.pk)
+            return redirect('accounts:profile', request.user.pk)
     else:
-        print("NONONONONO")
         form = CustomUserChangeForm(instance=user)
     context = {
         'form': form,
