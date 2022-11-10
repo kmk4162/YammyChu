@@ -63,21 +63,27 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0 ">
-  <div class="container row">
-    <a class="navbar-brand col-3" href="{% url 'articles:index' %}">
+  <div class="nav-custom row">
+    <div class="col-2">
+    </div>
+    <a class="navbar-brand col-2" href="{% url 'articles:index' %}">
       <img class="logo-img nav-img" src="{% static 'images/logo_test2.png' %}" alt="" >
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse col-6" id="navbarNav">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse col-6 row" id="navbarNav">
+      <div class="col-1">
+      </div>
+      <ul class="navbar-nav col-7 d-flex justify-content-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">팀별 먹거리</a>
+          <a class="nav-main-menu" href="#">팀별 먹거리</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">커뮤니티</a>
+          <a class="nav-main-menu" href="#">커뮤니티</a>
         </li>
+      </ul>
+      <ul class="navbar-nav col-4">
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link ms-2" href="{% url 'accounts:profile' request.user.pk %}">
@@ -95,16 +101,8 @@
         </li>
         {% endif %}
       </ul>
-
-      {% comment %} <ul class="text-end">
-        <li class="nav-item">
-          <a class="nav-link" href="#">마이페이지</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">로그아웃</a>
-        </li>
-      </ul> {% endcomment %}
-
+    </div>
+    <div class="col-2">
     </div>
   </div>
 </nav>
