@@ -31,12 +31,12 @@
   {% else %}
   <div class="row py-4 my-5 d-flex justify-content-center bg-light">
   {% endif %}
-    <h2 class="text-center fw-bold my-3">Food by TEAM</h2>
+    <h2 class="text-center fw-bold my-3">팀별 먹거리 보러가기</h2>
     {% for team in teams %}
     {% if team == user.team %}
-    <div class="text-bg-white col-2 m-1" style="border:thick inset {{ team.color }}; border-radius:5%">
+    <div class="text-bg-white col-5 col-sm-3 col-lg-2 m-1" style="border:thick inset {{ team.color }}; border-radius:5%">
     {% else %}
-    <div class="text-bg-white col-2 m-1" style="border:thick inset {{ team.color }}; border-radius:5%">
+    <div class="text-bg-white col-5 col-sm-3 col-lg-2 m-1" style="border:thick inset {{ team.color }}; border-radius:5%">
     {% endif %}
       <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' team.pk %}">
         <img src="{{ team.logo.url }}" class="card-img" alt="...">
@@ -47,11 +47,113 @@
   </div>
   <div class="container">
     <section class="">
-      <h4>인기 리뷰</h4>
+      <h3>인기 리뷰</h3>
       <div class="row">
-        <div class="col4 card">
-          <h5 class="card-title">
+        <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
+          <div class=" border border-1 bg-white p-3">
+            <a href="">
+              <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+            </a>
+            <div class="card-body py-2 border-top">
+              <h5 class="card-title text-center">"리뷰제목"</h5>
+              <p class="card-text small">
+                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+              </p>
+              <p class="small m-0">잠실야구장</p>
+              <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+            </div>
+          </div>
         </div>
+        <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
+          <div class=" border border-1 bg-white p-3">
+            <a href="">
+              <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+            </a>
+            <div class="card-body py-2 border-top">
+              <h5 class="card-title text-center">"리뷰제목"</h5>
+              <p class="card-text small">
+                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+              </p>
+              <p class="small m-0">잠실야구장</p>
+              <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
+          <div class=" border border-1 bg-white p-3">
+            <a href="">
+              <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+            </a>
+            <div class="card-body py-2 border-top">
+              <h5 class="card-title text-center">"리뷰제목"</h5>
+              <p class="card-text small">
+                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+              </p>
+              <p class="small m-0">잠실야구장</p>
+              <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
+          <div class=" border border-1 bg-white p-3">
+            <a href="">
+              <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+            </a>
+            <div class="card-body py-2 border-top">
+              <h5 class="card-title text-center">"리뷰제목"</h5>
+              <p class="card-text small">
+                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+              </p>
+              <p class="small m-0">잠실야구장</p>
+              <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-block d-sm-none pb-1 pt-4" style="border-top:thick inset #D8D8D8; border-bottom:thick inset #D8D8D8">
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"리뷰 제목 리뷰제목" 잠실야구장</span> <span>⭐⭐⭐⭐⭐<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"리뷰 제목 리뷰제목" 잠실야구장</span> <span>⭐⭐⭐⭐⭐<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"리뷰 제목 리뷰제목" 잠실야구장</span> <span>⭐⭐⭐⭐⭐<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"리뷰 제목 리뷰제목" 잠실야구장</span> <span>⭐⭐⭐⭐⭐<span></a><br>
+        </div>
+      </div>
+    </section>
+    <section class="row d-flex justify-content-center mt-5">
+      <div class="col-12 col-md-8">
+        <h3>{{ user.team.name }}유저들의 최신 글
+          <span class="small"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기><a></span>
+        </h3>
+        <div class="pb-1 pt-4" style="border-top:thick inset {{ user.team.color }}; border-bottom:thick inset {{ user.team.color }}">
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+        </div>
+      </div>
+      <div class="col-8 col-md-4 mt-4 mt-md-0">
+        <h3 class="">2022 KBO 팀순위<h3>
+        <table class="table table-borderless border border-2 rounded-1 bg-white" style="font-size:1rem">
+          <thead class="mb-4">
+            <tr>
+              <th scope="col">순위</th>
+              <th scope="col">팀명</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for team in teams %}
+            <tr>
+              <th scope="row">{{ team.pk }}</th>
+              <td>
+                <img src="{{ team.logo.url }}" style="width:1.5rem; height:1.5rem">
+                {{ team.name }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </section>
   </div>
