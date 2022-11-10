@@ -100,17 +100,24 @@ def follow(request, pk):
 
 def update(request):
     teams = Team.objects.all()
+    user = User.objects.get(pk=request.user.pk)
+    print("유저유저유저유저")
+    print(user)
+    print(request.method)
     if request.method == 'POST':
         print("POSTPOSTPOSTPOST")
-        form = CustomUserChangeForm(request.POST, instance=request.user)
-        print(form, request.POST)
+        print(request.POST.get("team"))
+        form = CustomUserChangeForm(request.POST, instance=user)
         if form.is_valid():
-            print(11111111111111)
-            form.save()
+            print("validvalidvalidvalid")
+            user = form.save(commit=False)
+            user.team = Team.objects.get(pk=int(request.POST.get("team")))
+            print(user.team)
+            user.save()
             return redirect('accounts:detail', request.user.pk)
     else:
         print("NONONONONO")
-        form = CustomUserChangeForm(instance=request.user)
+        form = CustomUserChangeForm(instance=user)
     context = {
         'form': form,
         "teams":teams,
