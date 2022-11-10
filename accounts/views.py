@@ -8,20 +8,29 @@ from django.contrib.auth import (
     logout as auth_logout,
 )
 from django.contrib.auth.decorators import login_required
+from articles.models import Team
 
 def signup(request):
+    teams = Team.objects.all()
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.team = Team.objects.get(pk=int(request.POST.get("team")))
+            user.save()
             auth_login(request, user)
             return redirect("articles:index")
     else:
         form = CustomUserCreationForm()
     context = {
         "form": form,
+        "teams":teams,
     }
     return render(request, "accounts/signup.html", context)
+
+
+
+
 
 def login(request):
     if request.method == "POST":
