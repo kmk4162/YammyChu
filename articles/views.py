@@ -27,3 +27,7 @@ def like(request):
 def detail(request):
 
     return render(request, 'articles/detail.html')
+
+def community(request):
+
+    return render(request, 'articles/community.html')

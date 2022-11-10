@@ -2,6 +2,15 @@ body {
   background-color:beige;
 }
 
+.container{
+  margin-top:5rem;
+}
+
+.navbar {
+  position:sticky;
+  top:0;
+}
+
 .logo-img{
   height:5rem;
   padding:0;
@@ -75,4 +84,24 @@ video {
   background-color: #000000ba;
   color:white;
   text-align:center;
+}
+
+/* COMMUINITY */
+
+.community-box{
+  margin-top:5rem;
+}
+
+.community-table-head{
+  text-align: center;
+  background-color: rgb(255, 102, 0);
+}
+
+.pagination-custom{
+  list-style: none;
+  display:flex;
+}
+
+.page-item {
+  margin:0 1rem 0 1rem;
 }
