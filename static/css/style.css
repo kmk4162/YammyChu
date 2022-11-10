@@ -3,5 +3,11 @@ footer{
   background-color: black;
   height:15rem;
   text-align: center;
-  color:white;
+  color:#ffffff;
 }
+
+.movie-box { padding: 0px; margin: 0px; border-style:solid; border-width: 10px; border-color: rgb(255, 0, 0);}
+      .jb-box { width: 100vw; height: 20rem; overflow: hidden;margin: 0px auto; position: relative; }
+      video { width: 100%; }
+      .jb-text { position: absolute; top: 50%; width: 100%; }
+      .jb-text p { margin-top: -24px; text-align: center; font-size: 48px; color: #000000; }
