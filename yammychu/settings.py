@@ -31,9 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'accounts',
     'foods',
     'articles',
+    'chat',
     'django_bootstrap5',
     'django_extensions',
     'imagekit',
@@ -45,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+# Channels
+ASGI_APPLICATION = 'yammychu.asgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

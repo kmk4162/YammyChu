@@ -4,6 +4,8 @@ from .forms import ArticleForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
+from django.core.paginator import Paginator  
+
 
 def index(request):
     teams = Team.objects.all()
@@ -127,15 +129,34 @@ def comments_delete(request, article_pk, comment_pk):
     return JsonResponse(context)
 
 @login_required
-def like(request):
+def like(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+    if article.user_article_like.filter(pk=request.user.pk).exists():
+        article.user_article_like.remove(request.user)
+        is_liked = False
+    else:
+        article.user_article_like.add(request.user)
+        is_liked = True
+    likeCount = article.user_article_like.count()
+    article.like_count = likeCount
+    context = {
+        'isLiked' : is_liked,
+        'likeCount' : article.user_article_like.count(),
+    }
+    return JsonResponse(context)
 
-    return redirect("articles:index")
 
-
-@login_required
 def community(request):
-
-    return render(request, 'articles/community.html')
+    articles = Article.objects.all().order_by('-pk')
+    # 입력 파라미터
+    page = request.GET.get("page", "1")
+    # 페이징
+    paginator = Paginator(articles, 10)
+    page_obg = paginator.get_page(page)
+    context = {
+        'articles' : page_obg,
+    }
+    return render(request, 'articles/community.html', context)
 
 
 def detail(request, article_pk):

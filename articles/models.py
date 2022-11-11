@@ -21,6 +21,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     hits = models.PositiveIntegerField(default=0)
     user_article_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_articles")
+    like_count = models.IntegerField(default=0)
 
     @property
     def update_hits(self):
@@ -61,6 +62,8 @@ class Stadium(models.Model):
         ('대전광역시 중구 대종로 373', '한화'),
     )
     address = models.TextField(choices=address_choices)
+    lon = models.CharField(max_length=20)
+    lat = models.CharField(max_length=20)
 
 class Team(models.Model):
     name = models.CharField(max_length=10)
