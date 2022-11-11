@@ -3,8 +3,9 @@
 {% load static %}
 
 {% block content %}
+{% if not user.is_authenticated %}
 <div class="intro-bg" id="box">
-  <div class="intro-box" id="box" style="z-index:100;">
+  <div class="intro-box" id="box">
     <video class='intro-mv' muted autoplay>
       <source src="{% static 'movies/main_intro.mp4' %}" type="video/mp4">
       <strong>Your browser does not support the video tag.</strong>
@@ -15,10 +16,11 @@
   </div>
   <script type="text/javascript" src="{% static 'JS/movie.js'%}"></script>
 </div>
+{% endif %}
 
 <div class="movie-box">
   <div class="jb-box">
-    <video muted autoplay>
+    <video class="banner-mv" muted autoplay>
       <source src="{% static 'movies/main_banner.mp4' %}" type="video/mp4">
       <strong>Your browser does not support the video tag.</strong>
     </video>
