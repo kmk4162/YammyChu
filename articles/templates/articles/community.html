@@ -3,67 +3,69 @@
 {% load static %}
 
 {% block content %}
-
+<style>
+</style>
 <div class='container'>
-  <h1><b>한화 이글스 구단</b>의 소식을 전해드립니다.</h1>
-
-
-
+  <h1><b>게시판</b></h1>
+  <a href="{% url 'articles:create' %}"><button>글 작성하기</button></a>
   <table class="table community-box">
     <thead class="community-table-head">
       <tr>
-        <th scope="col">NO</th>
+        <th scope="col">카테고리</th>
         <th scope="col">제목</th>
         <th scope="col">작성일</th>
         <th scope="col">조회수</th>
+        <th scope="col">작성자</th>
       </tr>
     </thead>
     <tbody class="text-center">
+      {% for article in articles %}
       <tr>
-        <th scope="row">3</th>
-        <td class="text-start">한화는 IT 기업 인가요? 홈페이지 미쳤네요</td>
-        <td>2022.11.10</td>
-        <td>239k</td>
+        <th scope="row">{{ article.category }}</th>
+        <td class="text-start"><a href="{% url 'articles:detail' article.pk %}" style="text-decoration:none;">{{ article.title }}</a></td>
+        <td>{{ article.created_at }}</td>
+        <td>{{ article.hits }}</td>
+        <td>{{ article.user.username }}</td>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td class="text-start">한화는 IT 기업 인가요? 홈페이지 미쳤네요</td>
-        <td>2022.11.10</td>
-        <td>239k</td>
-      </tr>
-      <tr>
-        <th scope="row">1</th>
-        <td class="text-start">한화는 IT 기업 인가요? 홈페이지 미쳤네요</td>
-        <td>2022.11.10</td>
-        <td>239k</td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
-
-<div class="d-flex justify-content-center">
-  <nav aria-label="Page navigation example">
-    <ul class="pagination-custom">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true"><</span>
-        </a>
-      </li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">></span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <ul class="pagination justify-content-center">
+    <!-- 이전페이지 -->
+    {% if articles.has_previous %}
+    <li class="page-item mx-0">
+        <a class="page-link" href="?page={{ articles.previous_page_number }}">이전</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled mx-0">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+    </li>
+    {% endif %}
+    <!-- 페이지리스트 -->
+    {% for page_number in articles.paginator.page_range %}
+    {% if page_number >= articles.number|add:-3 and page_number <= articles.number|add:3 %}
+    {% if page_number == articles.number %}
+    <li class="page-item active mx-0" aria-current="page">
+        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+    </li>
+    {% else %}
+    <li class="page-item mx-0">
+        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+    </li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    <!-- 다음페이지 -->
+    {% if articles.has_next %}
+    <li class="page-item mx-0">
+        <a class="page-link" href="?page={{ articles.next_page_number }}">다음</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled mx-0">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+    </li>
+    {% endif %}
+  </ul>
 </div>
-
-</div>
-
-
-
-
 
 {% endblock %}

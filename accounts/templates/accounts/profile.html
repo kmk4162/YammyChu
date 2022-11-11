@@ -125,10 +125,10 @@
           <a href="{% url 'accounts:update' %}" class="btn btn-dark">정보 수정</a>
         </div>
         <div class="col" style="width: 100%;">
-          <a href="" class="btn btn-dark">비밀번호 변경</a>
+          <a href="{% url 'accounts:password' %}" class="btn btn-dark">비밀번호 변경</a>
         </div>
         <div class="col" style="width: 100%;">
-          <a href="" class="btn btn-dark">탈퇴하기</a>
+          <a href="{% url 'accounts:delete' %}" class="btn btn-dark">탈퇴하기</a>
         </div>
       {% endif %}
     </div>

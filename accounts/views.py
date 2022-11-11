@@ -1,7 +1,7 @@
 from .models import User
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import (
     login as auth_login,
@@ -115,3 +115,22 @@ def update(request):
         "teams":teams,
     }
     return render(request, 'accounts/update.html', context)
+
+def password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('accounts:profile', request.user.pk)
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/password.html', context)
+
+def delete(request):
+    request.user.delete()
+    auth_logout(request)
+    return redirect('articles:index')
