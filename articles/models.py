@@ -21,6 +21,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     hits = models.PositiveIntegerField(default=0)
     user_article_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_articles")
+    like_count = models.IntegerField(default=0)
 
     @property
     def update_hits(self):

@@ -7,6 +7,17 @@
   {% comment %} <h2 class="text-center fw-bold my-3">커뮤니티</h2> {% endcomment %}
   <span class="d-none">{{ article.update_hits }}</span>
   <h1>제목: {{ article.title }}</h1>
+
+  {% if request.user.is_authenticated %}
+    {% if request.user in article.like_users.all %}
+    <i id="like-btn" data-article-id="{{ article.pk }}" class="bi bi-heart-fill" style="cursor : pointer; color:#e195a5;"></i>
+    {% else %}
+    <i id="like-btn" data-article-id="{{ article.pk }}" class="bi bi-heart" style="cursor : pointer; color:#e195a5;"></i>
+    {% endif %}
+    <span id="like-count" style="color:#e195a5;">{{ article.user_article_like.count }}</span>
+    {% endif %}
+  <span style="color:#e195a5;">좋아요</span>
+
   <div class="d-flex justify-content-between">
     <p>작성자: {{ article.user }}</p>
     <div>
@@ -51,6 +62,31 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  // 좋아요 비동기
+const likeBtn = document.querySelector('#like-btn')
+likeBtn.addEventListener('click', function(event) {
+  axios({
+    method: 'post',
+    url: `/${event.target.dataset.articleId}/like/`,
+    headers : {
+      'X-CSRFTOKEN' : '{{ csrf_token }}'
+     },
+  })
+  .then(response => {
+    if (response.data.isLiked === true) {
+      event.target.classList.add('bi-heart-fill')
+      event.target.classList.remove('bi-heart')
+    } else {
+      event.target.classList.add('bi-heart')
+      event.target.classList.remove('bi-heart-fill')
+    }
+    const likeCount = document.querySelector('#like-count')
+    likeCount.innerText = response.data.likeCount
+  })
+})
+</script>
+
 <script>
   // 댓글 생성 비동기
   const commentForm = document.querySelector('#comment-form')
