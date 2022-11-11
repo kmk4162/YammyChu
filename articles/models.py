@@ -61,6 +61,8 @@ class Stadium(models.Model):
         ('대전광역시 중구 대종로 373', '한화'),
     )
     address = models.TextField(choices=address_choices)
+    lon = models.CharField(max_length=20)
+    lat = models.CharField(max_length=20)
 
 class Team(models.Model):
     name = models.CharField(max_length=10)
