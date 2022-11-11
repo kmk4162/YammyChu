@@ -1,1 +1,192 @@
-[{"model": "articles.stadium", "pk": 1, "fields": {"name": "인천 SSG 랜더스필드", "address": "인천광역시 미추홀구 매소홀로 618", "lon": "126.69330427170567", "lat": "37.43702353631863"}}, {"model": "articles.stadium", "pk": 2, "fields": {"name": "고척 스카이돔", "address": "서울특별시 구로구 경인로 430", "lon": "126.86715091814214", "lat": "37.498351933226225"}}, {"model": "articles.stadium", "pk": 3, "fields": {"name": "서울종합운동장 야구장", "address": "서울특별시 송파구 잠실동 올림픽로 25", "lon": "127.07196800476672", "lat": "37.51240858187312"}}, {"model": "articles.stadium", "pk": 4, "fields": {"name": "수원 케이티 위즈 파크", "address": "경기도 수원시 장안구 경수대로 893", "lon": "127.00965479026748", "lat": "37.30008211774784"}}, {"model": "articles.stadium", "pk": 5, "fields": {"name": "광주-기아 챔피언스 필드", "address": "광주광역시 북구 서림로 10", "lon": "126.8887720872046", "lat": "35.167983570956864"}}, {"model": "articles.stadium", "pk": 6, "fields": {"name": "창원 NC 파크", "address": "경상남도 창원시 마산회원구 삼호로 63", "lon": "128.58201095043512", "lat": "35.222807393293635"}}, {"model": "articles.stadium", "pk": 7, "fields": {"name": "대구 삼성 라이온즈 파크", "address": "대구광역시 수성구 야구전설로 1", "lon": "128.68128927068264", "lat": "35.84079845888718"}}, {"model": "articles.stadium", "pk": 8, "fields": {"name": "사직 야구장", "address": "부산광역시 동래구 사직로 45", "lon": "129.06143436836862", "lat": "35.19434835798029"}}, {"model": "articles.stadium", "pk": 10, "fields": {"name": "대전 한화생명 이글스파크", "address": "대전광역시 중구 대종로 373", "lon": "127.42910906343413", "lat": "36.31746816081331"}}, {"model": "articles.team", "pk": 1, "fields": {"name": "SSG 랜더스", "stadium": 1, "color": "#CE0E2D", "logo": "images/ssg_로고.jpg"}}, {"model": "articles.team", "pk": 2, "fields": {"name": "키움 히어로즈", "stadium": 2, "color": "#820024", "logo": "images/키움_로고.jpg"}}, {"model": "articles.team", "pk": 3, "fields": {"name": "LG 트윈스", "stadium": 3, "color": "#C30452", "logo": "images/lg_로고.jpg"}}, {"model": "articles.team", "pk": 4, "fields": {"name": "KT 위즈", "stadium": 4, "color": "#000000", "logo": "images/kt_로고.jpg"}}, {"model": "articles.team", "pk": 5, "fields": {"name": "KIA 타이거즈", "stadium": 5, "color": "#EA0029", "logo": "images/kia_로고.jpg"}}, {"model": "articles.team", "pk": 6, "fields": {"name": "NC 다이노스", "stadium": 6, "color": "#315288", "logo": "images/NC_로고.jpg"}}, {"model": "articles.team", "pk": 7, "fields": {"name": "삼성 라이온즈", "stadium": 7, "color": "#074CA1", "logo": "images/삼성_로고.jpg"}}, {"model": "articles.team", "pk": 8, "fields": {"name": "롯데 자이언츠", "stadium": 8, "color": "#002955", "logo": "images/롯데_로고.jpg"}}, {"model": "articles.team", "pk": 9, "fields": {"name": "두산 베어스", "stadium": 3, "color": "#131230", "logo": "images/두산_로고.jpg"}}, {"model": "articles.team", "pk": 10, "fields": {"name": "한화 이글스", "stadium": 10, "color": "#FF6600", "logo": "images/한화_로고.jpg"}}]
+[
+  {
+    "model": "articles.stadium",
+    "pk": 1,
+    "fields": {
+      "name": "인천 SSG 랜더스필드",
+      "address": "인천광역시 미추홀구 매소홀로 618",
+      "lon": "126.69330427170567",
+      "lat": "37.43702353631863"
+    }
+  },
+  {
+    "model": "articles.stadium",
+    "pk": 2,
+    "fields": {
+      "name": "고척 스카이돔",
+      "address": "서울특별시 구로구 경인로 430",
+      "lon": "126.86715091814214",
+      "lat": "37.498351933226225"
+    }
+  },
+  {
+    "model": "articles.stadium",
+    "pk": 3,
+    "fields": {
+      "name": "서울종합운동장 야구장",
+      "address": "서울특별시 송파구 잠실동 올림픽로 25",
+      "lon": "127.07196800476672",
+      "lat": "37.51240858187312"
+    }
+  },
+  {
+    "model": "articles.stadium",
+    "pk": 4,
+    "fields": {
+      "name": "수원 케이티 위즈 파크",
+      "address": "경기도 수원시 장안구 경수대로 893",
+      "lon": "127.00965479026748",
+      "lat": "37.30008211774784"
+    }
+  },
+  {
+    "model": "articles.stadium",
+    "pk": 5,
+    "fields": {
+      "name": "광주-기아 챔피언스 필드",
+      "address": "광주광역시 북구 서림로 10",
+      "lon": "126.8887720872046",
+      "lat": "35.167983570956864"
+    }
+  },
+  {
+    "model": "articles.stadium",
+    "pk": 6,
+    "fields": {
+      "name": "창원 NC 파크",
+      "address": "경상남도 창원시 마산회원구 삼호로 63",
+      "lon": "128.58201095043512",
+      "lat": "35.222807393293635"
+    }
+  },
+  {
+    "model": "articles.stadium",
+    "pk": 7,
+    "fields": {
+      "name": "대구 삼성 라이온즈 파크",
+      "address": "대구광역시 수성구 야구전설로 1",
+      "lon": "128.68128927068264",
+      "lat": "35.84079845888718"
+    }
+  },
+  {
+    "model": "articles.stadium",
+    "pk": 8,
+    "fields": {
+      "name": "사직 야구장",
+      "address": "부산광역시 동래구 사직로 45",
+      "lon": "129.06143436836862",
+      "lat": "35.19434835798029"
+    }
+  },
+  {
+    "model": "articles.stadium",
+    "pk": 10,
+    "fields": {
+      "name": "대전 한화생명 이글스파크",
+      "address": "대전광역시 중구 대종로 373",
+      "lon": "127.42910906343413",
+      "lat": "36.31746816081331"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 1,
+    "fields": {
+      "name": "SSG 랜더스",
+      "stadium": 1,
+      "color": "#CE0E2D",
+      "logo": "images/ssg_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 2,
+    "fields": {
+      "name": "키움 히어로즈",
+      "stadium": 2,
+      "color": "#820024",
+      "logo": "images/키움_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 3,
+    "fields": {
+      "name": "LG 트윈스",
+      "stadium": 3,
+      "color": "#C30452",
+      "logo": "images/lg_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 4,
+    "fields": {
+      "name": "KT 위즈",
+      "stadium": 4,
+      "color": "#000000",
+      "logo": "images/kt_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 5,
+    "fields": {
+      "name": "KIA 타이거즈",
+      "stadium": 5,
+      "color": "#EA0029",
+      "logo": "images/kia_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 6,
+    "fields": {
+      "name": "NC 다이노스",
+      "stadium": 6,
+      "color": "#315288",
+      "logo": "images/NC_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 7,
+    "fields": {
+      "name": "삼성 라이온즈",
+      "stadium": 7,
+      "color": "#074CA1",
+      "logo": "images/삼성_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 8,
+    "fields": {
+      "name": "롯데 자이언츠",
+      "stadium": 8,
+      "color": "#002955",
+      "logo": "images/롯데_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 9,
+    "fields": {
+      "name": "두산 베어스",
+      "stadium": 3,
+      "color": "#131230",
+      "logo": "images/두산_로고.jpg"
+    }
+  },
+  {
+    "model": "articles.team",
+    "pk": 10,
+    "fields": {
+      "name": "한화 이글스",
+      "stadium": 10,
+      "color": "#FF6600",
+      "logo": "images/한화_로고.jpg"
+    }
+  }
+]

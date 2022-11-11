@@ -12,10 +12,10 @@
 
   <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <a href=" {% url 'articles:community' %}"><button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">전체</button></a>
+      <a href=" {% url 'articles:community' %}"><button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">전체</button></a>
     </li>
     <li class="nav-item" role="presentation">
-      <a href=" {% url 'articles:baseball' %}"><button class="nav-link" id="baseball-tab" data-bs-toggle="tab" data-bs-target="#baseball-tab-pane" type="button" role="tab" aria-controls="baseball-tab-pane" aria-selected="false">야구</button></a>
+      <a href=" {% url 'articles:baseball' %}"><button class="nav-link active" id="baseball-tab" data-bs-toggle="tab" data-bs-target="#baseball-tab-pane" type="button" role="tab" aria-controls="baseball-tab-pane" aria-selected="false">야구</button></a>
     </li>
     <li class="nav-item" role="presentation">
       <a href=" {% url 'articles:smalltalk' %}"><button class="nav-link" id="smalltalk-tab" data-bs-toggle="tab" data-bs-target="#smalltalk-tab-pane" type="button" role="tab" aria-controls="smalltalk-tab-pane" aria-selected="false">잡담</button></a>
@@ -33,10 +33,10 @@
       <a href=" {% url 'articles:etc' %}"><button class="nav-link" id="etc-tab" data-bs-toggle="tab" data-bs-target="#etc-tab-pane" type="button" role="tab" aria-controls="etc-tab-pane" aria-selected="false">기타</button></a>
     </li>
   </ul>
-
+  
   <div class="tab-content" id="myTabContent">
-    {% comment %} 전체 {% endcomment %}
-    <div class="tab-pane active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+    {% comment %} 야구 {% endcomment %}
+    <div class="tab-pane active" id="baseball-tab-pane" role="tabpanel" aria-labelledby="baseball-tab" tabindex="0">
       <table class="table community-box">
         <thead class="community-table-head">
           <tr>
@@ -48,7 +48,7 @@
           </tr>
         </thead>
         <tbody class="text-center">
-          {% for article in articles_all %}
+          {% for article in articles_baseball %}
           <tr>
             <th scope="row">{{ article.category }}</th>
             <td class="text-start"><a href="{% url 'articles:detail' article.pk %}" style="text-decoration:none;">{{ article.title }}</a></td>
@@ -61,9 +61,9 @@
       </table>
       <ul class="pagination justify-content-center">
         <!-- 이전페이지 -->
-        {% if articles_all.has_previous %}
+        {% if articles_baseball.has_previous %}
         <li class="page-item mx-0">
-            <a class="page-link" href="?page={{ articles_all.previous_page_number }}">이전</a>
+            <a class="page-link" href="?page={{ articles_baseball.previous_page_number }}">이전</a>
         </li>
         {% else %}
         <li class="page-item disabled mx-0">
@@ -71,9 +71,9 @@
         </li>
         {% endif %}
         <!-- 페이지리스트 -->
-        {% for page_number in articles_all.paginator.page_range %}
-        {% if page_number >= articles_all.number|add:-3 and page_number <= articles_all.number|add:3 %}
-        {% if page_number == articles_all.number %}
+        {% for page_number in articles_baseball.paginator.page_range %}
+        {% if page_number >= articles_baseball.number|add:-3 and page_number <= articles_baseball.number|add:3 %}
+        {% if page_number == articles_baseball.number %}
         <li class="page-item active mx-0" aria-current="page">
             <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
@@ -85,9 +85,9 @@
         {% endif %}
         {% endfor %}
         <!-- 다음페이지 -->
-        {% if articles_all.has_next %}
+        {% if articles_baseball.has_next %}
         <li class="page-item mx-0">
-            <a class="page-link" href="?page={{ articles_all.next_page_number }}">다음</a>
+            <a class="page-link" href="?page={{ articles_baseball.next_page_number }}">다음</a>
         </li>
         {% else %}
         <li class="page-item disabled mx-0">
