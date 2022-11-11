@@ -37,13 +37,13 @@
   {% endif %}
     <h2 class="text-center fw-bold my-3">팀별 먹거리 보러가기</h2>
     {% for team in teams %}
-    <div class="text-bg-white col-5 col-sm-3 col-lg-2 m-1 bg-white" style="border: 1rem ridge {{ team.color }}; border-radius:5%;">
+    {% if team == user.team %}
+    <div class="text-bg-white col-5 col-sm-3 col-lg-2 m-1" style="background-color:{{ team.color }}55;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+    {% else %}
+    <div class="text-bg-white col-5 col-sm-3 col-lg-2 m-1" style="background-color:white;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+    {% endif %}
       <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' team.pk %}">
-        {% if team == user.team %}
-        <img src="{{ team.logo.url }}" class="card-img border border-4 rounded-circle" alt="...">
-        {% else %}
         <img src="{{ team.logo.url }}" class="card-img" alt="...">
-        {% endif %}
         <p class="text-black d-none d-lg-block fw-bold">{{ team.stadium.name }}</p>
       </a>
     </div>
