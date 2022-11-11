@@ -6,4 +6,4 @@ setTimeout(() => {
 
   // 👇️ hides element (still takes up space on page)
   // box.style.visibility = 'hidden';
-}, 3000); // 👈️ time in milliseconds
+}, 4300); // 👈️ time in milliseconds

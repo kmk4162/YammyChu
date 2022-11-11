@@ -6,7 +6,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Store(models.Model):
     name = models.TextField(max_length=30)
-    address = models.TextField()
+    lat = models.TextField()
+    lon = models.TextField()    
     image = ProcessedImageField(
         upload_to="images/",
         blank=True,
