@@ -10,9 +10,11 @@ from django.db.models import Avg
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
+    stores = Store.objects.all()
     context = {
         "team": team,
         "stadium": stadium,
+        "stores": stores,
     }
     return render(request, "foods/home.html", context)
 
