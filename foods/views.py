@@ -48,3 +48,11 @@ def create(request, store_pk):
         "review_form": review_form
     }
     return render(request, "foods/create.html", context)
+
+@ login_required
+def delete(request, store_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    store = Store.objects.get(pk=store_pk)
+    review.delete()
+    return redirect("foods:detail", store.pk)
+    
