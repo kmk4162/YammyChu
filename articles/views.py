@@ -4,6 +4,8 @@ from .forms import ArticleForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
+from django.core.paginator import Paginator  
+
 
 def index(request):
     teams = Team.objects.all()
@@ -145,8 +147,16 @@ def like(request, article_pk):
 
 
 def community(request):
-
-    return render(request, 'articles/community.html')
+    articles = Article.objects.all().order_by('-pk')
+    # 입력 파라미터
+    page = request.GET.get("page", "1")
+    # 페이징
+    paginator = Paginator(articles, 10)
+    page_obg = paginator.get_page(page)
+    context = {
+        'articles' : page_obg,
+    }
+    return render(request, 'articles/community.html', context)
 
 
 def detail(request, article_pk):
