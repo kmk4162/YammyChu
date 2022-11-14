@@ -66,4 +66,15 @@ def delete(request, team_pk, store_pk, review_pk):
     store = Store.objects.get(pk=store_pk)
     review.delete()
     return redirect("foods:detail", team.pk, store.pk)
+
+def tag(request, team_pk, tag_pk):
+    team = Team.objects.get(pk=team_pk)
+    tag = Tag.objects.get(pk=tag_pk)
+    store = Store.objects.filter(team=team)
+    reviews = []
+    for review in tag.tag_articles.all():
+        if review.name in store:
+            reviews.append(review)
+    context={'team': team, 'tag': tag, 'reviews': reviews}
+    return render(request, 'foods/tag.html', context)
     
