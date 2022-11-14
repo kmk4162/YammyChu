@@ -42,8 +42,8 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
             <p>가게 이름 : {{ store.name }}</p>
-            <p>주메뉴 : 곱창</p>
-            <p>도로명주소 : {{ store.address }}</p>
+            <p>판매 품목 : {{ store.items }}</p>
+            <p>상세 위치 : {{ store.detail }}</p>
         </div>
         <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
             <div class="accordion" id="accordionExample">
@@ -115,7 +115,7 @@
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-                                          <a class="btn btn-danger" href="{% url 'foods:delete' store.pk review.pk %}">삭제</a>
+                                          <a class="btn btn-danger" href="{% url 'foods:delete' store.team_id store.pk review.pk %}">삭제</a>
                                         </div>
                                       </div>
                                     </div>
@@ -128,7 +128,7 @@
             </div>
         </div>
         <div class="tab-pane fade" id="review-create-tab-pane" role="tabpanel" aria-labelledby="review-create-tab" tabindex="0">
-            <form action="{% url 'foods:create' store.pk %}" method="POST" enctype="multipart/form-data">
+            <form action="{% url 'foods:create' store.team_id store.pk %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form review_form %}
                 <div class="d-flex justify-content-between">
@@ -144,40 +144,23 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-        mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };  
-    
-    // 지도를 생성합니다    
-    var map = new kakao.maps.Map(mapContainer, mapOption); 
-    
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-    
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch('{{ store.address }}', function(result, status) {
-    
-        // 정상적으로 검색이 완료됐으면 
-         if (status === kakao.maps.services.Status.OK) {
-    
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-    
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
-            });
-    
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">{{ store.name }}</div>'
-            });
-            infowindow.open(map, marker);
-    
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        } 
-    });    
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커가 표시될 위치입니다 
+    var markerPosition  = new kakao.maps.LatLng({{ lat }}, {{ lon }}); 
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map)
+    map.setCenter(markerPosition);   
 </script>
 {% endblock %}
