@@ -31,8 +31,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 "message": message,
             }
         )
-
-    # Receive message from room group
     async def chat_message(self, event):
         message = event["message"]
         username = self.scope["user"].nickname

@@ -3,12 +3,23 @@
 {% load static %}
 
 {% block content %}
+<style>
+  #submit-btn{
+    background-color:{{ user.team.color }};
+    color:white;
+    width:100px;
+    height:40px;
+    font-size:16px;
+    border-radius:5px;
+    border-color:{{ user.team.color }};
+  }
+</style>
 <div class="container my-5">
   <form action="" method="POST">
     {% csrf_token %}
     {% bootstrap_form article_form %}
     {% comment %} 버튼 색깔도 테마 따라 바꾸면 괜찮을듯! {% endcomment %}
-    {% bootstrap_button content="작성완료" button_type="submit" %}
+    <button type="submit" id="submit-btn">작성완료</button>
   </form>
 </div>
 {% endblock %}

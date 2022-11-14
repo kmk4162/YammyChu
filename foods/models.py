@@ -3,10 +3,12 @@ from django.conf import settings
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from django.core.validators import MinValueValidator, MaxValueValidator
+from articles.models import Team
 
 class Store(models.Model):
     name = models.TextField(max_length=30)
-    address = models.TextField()
+    lat = models.TextField()
+    lon = models.TextField()    
     image = ProcessedImageField(
         upload_to="images/",
         blank=True,
@@ -15,6 +17,9 @@ class Store(models.Model):
         options={"quality": 80},
         null=True
     )
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_stores')
+    items = models.TextField()
+    detail = models.TextField()
     
 class Review(models.Model):
     name = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='store_reviews')

@@ -3,51 +3,64 @@
 {% load static %}
 
 {% block content %}
-<div class="intro-box" id="box" style="z-index:100;">
-  <video class='intro-mv' muted autoplay loop>
-    <source src="{% static 'movies/intro.mp4' %}" type="video/mp4">
-    <strong>Your browser does not support the video tag.</strong>
-  </video>
-  <div class="jb-text">
-    <p></p>
-  </div>
-</div>
-<script type="text/javascript" src="{% static 'JS/movie.js'%}"></script>
-
-<div class="movie-box">
-  <div class="jb-box">
-    <video muted autoplay loop>
-      <source src="{% static 'movies/intro.mp4' %}" type="video/mp4">
+{% if not user.is_authenticated %}
+<div class="intro-bg" id="box">
+  <div class="intro-box" id="box">
+    <video class='intro-mv' muted autoplay>
+      <source src="{% static 'movies/main_intro.mp4' %}" type="video/mp4">
       <strong>Your browser does not support the video tag.</strong>
     </video>
     <div class="jb-text">
-      <p>동영상 뜨는 박스</p>
+      <p></p>
+    </div>
+  </div>
+  <script type="text/javascript" src="{% static 'JS/movie.js'%}"></script>
+</div>
+{% endif %}
+
+<div class="movie-box">
+  <div class="jb-box">
+    <video class="banner-mv" muted autoplay>
+      <source src="{% static 'movies/main_banner.mp4' %}" type="video/mp4">
+      <strong>Your browser does not support the video tag.</strong>
+    </video>
+    <div class="jb-text">
+      <p></p>
     </div>
   </div>
 </div>
 <div class="container ">
   {% if user.is_authenticated and user.team %}
-  <div class="row py-4 my-5 d-flex justify-content-center bg-white" style="border-top: 1rem groove {{ user.team.color }}; border-bottom: 1rem groove {{ user.team.color }}">
+  <div class="row py-4 my-5 d-flex justify-content-center bg-white" style="border-top: 1rem solid {{ user.team.color }}; border-bottom: 1rem solid {{ user.team.color }}">
   {% else %}
-  <div class="row py-4 my-5 d-flex justify-content-center bg-light" style="border-top: 1rem groove grey; border-bottom: 1rem groove grey">
+  <div class="row py-4 my-5 d-flex justify-content-center bg-light" style="border-top: 1rem solid grey; border-bottom: 1rem solid grey">
   {% endif %}
     <h2 class="text-center fw-bold my-3">팀별 먹거리 보러가기</h2>
     {% for team in teams %}
-    <div class="text-bg-white col-5 col-sm-3 col-lg-2 m-1 bg-white" style="border: 1rem ridge {{ team.color }}; border-radius:5%;">
+    <div class="team-card text-bg-white col-5 col-sm-3 col-lg-2 m-1 p-0">
+      {% if team == user.team %}
+      <div class="front" style="background-color:{{ team.color }}55;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+      {% else %}
+      <div class="front" style="background-color:white;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+      {% endif %}
+        
+          <img src="{{ team.logo.url }}" class="card-img" alt="..."> <!--앞면-->
+        
+      </div>
       <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' team.pk %}">
-        {% if team == user.team %}
-        <img src="{{ team.logo.url }}" class="card-img border border-4 rounded-circle" alt="...">
-        {% else %}
-        <img src="{{ team.logo.url }}" class="card-img" alt="...">
-        {% endif %}
-        <p class="text-black d-none d-lg-block fw-bold">{{ team.stadium.name }}</p>
+        <div class="back" style="background-color:{{ team.color }}; border: 1rem ridge {{ team.color }}; border-radius:5%;">
+          <img src="{{ team.mascot.url }}" class="card-img" alt="..."> <!--뒷면-->
+        </div>
       </a>
     </div>
+    
+
+
     {% endfor %}
   </div>
   <div class="container">
     <section class="">
-      <h3>인기 리뷰</h3>
+      <h2>인기 리뷰</h2>
       <div class="row">
         <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
           <div class=" border border-1 bg-white p-3">
@@ -119,11 +132,11 @@
     </section>
     <section class="row d-flex justify-content-center mt-5">
       <div class="col-12 col-md-8">
-        <h3>
+        <h2>
           <img src="{{ user.team.logo.url }}" style="width:5rem; height:5rem">
           {{ user.team.name }}팬들의 최신 글
           <span class="small"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기><a></span>
-        </h3>
+        </h2>
         <div class="pb-1 pt-4" style="border-top:thick double {{ user.team.color }}; border-bottom:thick double {{ user.team.color }}">
           <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
           <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
@@ -136,7 +149,7 @@
         </div>
       </div>
       <div class="col-8 col-md-4 mt-4">
-        <h3 class="">2022 KBO 팀순위<h3>
+        <h2 class="">2022 KBO 팀순위<h2>
         <table class="table table-borderless border border-2 rounded-1 bg-white" style="font-size:1rem">
           <thead class="mb-4">
             <tr>

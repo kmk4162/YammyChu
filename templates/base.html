@@ -30,7 +30,7 @@
   }
 
   body {
-    background-color:beige;
+    background-color:#f6f4f2;
   }
   
   #footer {
@@ -41,7 +41,7 @@
     text-align:center;
     line-height:60px;
     position:fixed;
-    bottom:0px; 
+    bottom:0px;
   }
 
   #logo-img {
@@ -63,24 +63,21 @@
 </head>
 <body>
 {% if user.is_authenticated and user.team %}
-<nav class="navbar navbar-expand-lg navbar-dark py-0" style="background-color:{{ user.team.color }}">
+<nav class="navbar nav-sticky sticky-top navbar-expand-lg navbar-dark py-0" style="background-color:{{ user.team.color }}">
 {% else %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
+<nav class="navbar nav-sticky sticky-top navbar-expand-lg navbar-dark bg-dark py-0">
 {% endif %}
   <div class="nav-custom row">
-
     <div class="col-2">
     </div>
     <a class="navbar-brand col-2" href="{% url 'articles:index' %}">
-      <img class="logo-img nav-img" src="{% static 'images/logo_white.png' %}" alt="" >
+      <img class="logo-img nav-img" src="{% static 'images/brand.png' %}" alt="" >
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon-">메뉴</span>
     </button>
-    <div class="collapse navbar-collapse col-6 row" id="navbarNav">
-      <div class="col-1">
-      </div>
-      <ul class="navbar-nav col-7 d-flex justify-content-center">
+    <div class="collapse navbar-collapse col-6 row d-flex justify-content-center" id="navbarNav">
+      <ul class="navbar-nav col-8 d-flex justify-content-center">
         <li class="nav-item">
           <a class="nav-main-menu" href="{% url 'articles:index' %}">팀별 먹거리</a>
         </li>
@@ -88,7 +85,7 @@
           <a class="nav-main-menu" href="{% url 'articles:community' %}">커뮤니티</a>
         </li>
       </ul>
-      <ul class="navbar-nav col-4">
+      <ul class="navbar-nav col-4 d-flex justify-content-end">
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link ms-2" href="{% url 'accounts:profile' request.user.pk %}">

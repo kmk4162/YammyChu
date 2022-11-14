@@ -4,6 +4,8 @@ from .forms import ArticleForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
+from django.core.paginator import Paginator  
+
 
 def index(request):
     teams = Team.objects.all()
@@ -145,9 +147,77 @@ def like(request, article_pk):
 
 
 def community(request):
+    articles = Article.objects.all().order_by('-pk')
+    # 입력 파라미터
+    page = request.GET.get("page", "1")
+    # 페이징
+    paginator_all = Paginator(articles, 10)
+    page_obg_all = paginator_all.get_page(page)
+    context = {
+        'articles' : articles,
+        'articles_all' : page_obg_all,
+    }
+    return render(request, 'articles/community.html', context)
 
-    return render(request, 'articles/community.html')
+def baseball(request):
+    articles_baseball = Article.objects.filter(category='야구').order_by('-pk')
+    page = request.GET.get("page", "1")
+    paginator_baseball = Paginator(articles_baseball, 10)
+    page_obg_baseball = paginator_baseball.get_page(page)
+    context = {
+        'articles_baseball' : page_obg_baseball,
+    }
+    return render(request, 'articles/baseball.html', context)
 
+def smalltalk(request):
+    articles_smalltalk = Article.objects.filter(category='잡담').order_by('-pk')
+    page = request.GET.get("page", "1")
+    paginator_smalltalk = Paginator(articles_smalltalk, 10)
+    page_obg_smalltalk = paginator_smalltalk.get_page(page)
+    context = {
+        'articles_smalltalk' : page_obg_smalltalk,
+    }
+    return render(request, 'articles/smalltalk.html', context)
+
+def question(request):
+    articles_question = Article.objects.filter(category='질문').order_by('-pk')
+    page = request.GET.get("page", "1")
+    paginator_question = Paginator(articles_question, 10)
+    page_obg_question = paginator_question.get_page(page)
+    context = {
+        'articles_question' : page_obg_question,
+    }
+    return render(request, 'articles/question.html', context)
+
+def food(request):
+    articles_food = Article.objects.filter(category='음식').order_by('-pk')
+    page = request.GET.get("page", "1")
+    paginator_food = Paginator(articles_food, 10)
+    page_obg_food = paginator_food.get_page(page)
+    context = {
+        'articles_food' : page_obg_food,
+    }
+    return render(request, 'articles/food.html', context)
+
+def view(request):
+    articles_view = Article.objects.filter(category='직관모집').order_by('-pk')
+    page = request.GET.get("page", "1")
+    paginator_view = Paginator(articles_view, 10)
+    page_obg_view = paginator_view.get_page(page)
+    context = {
+        'articles_view' : page_obg_view,
+    }
+    return render(request, 'articles/view.html', context)
+
+def etc(request):
+    articles_etc = Article.objects.filter(category='기타').order_by('-pk')
+    page = request.GET.get("page", "1")
+    paginator_etc = Paginator(articles_etc, 10)
+    page_obg_etc = paginator_etc.get_page(page)
+    context = {
+        'articles_etc' : page_obg_etc,
+    }
+    return render(request, 'articles/etc.html', context)
 
 def detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)
