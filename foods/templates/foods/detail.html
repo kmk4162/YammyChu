@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% load tag_check %}
 {% load static %}
 {% bootstrap_css %}
 
@@ -93,7 +94,7 @@
                     </h2>
                     <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            {{ review.content }}
+                            {{ review|tag_check|safe }}
                             <div class='row'>
                                 {% for image in review.review_image.all %}
                                 <div class='col-3'>
@@ -146,7 +147,7 @@
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 2 // 지도의 확대 레벨
     };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다

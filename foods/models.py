@@ -21,7 +21,11 @@ class Store(models.Model):
     items = models.TextField()
     detail = models.TextField()
     
+class Tag(models.Model):
+    content = models.TextField(unique=True)
+    
 class Review(models.Model):
+    tags = models.ManyToManyField('Tag', related_name='tag_articles', blank=True)
     name = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='store_reviews')
     content = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_reviews')
