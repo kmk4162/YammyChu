@@ -3,9 +3,35 @@
 {% load static %}
 
 {% block content %}
-<textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
+
+
+<section style="container">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-12">
+          <div class="bg-white p-3 rounded-1" style="border: 0.5rem solid {{ user.team.color }}">
+            <div class="card-header text-center p-3">
+              <h5 class="mb-0">의 채팅방</h5>
+            </div>
+            <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative;">
+                <textarea class="w-100 border border-none" id="chat-log" cols="100" rows="20" style="resize:none" disabled></textarea><br>
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+              <div class="input-group mb-0">
+                <input type="text" class="form-control" placeholder="Type message"
+                  aria-label="Recipient's username" aria-describedby="button-addon2" id="chat-message-input" />
+                <button class="btn btn-warning" type="button" id="chat-message-submit" style="padding-top: .55rem;">
+                  Button
+                </button>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </section>
     {{ room_name|json_script:"room-name" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
