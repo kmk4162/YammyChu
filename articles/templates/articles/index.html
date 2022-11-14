@@ -44,7 +44,6 @@
       {% else %}
       <div class="front" style="background-color:white;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
       {% endif %}
-        
           <img src="{{ team.logo.url }}" class="card-img" alt="..."> <!--앞면-->
         
       </div>
@@ -134,8 +133,12 @@
     <section class="row d-flex justify-content-center mt-5">
       <div class="col-12 col-md-8">
         <h2>
+          {% if user.is_authenticated %}
           <img src="{{ user.team.logo.url }}" style="width:5rem; height:5rem">
           {{ user.team.name }}팬들의 최신 글
+          {% else %}
+          커뮤니티 최신글
+          {% endif %}
           <span class="small"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기><a></span>
         </h2>
         <div class="pb-1 pt-4" style="border-top:thick double {{ user.team.color }}; border-bottom:thick double {{ user.team.color }}">

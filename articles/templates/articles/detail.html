@@ -3,34 +3,37 @@
 {% load static %}
 
 {% block content %}
-<style>
-  
-</style>
-<div class="my-5 mx-5 text-bg-light">
+<div class="my-5 mx-5 bg-white p-5 border boder-1">
   {% comment %} <h2 class="text-center fw-bold my-3">커뮤니티</h2> {% endcomment %}
   <p>카테고리: {{ article.category }}</p>
   <span class="d-none">{{ article.update_hits }}</span>
-  <h1>{{ article.title }}</h1>
-  <div><img src="{{ article.user.team.logo.url }}" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;">
-    <span> {{ article.user }}님</span>
-    <span>작성시간: {{ article.created_at }}</span>
-    <span>수정시간: {{ article.updated_at }}</span>
+  <div class="d-flex justify-content-between">
+    <h1>{{ article.title }}</h1>
+    <p class="d-flex align-items-end">조회수: {{ article.hits }}</p>
   </div>
-  <h3 class="mt-3">{{ article.content }}</h3>
-  <div class="mt-5" sytle="text-align:center;">
-    {% if request.user.is_authenticated %}
-      {% if request.user in article.like_users.all %}
-      <i id="like-btn" data-article-id="{{ article.pk }}" class="bi bi-heart-fill" style="cursor : pointer; color:#e195a5;"></i>
-      {% else %}
-      <i id="like-btn" data-article-id="{{ article.pk }}" class="bi bi-heart" style="cursor : pointer; color:#e195a5;"></i>
-      {% endif %}
-      <span id="like-count" style="color:#e195a5;">{{ article.user_article_like.count }}</span>
+  <div class="d-flex justify-content-between">
+    <span> 
+      <img src="{{ article.user.team.logo.url }}" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;">
+      {{ article.user.nickname }}
+    </span>
+    {% if article.created_at == article.updated_at %}
+    <span>{{ article.created_at|date:'Y-m-d H:i' }}</span>
+    {% else %}
+    <span>{{ article.updated_at|date:'Y-m-d H:i' }}(수정됨)</span>
     {% endif %}
-    <span style="color:#e195a5; margin-right:1rem;">좋아요</span>
-    <span>조회수: {{ article.hits }}</span>
   </div>
-  <hr style="background-color:{{ user.team.color }}; height:5px;">
-
+  <p class="mt-5 fs-5">{{ article.content }}</p>
+  <div class="mt-5 text-center">
+    {% if request.user.is_authenticated %}
+    {% if request.user in article.like_users.all %}
+    <i id="like-btn" data-article-id="{{ article.pk }}" class="bi bi-heart-fill fs-4" style="cursor : pointer; color:#e195a5;"></i>
+    {% else %}
+    <i id="like-btn" data-article-id="{{ article.pk }}" class="bi bi-heart fs-4" style="cursor : pointer; color:#e195a5;"></i>
+    {% endif %}
+    <span id="like-count" style="color:#e195a5;" class="fs-4">{{ article.user_article_like.count }}</span>
+    {% endif %}
+  </div>
+  <hr style="background-color:black; height:5px;">
   <h4 class="mt-5 mb-3 fw-bold">댓글 목록</h4>
   <div id="comments">
     {% for comment in comments %}
@@ -58,13 +61,17 @@
   {% comment %} 댓글 작성 {% endcomment %}
   <form id="comment-form" data-article-id="{{ article.pk }}">
     {% csrf_token %}
-    <div>
-      {% bootstrap_form comment_form %}
-      <button type="submit" class="btn btn-dark ms-2" style="height:2.4rem;">등록</button>
+    <div class="row d-flex justify-context-space-between">
+      <div class="col-9 col-md-10 col-xl-11 align-middle">
+        {% bootstrap_form comment_form %}
+      </div>
+      <div class="col-3 col-md-2 col-xl-1 align-middle">
+        <button type="submit" class="btn btn-dark ms-2 w-100">등록</button>
+      </div>
     </div>
   </form>
-
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
   // 좋아요 비동기

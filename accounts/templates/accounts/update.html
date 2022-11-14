@@ -4,7 +4,7 @@
 {% block content %}
 {% load django_bootstrap5 %}
 <div class="container d-flex justify-content-center py-5">
-    <div class="col-8 ">
+    <div class="col-10 col-lg-8">
         <div class="rounded-4 shadow-lg p-4 mb-4 bg-white">
             <h1 class="text-center mt-5 fs-3 fw-bold text-black">회원정보 수정</h1>
             <div class="card-body">
@@ -15,10 +15,10 @@
                     {% bootstrap_field form.nickname %}
                     <div class="p-3 mb-3 d-flex flex-column justify-content">
                       <label class="mb-2">팀 선택</label>
-                      <div class="d-flex justify-content-between">
+                      <div class="d-flex justify-content-between row">
                           {% for team in teams %}
-                          <div class="form_check">
-                              <input class="form-check-input border border-1 border-black" type="radio" name="team" value="{{ team.pk }}" id="team" style="width:50px; height:50px; background-image:url('{{ team.logo.url }}')">
+                          <div class="form_check col-2 m-1 m-lg-0 col-lg-1">
+                              <input class="form-check-input border border-1 border-black" type="radio" name="team" value="{{ team.pk }}" id="team" style="width:50px; height:50px; background-image:url('{{ team.logo.url }}')" required>
                           </div>
                           {% endfor %}
                       </div>

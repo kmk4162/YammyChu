@@ -9,8 +9,10 @@ from django.core.paginator import Paginator
 
 def index(request):
     teams = Team.objects.all()
+
     context = {
         "teams": teams,
+
     }
     return render(request, "articles/index.html", context)
 
@@ -31,16 +33,20 @@ def create(request):
     }
     return render(request, 'articles/create.html', context)
 
+from django.utils import timezone
+
 @login_required
 def update(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     if request.method == "POST":
+        article.updated_at = timezone.localtime()
+        article.save()
         article_form = ArticleForm(request.POST, instance=article)
         if article_form.is_valid():
             article_form.save()
-            return redirect("articles:community")
+            return redirect("articles:detail", article_pk)
     else:
-        article_form = ArticleForm()
+        article_form = ArticleForm(instance=article)
     context = {
         "article_form": article_form,
     }
@@ -153,71 +159,28 @@ def community(request):
     # 페이징
     paginator_all = Paginator(articles, 10)
     page_obg_all = paginator_all.get_page(page)
+    categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타']
     context = {
         'articles' : articles,
         'articles_all' : page_obg_all,
+        "categorys": categorys,
     }
     return render(request, 'articles/community.html', context)
 
-def baseball(request):
-    articles_baseball = Article.objects.filter(category='야구').order_by('-pk')
-    page = request.GET.get("page", "1")
-    paginator_baseball = Paginator(articles_baseball, 2)
-    page_obg_baseball = paginator_baseball.get_page(page)
-    context = {
-        'articles_baseball' : page_obg_baseball,
-    }
-    return render(request, 'articles/baseball.html', context)
 
-def smalltalk(request):
-    articles_smalltalk = Article.objects.filter(category='잡담').order_by('-pk')
+def category(request, num):
+    categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타']
+    category_name = categorys[num]
+    articles_category = Article.objects.filter(category=category_name).order_by('-pk')
     page = request.GET.get("page", "1")
-    paginator_smalltalk = Paginator(articles_smalltalk, 10)
-    page_obg_smalltalk = paginator_smalltalk.get_page(page)
+    paginator_category = Paginator(articles_category, 10)
+    page_obg_category = paginator_category.get_page(page)
     context = {
-        'articles_smalltalk' : page_obg_smalltalk,
+        'articles_category' : page_obg_category,
+        'categorys':categorys,
+        "category_name":category_name,
     }
-    return render(request, 'articles/smalltalk.html', context)
-
-def question(request):
-    articles_question = Article.objects.filter(category='질문').order_by('-pk')
-    page = request.GET.get("page", "1")
-    paginator_question = Paginator(articles_question, 10)
-    page_obg_question = paginator_question.get_page(page)
-    context = {
-        'articles_question' : page_obg_question,
-    }
-    return render(request, 'articles/question.html', context)
-
-def food(request):
-    articles_food = Article.objects.filter(category='음식').order_by('-pk')
-    page = request.GET.get("page", "1")
-    paginator_food = Paginator(articles_food, 10)
-    page_obg_food = paginator_food.get_page(page)
-    context = {
-        'articles_food' : page_obg_food,
-    }
-    return render(request, 'articles/food.html', context)
-
-def view(request):
-    articles_view = Article.objects.filter(category='직관모집').order_by('-pk')
-    page = request.GET.get("page", "1")
-    paginator_view = Paginator(articles_view, 10)
-    page_obg_view = paginator_view.get_page(page)
-    context = {
-        'articles_view' : page_obg_view,
-    }
-    return render(request, 'articles/view.html', context)
-
-def etc(request):
-    articles_etc = Article.objects.filter(category='기타').order_by('-pk')
-    page = request.GET.get("page", "1")
-    paginator_etc = Paginator(articles_etc, 10)
-    page_obg_etc = paginator_etc.get_page(page)
-    context = {
-        'articles_etc' : page_obg_etc,
-    }
-    return render(request, 'articles/etc.html', context)
+    return render(request, 'articles/category.html', context)
 
 def detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)

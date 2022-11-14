@@ -18,7 +18,7 @@ class Article(models.Model):
     )
     category = models.CharField(max_length=5, choices=category_choices)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
     hits = models.PositiveIntegerField(default=0)
     user_article_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_articles")
     like_count = models.IntegerField(default=0)
@@ -67,6 +67,7 @@ class Stadium(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=10)
+    ename = models.CharField(max_length=10, null=True)
     stadium = models.ForeignKey(Stadium, on_delete=models.CASCADE)
     color_choices = (
         ('#CE0E2D', 'SSG 랜더스'),
