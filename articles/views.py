@@ -162,7 +162,7 @@ def community(request):
 def baseball(request):
     articles_baseball = Article.objects.filter(category='야구').order_by('-pk')
     page = request.GET.get("page", "1")
-    paginator_baseball = Paginator(articles_baseball, 10)
+    paginator_baseball = Paginator(articles_baseball, 2)
     page_obg_baseball = paginator_baseball.get_page(page)
     context = {
         'articles_baseball' : page_obg_baseball,
