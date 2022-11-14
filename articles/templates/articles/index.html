@@ -173,4 +173,17 @@
     </section>
   </div>
 </div>
+
+<script>
+  let observer = new IntersectionObserver((e) => {
+    e.forEach((box)=>{
+      box.target.opacity = 1;
+    })
+  })
+  
+  let h2 = document.querySelectorAll("h2")
+  observer.observer(h2[0])
+  observer.observer(h2[1])
+
+</script>
 {% endblock %}
