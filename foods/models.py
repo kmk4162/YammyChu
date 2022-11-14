@@ -17,7 +17,7 @@ class Store(models.Model):
         options={"quality": 80},
         null=True
     )
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_stores')
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_stores', default=1)
     items = models.TextField()
     detail = models.TextField()
     
