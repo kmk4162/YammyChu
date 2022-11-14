@@ -78,10 +78,10 @@
     </button>
     <div class="collapse navbar-collapse col-6 row d-flex justify-content-center" id="navbarNav">
       <ul class="navbar-nav col-8 d-flex justify-content-center">
-        <li class="nav-item">
+        <li class="nav-item menu">
           <a class="nav-main-menu" href="{% url 'articles:index' %}">팀별 먹거리</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item menu">
           <a class="nav-main-menu" href="{% url 'articles:community' %}">커뮤니티</a>
         </li>
       </ul>
@@ -115,7 +115,7 @@
   <p>ⓒ Y.M.C Corp.</p>
 </footer>
 
-<script src="{% static 'JS/movie.js' %}"></script>
+<script src="{% static 'JS/movie.js' %}" type="text/javascript"></script>
 {% bootstrap_javascript %}
 </body>
 

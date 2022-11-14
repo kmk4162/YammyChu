@@ -167,10 +167,10 @@ def community(request):
     }
     return render(request, 'articles/community.html', context)
 
+
 def category(request, num):
     categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타']
     category_name = categorys[num]
-    print(category_name)
     articles_category = Article.objects.filter(category=category_name).order_by('-pk')
     page = request.GET.get("page", "1")
     paginator_category = Paginator(articles_category, 10)

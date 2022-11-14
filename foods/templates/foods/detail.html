@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% load tag_check %}
 {% load static %}
 {% bootstrap_css %}
 
@@ -34,9 +35,11 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">리뷰 보기</button>
             </li>
+            {% if request.user.is_authenticated %}
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="review-create-tab" data-bs-toggle="tab" data-bs-target="#review-create-tab-pane" type="button" role="tab" aria-controls="review-create-tab-pane" aria-selected="false">리뷰 작성</button>
             </li>
+            {% endif %}
         </ul>
     </div>
     <div class="tab-content" id="myTabContent">
@@ -51,6 +54,8 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading{{ forloop.counter }}">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                        </button>
+                    </h2>
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
@@ -89,11 +94,11 @@
                                     </tr>
                                 </thead>
                             </table>
-                        </button>
-                    </h2>
+            
+                   
                     <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            {{ review.content }}
+                            {{ review|tag_check|safe }}
                             <div class='row'>
                                 {% for image in review.review_image.all %}
                                 <div class='col-3'>
@@ -101,6 +106,7 @@
                                 </div>
                                 {% endfor %}
                             </div>
+                            {% if request.user == review.user%}
                             <div class='d-flex justify-content-end'>
                                 <a class='btn btn-danger' data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</a>
                                 <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
@@ -121,6 +127,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -146,7 +153,7 @@
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 2 // 지도의 확대 레벨
     };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다

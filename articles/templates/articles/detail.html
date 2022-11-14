@@ -43,12 +43,15 @@
           <div id="form-comment-update-{{ comment.pk }}" style="display:none;">
             <input id="input-{{ comment.pk }}" type="text" value="{{comment.content}}">
             <button onclick="ok_function(this)" id="okBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">확인</button>
-            <button>취소</button>
+            <button onclick="cancel_function(this)" id="cancelBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">취소</button>
           </div>
-          <button onclick="update_comment(this)" id="comment-update-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">수정</button>
-          <button onclick="delete_comment(this)" id="comment-delete-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">삭제</button>
-        {% endif %}
-        <hr>   
+          <div id="comment-buttons-{{ comment.pk }}">
+            <button onclick="update_comment(this)" id="comment-update-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">수정</button>
+            <button onclick="delete_comment(this)" id="comment-delete-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">삭제</button>
+          </div>  
+          <hr>   
+          {% endif %}
+
       </div> 
     {% empty %}
       <p>댓글이 없어요 ㅠ_ㅠ</p>
@@ -101,7 +104,6 @@ likeBtn.addEventListener('click', function(event) {
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
   commentForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    console.log('dddddddd')
     axios({
       method: 'post',
       url: `/${event.target.dataset.articleId}/comments/create/`,
@@ -114,6 +116,7 @@ likeBtn.addEventListener('click', function(event) {
       const hr = document.createElement('hr')
       const comment_data = response.data.comment_data
       const user = response.data.user
+
       for (let i = 0; i < comment_data.length; i++) {
         const article_pk = response.data.article_pk
         if (user === comment_data[i].userId ){
@@ -122,11 +125,14 @@ likeBtn.addEventListener('click', function(event) {
           <div id="form-comment-update-${comment_data[i].commentPk}" style="display:none;">
             <input id="input-${comment_data[i].commentPk}" type="text" value="${comment_data[i].content}">
             <button onclick="ok_function(this)" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-            <button>취소</button>
+            <button onclick="cancel_funtion(this)" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
           </div>
+          <div id="comment-buttons-${comment_data[i].commentPk}">
             <button onclick="update_comment(this)" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
             <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
-            <hr>
+          </div>
+          <hr>
+
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
@@ -169,11 +175,14 @@ likeBtn.addEventListener('click', function(event) {
           <div id="form-comment-update-${comment_data[i].commentPk}" style="display:none;">
             <input id="input-${comment_data[i].commentPk}" type="text" value="${comment_data[i].content}">
             <button onclick="ok_function(this)" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-            <button>취소</button>
+            <button onclick="cancel_funtion(this)" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
           </div>
+          <div id="comment-buttons-${comment_data[i].commentPk}">
             <button onclick="update_comment(this)" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
             <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
-            <hr>
+          </div>
+          <hr>
+
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
@@ -183,17 +192,30 @@ likeBtn.addEventListener('click', function(event) {
         }
       }
     })
-    
   }
-  const update_comment = (e) => {
-    const comment_id = document.querySelector(`#${e.id}`).id
-    const input = document.createElement('input')
-    const comment = document.querySelector('#comment')
-    const span = document.createElement('span')
-    const comment_update_form = document.querySelector(`#form-${ e.id }`)
-    comment_update_form.style.display = ""
 
-  
+  // 댓글 수정 취소
+  const cancel_function = (e) => {
+    const comment_id = document.querySelector(`#${e.id}`).id;
+    const input = document.createElement('input');
+    const comment = document.querySelector('#comment');
+    const span = document.createElement('span');
+    const comment_update_form = document.querySelector(`#form-comment-update-${ event.target.dataset.commentId }`)
+    console.log(comment_update_form);
+    comment_update_form.style.display = "none";
+    const comment_buttons = document.querySelector(`#comment-buttons-${ event.target.dataset.commentId }`)
+    comment_buttons.style.display = "block";
+  }
+
+  const update_comment = (e) => {
+    const comment_id = document.querySelector(`#${e.id}`).id;
+    const input = document.createElement('input');
+    const comment = document.querySelector('#comment');
+    const span = document.createElement('span');
+    const comment_update_form = document.querySelector(`#form-${ e.id }`);
+    comment_update_form.style.display = "block";
+    const comment_buttons = document.querySelector(`#comment-buttons-${ event.target.dataset.commentId }`);
+    comment_buttons.style.display = "none";
   }
 
   // 댓글 삭제 비동기
@@ -219,11 +241,14 @@ likeBtn.addEventListener('click', function(event) {
           <div id="form-comment-update-${comment_data[i].commentPk}" style="display:none;">
             <input id="input-${comment_data[i].commentPk}" type="text" value="${comment_data[i].content}">
             <button onclick="ok_function(this)" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-            <button>취소</button>
+            <button onclick="cancel_funtion(this)" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
           </div>
+          <div id="comment-buttons-${comment_data[i].commentPk}">
             <button onclick="update_comment(this)" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
             <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
-            <hr>
+          </div>
+          <hr>
+
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `

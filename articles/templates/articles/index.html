@@ -19,11 +19,12 @@
 {% endif %}
 
 <div class="movie-box">
-  <div class="jb-box">
+  <div class="jb-box d-flex align-items-center">
     <video class="banner-mv" muted autoplay>
       <source src="{% static 'movies/main_banner.mp4' %}" type="video/mp4">
       <strong>Your browser does not support the video tag.</strong>
     </video>
+  </div>
     <div class="jb-text">
       <p></p>
     </div>
@@ -48,7 +49,7 @@
       </div>
       <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' team.pk %}">
         <div class="back" style="background-color:{{ team.color }}; border: 1rem ridge {{ team.color }}; border-radius:5%;">
-          {% comment %} <img src="{{ team.mascot.url }}" class="card-img" alt="..."> <!--뒷면--> {% endcomment %}
+          <img src="" class="card-img" alt="..."> <!--뒷면-->
         </div>
       </a>
     </div>
@@ -152,28 +153,40 @@
         </div>
       </div>
       <div class="col-8 col-md-4 mt-4">
-        <h2 class="">2022 KBO 팀순위<h2>
-        <table class="table table-borderless border border-2 rounded-1 bg-white" style="font-size:1rem">
-          <thead class="mb-4">
-            <tr>
-              <th scope="col">순위</th>
-              <th scope="col">팀명</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for team in teams %}
-            <tr>
-              <th scope="row">{{ team.pk }}</th>
-              <td>
-                <img src="{{ team.logo.url }}" style="width:1.5rem; height:1.5rem">
-                {{ team.name }}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <div class="pt-4" style="background-color:white; border-radius:10px; overflow:hidden;">
+          <h2 class="ms-5 fw-bold">팀 순위<h2>
+          <p class="ms-5" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
+          <table class="table table-borderless rounded-1 bg-white ms-5" style="font-size:1rem;">
+            <thead class="mb-4">
+            </thead>
+            <tbody>
+              {% for team in teams %}
+              <tr>
+                <th scope="row">{{ team.pk }}</th>
+                <td>
+                  <img src="{{ team.logo.url }}" style="width:1.5rem; height:1.5rem">
+                  {{ team.name }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </div>
 </div>
+
+{% comment %} <script>
+  let observer = new IntersectionObserver((e) => {
+    e.forEach((box)=>{
+      box.target.opacity = 1;
+    })
+  })
+  
+  let h2 = document.querySelectorAll("h2")
+  observer.observer(h2[0])
+  observer.observer(h2[1])
+
+</script> {% endcomment %}
 {% endblock %}
