@@ -37,16 +37,25 @@
   {% endif %}
     <h2 class="text-center fw-bold my-3">팀별 먹거리 보러가기</h2>
     {% for team in teams %}
-    {% if team == user.team %}
-    <div class="text-bg-white col-5 col-sm-3 col-lg-2 m-1" style="background-color:{{ team.color }}55;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
-    {% else %}
-    <div class="text-bg-white col-5 col-sm-3 col-lg-2 m-1" style="background-color:white;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
-    {% endif %}
+    <div class="team-card text-bg-white col-5 col-sm-3 col-lg-2 m-1 p-0">
+      {% if team == user.team %}
+      <div class="front" style="background-color:{{ team.color }}55;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+      {% else %}
+      <div class="front" style="background-color:white;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+      {% endif %}
+        
+          <img src="{{ team.logo.url }}" class="card-img" alt="..."> <!--앞면-->
+        
+      </div>
       <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' team.pk %}">
-        <img src="{{ team.logo.url }}" class="card-img" alt="...">
-        <p class="text-black d-none d-lg-block fw-bold">{{ team.stadium.name }}</p>
+        <div class="back" style="background-color:{{ team.color }}; border: 1rem ridge {{ team.color }}; border-radius:5%;">
+          <img src="{{ team.mascot.url }}" class="card-img" alt="..."> <!--뒷면-->
+        </div>
       </a>
     </div>
+    
+
+
     {% endfor %}
   </div>
   <div class="container">

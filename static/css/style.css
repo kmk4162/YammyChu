@@ -47,7 +47,7 @@ video {
 }
 
 
-/*--------------------------------------------------------------------------------------------*/
+/* base.html --------------------------------------------------------------------------------------------*/
 
 body {
   background-color: beige;
@@ -100,6 +100,9 @@ footer {
 }
 
 
+/* index -------------------------------------------------------------------------------*/
+
+
 .team-choice-box {
   width: 100%;
   background-color: rgb(195, 195, 195);
@@ -113,6 +116,39 @@ footer {
 
 .card-text {
   font-size: 20px;
+}
+
+.team-card{
+  position: relative;
+
+}
+
+.team-card:hover .back{
+  visibility: visible;
+  transform: scale(1.5) rotateY(360deg);
+  transition: 0.5s;
+}
+
+.team-card:hover .front{
+  visibility: hidden;
+  transform: rotateY(180deg);
+  transition: 0.5s;
+}
+
+.front{
+  transition: 0.5s;
+}
+
+.back{
+  position:absolute;
+  visibility: hidden;
+  top:0;
+  left:0;
+  z-index:10;
+  height:100%;
+  width:100%;
+  transition: 0.5s;
+  transform:rotateY(180deg);
 }
 
 .community-top5-review {

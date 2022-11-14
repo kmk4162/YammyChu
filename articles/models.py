@@ -88,3 +88,10 @@ class Team(models.Model):
         format="JPEG",
         options={"quality": 100},
     )
+    mascot = ProcessedImageField(
+        upload_to="images/",
+        blank=True,
+        processors=[ResizeToFill(800, 800)],
+        format="PNG",
+        options={"quality": 100},
+    )
