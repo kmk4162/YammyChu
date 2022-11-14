@@ -55,16 +55,26 @@ def logout(request):
 
 def profile(request, pk):
     user = User.objects.get(pk=pk)
-    team = Team.objects.get(pk=user.team_id)
-    context = {
-        'logo': team.logo,
-        'request_user': user,
-        'pk': pk,
-        'username': user.username,
-        'email': user.email,
-        'name': user.last_name,
-        'nickname': user.nickname,
-    }
+    if user.team :
+        team = Team.objects.get(pk=user.team_id)
+        context = {
+            'team': team,
+            'request_user': user,
+            'pk': pk,
+            'username': user.username,
+            'email': user.email,
+            'name': user.last_name,
+            'nickname': user.nickname,
+        }
+    else :
+        context = {
+            'request_user': user,
+            'pk': pk,
+            'username': user.username,
+            'email': user.email,
+            'name': user.last_name,
+            'nickname': user.nickname,
+        }
     return render(request, 'accounts/profile.html', context)
 
 def follow(request, pk):

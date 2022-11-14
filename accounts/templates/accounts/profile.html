@@ -7,7 +7,11 @@
   <div class="border mx-auto m-5 p-5 text-center bg-white" style="width: 600px; height: 600px; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
     <div class="d-flex p-2 justify-content-center">
       <div>
-        <img src="{{ logo.url }}" class="rounded-circle" style="width: 5rem; height: 5rem;">
+        {% if team %}
+        <img src="{{ team.logo.url }}" class="rounded-circle" style="width: 5rem; height: 5rem;">
+        {% else %}
+        <img src="{% static 'images/logo.png' %}" class="rounded-circle" style="width: 5rem; height: 5rem;">
+        {% endif %}
       </div>
       <div class="ms-3 my-auto">
         <h3>{{ nickname }} 님의 프로필</h3>
@@ -15,7 +19,7 @@
     </div>
     <div class="d-flex justify-content-center my-2">
       <div data-bs-toggle="modal" data-bs-target="#exampleModal1" class="me-0 p-3 text-center" style="cursor : pointer;">
-        <p class="fw-bold">follower</p>
+        <p class="fw-bold">팔로워</p>
         <p id="followers-count" class="mb-0 fw-bold">{{ request_user.followers.all|length }}</p>
       </div>
       <!-- Modal -->
@@ -44,7 +48,7 @@
       </div>
       <span class="vl mt-2"></span>
       <div data-bs-toggle="modal" data-bs-target="#exampleModal2" class="me-0 p-3 text-center" style="cursor : pointer;">
-        <p class="fw-bold">following</p>
+        <p class="fw-bold">팔로윙</p>
         <p id="followings-count" class="mb-0 fw-bold">{{ request_user.followings.all|length }}</p>
       </div>
       <!-- Modal -->

@@ -16,11 +16,16 @@ class ArticleForm(forms.ModelForm):
         }
 
 class CommentForm(forms.ModelForm):
+    content = forms.CharField(
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "댓글을 남겨보세요 💬",
+            }
+        ),
+    )
     class Meta:
         model = Comment
         fields = [
             'content',
         ]
-        labels = {
-            'content' : '댓글 작성',
-        }
