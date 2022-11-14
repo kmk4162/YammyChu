@@ -48,6 +48,7 @@
           </div>  
           <hr>   
           {% endif %}
+
       </div> 
     {% empty %}
       <p>댓글이 없어요 ㅠ_ㅠ</p>
@@ -124,6 +125,7 @@ likeBtn.addEventListener('click', function(event) {
             <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
           </div>
           <hr>
+
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
@@ -173,6 +175,7 @@ likeBtn.addEventListener('click', function(event) {
             <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
           </div>
           <hr>
+
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
@@ -238,6 +241,7 @@ likeBtn.addEventListener('click', function(event) {
             <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
           </div>
           <hr>
+
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
