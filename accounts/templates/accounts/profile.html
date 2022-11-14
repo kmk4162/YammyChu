@@ -82,7 +82,7 @@
         <div class="col p-3" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
           <p>{{ request_user.nickname }} 님이 좋아하는 스낵바</p>
           {% for restaurant in request_user.like_restaurants.all %}
-            <a href="{% url 'bars:detail' restaurant.pk %}" class="text-decoration-none">
+            <a href="" class="text-decoration-none">
               <p class="fw-bold text-dark">{{ restaurant.name }}</p>
             </a>
           {% endfor %}
@@ -90,7 +90,7 @@
         <div class="col p-3 mx-4" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
           <p>{{ request_user.nickname }} 님이 좋아하는 리뷰</p>
           {% for review in request_user.review_set.all %}
-            <a href="{% url 'bars:detail' review.restaurant_id %}" class="text-decoration-none">
+            <a href="" class="text-decoration-none">
               <p class="fw-bold text-dark">{{review.content}}</p>
             </a>
             {% endfor %}
@@ -98,7 +98,7 @@
         <div class="col p-3" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
           <p>{{ request_user.nickname }} 님이 작성한 리뷰</p>
           {% for comment in request_user.comment_set.all %}
-            <a href="{% url 'bars:detail' comment.review.restaurant_id %}" class="text-decoration-none">
+            <a href="" class="text-decoration-none">
               <p class="fw-bold text-dark">{{comment.content}}</p>
             </a>
             {% endfor %}

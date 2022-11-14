@@ -1,1 +1,282 @@
-[{"model": "foods.store", "pk": 1, "fields": {"name": "롯데리아", "lat": "35.1952271687345", "lon": "129.0614236442007", "image": ""}}, {"model": "foods.store", "pk": 2, "fields": {"name": "세븐일레븐(편의점)", "lat": "35.1952182449403", "lon": "129.06128619292096", "image": ""}}, {"model": "foods.store", "pk": 3, "fields": {"name": "세븐일레븐", "lat": "35.1944557005411", "lon": "129.06081957104433", "image": ""}}, {"model": "foods.store", "pk": 4, "fields": {"name": "BBQ", "lat": "35.1944998049466", "lon": "129.06087557515667", "image": ""}}, {"model": "foods.store", "pk": 5, "fields": {"name": "봉구비어", "lat": "35.1943195474116", "lon": "129.06074477456116", "image": ""}}, {"model": "foods.store", "pk": 6, "fields": {"name": "33떡볶이", "lat": "35.1943617268516", "lon": "129.06078151849806", "image": ""}}, {"model": "foods.store", "pk": 7, "fields": {"name": "세븐일레븐", "lat": "35.1942434489866", "lon": "129.06071540720666", "image": ""}}, {"model": "foods.store", "pk": 8, "fields": {"name": "세븐일레븐", "lat": "35.1942075115934", "lon": "129.06070901034633", "image": ""}}, {"model": "foods.store", "pk": 9, "fields": {"name": "남도푸드앤", "lat": "35.1941018112335", "lon": "129.06069810658798", "image": ""}}, {"model": "foods.store", "pk": 10, "fields": {"name": "자이언트푸드", "lat": "35.1940589312628", "lon": "129.06070251226538", "image": ""}}, {"model": "foods.store", "pk": 11, "fields": {"name": "세븐일레븐", "lat": "35.1939121825498", "lon": "129.06072076073596", "image": ""}}, {"model": "foods.store", "pk": 12, "fields": {"name": "세븐일레븐", "lat": "35.1936227321193", "lon": "129.06091653852954", "image": ""}}, {"model": "foods.store", "pk": 13, "fields": {"name": "남도푸드앤", "lat": "35.1934865056843", "lon": "129.06111069764233", "image": ""}}, {"model": "foods.store", "pk": 14, "fields": {"name": "세븐일레븐", "lat": "35.193820434319", "lon": "129.06227181167662", "image": ""}}, {"model": "foods.store", "pk": 15, "fields": {"name": "봉구비어", "lat": "35.1940785641536", "lon": "129.06232773833514", "image": ""}}, {"model": "foods.store", "pk": 16, "fields": {"name": "남도푸드앤", "lat": "35.1945074957118", "lon": "129.06214372428548", "image": ""}}, {"model": "foods.store", "pk": 17, "fields": {"name": "33떡볶이", "lat": "35.1945989278623", "lon": "129.0620664454804", "image": ""}}, {"model": "foods.store", "pk": 18, "fields": {"name": "남도푸드앤", "lat": "35.1947442011913", "lon": "129.0617380336979", "image": ""}}, {"model": "foods.store", "pk": 19, "fields": {"name": "세븐일레븐", "lat": "35.1947277263831", "lon": "129.0609856246989", "image": ""}}, {"model": "foods.store", "pk": 20, "fields": {"name": "남도푸드앤", "lat": "35.1948171592748", "lon": "129.06115804351577", "image": ""}}, {"model": "foods.store", "pk": 21, "fields": {"name": "BBQ", "lat": "35.1948409591141", "lon": "129.06134801558244", "image": ""}}, {"model": "foods.store", "pk": 22, "fields": {"name": "33떡볶이", "lat": "35.1944887219632", "lon": "129.06073258162144", "image": ""}}, {"model": "foods.store", "pk": 23, "fields": {"name": "아리아닭강정", "lat": "35.1945173431543", "lon": "129.06077172758546", "image": ""}}, {"model": "foods.store", "pk": 24, "fields": {"name": "롯데리아", "lat": "35.194559849503", "lon": "129.06078926843796", "image": ""}}, {"model": "foods.store", "pk": 25, "fields": {"name": "세븐일레븐", "lat": "35.1947708127856", "lon": "129.06189514282192", "image": ""}}, {"model": "foods.store", "pk": 26, "fields": {"name": "BBQ", "lat": "35.1947447332228", "lon": "129.0619713295385", "image": ""}}, {"model": "foods.store", "pk": 27, "fields": {"name": "세븐일레븐(편의점)", "lat": "35.1949643751229", "lon": "129.0611123624539", "image": ""}}, {"model": "foods.store", "pk": 28, "fields": {"name": "남도푸드앤", "lat": "35.1949142255558", "lon": "129.06114677379512", "image": ""}}]
+[
+  {
+    "model": "foods.store",
+    "pk": 1,
+    "fields": {
+      "name": "롯데리아",
+      "lat": "35.1952271687345",
+      "lon": "129.0614236442007",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 2,
+    "fields": {
+      "name": "세븐일레븐(편의점)",
+      "lat": "35.1952182449403",
+      "lon": "129.06128619292096",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 3,
+    "fields": {
+      "name": "세븐일레븐",
+      "lat": "35.1944557005411",
+      "lon": "129.06081957104433",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 4,
+    "fields": {
+      "name": "BBQ",
+      "lat": "35.1944998049466",
+      "lon": "129.06087557515667",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 5,
+    "fields": {
+      "name": "봉구비어",
+      "lat": "35.1943195474116",
+      "lon": "129.06074477456116",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 6,
+    "fields": {
+      "name": "33떡볶이",
+      "lat": "35.1943617268516",
+      "lon": "129.06078151849806",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 7,
+    "fields": {
+      "name": "세븐일레븐",
+      "lat": "35.1942434489866",
+      "lon": "129.06071540720666",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 8,
+    "fields": {
+      "name": "세븐일레븐",
+      "lat": "35.1942075115934",
+      "lon": "129.06070901034633",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 9,
+    "fields": {
+      "name": "남도푸드앤",
+      "lat": "35.1941018112335",
+      "lon": "129.06069810658798",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 10,
+    "fields": {
+      "name": "자이언트푸드",
+      "lat": "35.1940589312628",
+      "lon": "129.06070251226538",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 11,
+    "fields": {
+      "name": "세븐일레븐",
+      "lat": "35.1939121825498",
+      "lon": "129.06072076073596",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 12,
+    "fields": {
+      "name": "세븐일레븐",
+      "lat": "35.1936227321193",
+      "lon": "129.06091653852954",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 13,
+    "fields": {
+      "name": "남도푸드앤",
+      "lat": "35.1934865056843",
+      "lon": "129.06111069764233",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 14,
+    "fields": {
+      "name": "세븐일레븐",
+      "lat": "35.193820434319",
+      "lon": "129.06227181167662",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 15,
+    "fields": {
+      "name": "봉구비어",
+      "lat": "35.1940785641536",
+      "lon": "129.06232773833514",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 16,
+    "fields": {
+      "name": "남도푸드앤",
+      "lat": "35.1945074957118",
+      "lon": "129.06214372428548",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 17,
+    "fields": {
+      "name": "33떡볶이",
+      "lat": "35.1945989278623",
+      "lon": "129.0620664454804",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 18,
+    "fields": {
+      "name": "남도푸드앤",
+      "lat": "35.1947442011913",
+      "lon": "129.0617380336979",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 19,
+    "fields": {
+      "name": "세븐일레븐",
+      "lat": "35.1947277263831",
+      "lon": "129.0609856246989",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 20,
+    "fields": {
+      "name": "남도푸드앤",
+      "lat": "35.1948171592748",
+      "lon": "129.06115804351577",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 21,
+    "fields": {
+      "name": "BBQ",
+      "lat": "35.1948409591141",
+      "lon": "129.06134801558244",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 22,
+    "fields": {
+      "name": "33떡볶이",
+      "lat": "35.1944887219632",
+      "lon": "129.06073258162144",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 23,
+    "fields": {
+      "name": "아리아닭강정",
+      "lat": "35.1945173431543",
+      "lon": "129.06077172758546",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 24,
+    "fields": {
+      "name": "롯데리아",
+      "lat": "35.194559849503",
+      "lon": "129.06078926843796",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 25,
+    "fields": {
+      "name": "세븐일레븐",
+      "lat": "35.1947708127856",
+      "lon": "129.06189514282192",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 26,
+    "fields": {
+      "name": "BBQ",
+      "lat": "35.1947447332228",
+      "lon": "129.0619713295385",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 27,
+    "fields": {
+      "name": "세븐일레븐(편의점)",
+      "lat": "35.1949643751229",
+      "lon": "129.0611123624539",
+      "image": ""
+    }
+  },
+  {
+    "model": "foods.store",
+    "pk": 28,
+    "fields": {
+      "name": "남도푸드앤",
+      "lat": "35.1949142255558",
+      "lon": "129.06114677379512",
+      "image": ""
+    }
+  }
+]
