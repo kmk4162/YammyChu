@@ -36,7 +36,10 @@
   {% else %}
   <div class="row py-4 my-5 d-flex justify-content-center bg-light" style="border-top: 1rem solid grey; border-bottom: 1rem solid grey">
   {% endif %}
-    <h2 class="text-center fw-bold my-3">팀별 먹거리 보러가기</h2>
+    <div class="d-flex flex-column align-items-center my-3">
+      <h2 class="fw-bold" style="font-size:2.5rem;">팀별 먹거리 보러가기<h2>
+      <p class="" style="color:gray; font-size:1.2rem;">구장별 맛집 정보를 찾아보세요😀</p>
+    </div>
     {% for team in teams %}
     <div class="team-card text-bg-white col-5 col-sm-3 col-lg-2 m-1 p-0">
       {% if team == user.team %}
@@ -131,28 +134,30 @@
       </div>
     </section>
     <section class="row d-flex justify-content-center mt-5">
-      <div class="col-12 col-md-8">
-        <h2>
+      <div class="col-12 col-md-8 mt-4" style="height:100%;">
+        <div class="pt-4 ps-5" style="background-color:white; border-radius:10px; overflow:hidden; height:521.58px;">
           {% if user.is_authenticated %}
-          <img src="{{ user.team.logo.url }}" style="width:5rem; height:5rem">
-          {{ user.team.name }}팬들의 최신 글
+          <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 팬들의 최신 글<h2>
+          <p class="" style="color:gray; font-size:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
           {% else %}
-          커뮤니티 최신글
+          <h2 class="fw-bold">통합 게시판의 최신 글<h2>
+          <p class="" style="color:gray; font-size:1rem;">최신 게시글을 확인하세요🔥</p>
           {% endif %}
-          <span class="small"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기><a></span>
-        </h2>
-        <div class="pb-1 pt-4" style="border-top:thick double {{ user.team.color }}; border-bottom:thick double {{ user.team.color }}">
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+            <table class="">
+              <tbody class="text-center">
+                {% for article in articles %}
+                <tr class="mt-3" style="font-size:1.2rem; margin:2rem 0 2rem 0;">
+                  <th scope="row">{{ article.pk }}</th>
+                  <th scope="row" style="font-size:1.2rem; font-weight:300;">{{ article.category }}</th>
+                  <td class="text-start" style="font-size:1.2rem;><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none"">{{ article.title }}</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="small text-end me-5"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a></div>
         </div>
       </div>
-      <div class="col-8 col-md-4 mt-4">
+      <div class="col-12 col-md-4 mt-4">
         <div class="pt-4" style="background-color:white; border-radius:10px; overflow:hidden;">
           <h2 class="ms-5 fw-bold">팀 순위<h2>
           <p class="ms-5" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>

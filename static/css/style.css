@@ -72,7 +72,7 @@ body {
   /*width:70px;카테고리 메뉴 밑줄의 크기를 동일하게 주기 위해 width 설정*/
 /*혹시 동일하지 않길 바란다면 width 삭제*/
   content: '';
-  border-bottom: solid 2px #fff;
+  border-bottom: solid 4px #fff;
   transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
   transition: transform 250ms ease-in-out; /*변형 방식*/
   margin-left:1rem;
