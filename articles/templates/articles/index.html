@@ -134,8 +134,8 @@
       </div>
     </section>
     <section class="row d-flex justify-content-center mt-5">
-      <div class="col-12 col-md-8 mt-4" style="height:100%;">
-        <div class="pt-4 ps-5" style="background-color:white; border-radius:10px; overflow:hidden; height:521.58px;">
+      <div class="col-12 col-md-5 mt-4">
+        <div class="pt-4 ps-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
           {% if user.is_authenticated %}
           <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 팬들의 최신 글<h2>
           <p class="" style="color:gray; font-size:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
@@ -143,11 +143,10 @@
           <h2 class="fw-bold">통합 게시판의 최신 글<h2>
           <p class="" style="color:gray; font-size:1rem;">최신 게시글을 확인하세요🔥</p>
           {% endif %}
-            <table class="">
+            <table class="mt-5">
               <tbody class="text-center">
                 {% for article in articles %}
-                <tr class="mt-3" style="font-size:1.2rem; margin:2rem 0 2rem 0;">
-                  <th scope="row">{{ article.pk }}</th>
+                <tr class="mt-5" style="font-size:1.2rem; margin:2rem 0 2rem 0; height:2.5rem;">
                   <th scope="row" style="font-size:1.2rem; font-weight:300;">{{ article.category }}</th>
                   <td class="text-start" style="font-size:1.2rem;><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none"">{{ article.title }}</a></td>
                 </tr>
@@ -157,8 +156,14 @@
             <div class="small text-end me-5"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a></div>
         </div>
       </div>
-      <div class="col-12 col-md-4 mt-4">
-        <div class="pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden;">
+      <div class="col-12 col-md-4 p-0 mt-4" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
+        <iframe class="" src="https://m.sports.naver.com/kbaseball/index" style="width:100%; height:100%;" scrolling="no">
+          <p>현재 사용 중인 브라우저는 iframe 요소를 지원하지 않습니다!</p>
+        </iframe>
+      </div>
+
+      <div class="col-12 col-md-3 mt-4">
+        <div class="pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
           <h2 class=" fw-bold">팀 순위<h2>
           <p class="" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
           <table class="table table-borderless rounded-1 bg-white text-center" style="font-size:1rem;">

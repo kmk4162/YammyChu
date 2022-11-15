@@ -12,7 +12,7 @@ def index(request):
     articles = Article.objects.order_by('-pk')
     context = {
         "teams": teams,
-        "articles":articles[:10],
+        "articles":articles[:8],
     }
     return render(request, "articles/index.html", context)
 
