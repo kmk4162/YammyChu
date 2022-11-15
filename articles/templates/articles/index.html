@@ -137,16 +137,16 @@
       <div class="col-12 col-md-5 mt-4">
         <div class="pt-4 ps-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
           {% if user.is_authenticated %}
-          <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 팬들의 최신 글<h2>
+          <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 팬들의 최신 게시글<h2>
           <p class="" style="color:gray; font-size:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
           {% else %}
           <h2 class="fw-bold">통합 게시판의 최신 글<h2>
           <p class="" style="color:gray; font-size:1rem;">최신 게시글을 확인하세요🔥</p>
           {% endif %}
-            <table class="mt-5">
+            <table class="mt-4">
               <tbody class="text-center">
                 {% for article in articles %}
-                <tr class="mt-5" style="font-size:1.2rem; margin:2rem 0 2rem 0; height:2.5rem;">
+                <tr class="mt-4" style="font-size:1.2rem; margin:2rem 0 2rem 0; height:2.8rem;">
                   <th scope="row" style="font-size:1.2rem; font-weight:300;">{{ article.category }}</th>
                   <td class="text-start" style="font-size:1.2rem;><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none"">{{ article.title }}</a></td>
                 </tr>
