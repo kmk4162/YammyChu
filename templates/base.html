@@ -89,7 +89,7 @@
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link ms-2" href="{% url 'accounts:profile' request.user.pk %}">
-            {{ request.user.nickname }}님의 프로필
+            <span id="user-nickname" data-user-id="{{ request.user.pk }}">{{ request.user.nickname }}</span>님의 프로필
           </a>
         </li>
         <a class="nav-link ms-2" href="{% url 'accounts:logout' %}">로그아웃</a>
