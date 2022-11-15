@@ -10,8 +10,12 @@
         <div id="map" style="width:100%;height:350px;"></div>
     </div>
     <div class='col-4'>
-        {% if store.image %}
-        <img src="{{ store.image.url }}" alt="{{ store.image }}">
+        {% if store.store_image.all %}
+            {% for image in store.store_image.all %}
+            {% if forloop.counter == 1 %}
+            <img src="{{ image.image.url }}" alt="{{ image.image }}">
+            {% endif %}
+            {% endfor %}
         {% else %}
         <img src="{% static 'images/슈렉.jpg' %}" style='width:100%'>
         {% endif %}
@@ -52,49 +56,46 @@
             <div class="accordion" id="accordionExample">
                 {% for review in store.store_reviews.all reversed %}
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
-                        </button>
-                    </h2>
-                            <table class="table table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th class='col-2'>
-                                            {% if review.grade == 5 %}
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            {% elif review.grade == 4 %}
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            {% elif review.grade == 3 %}
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            {% elif review.grade == 2 %}
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            {% elif review.grade == 1 %}
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            {% endif %}
-                                        </th>
-                                        <th class='col-6' style="width: 100%;
-                                        text-overflow: ellipsis;
-                                        overflow: hidden;
-                                        word-break: break-word;
-                                        display: -webkit-box;
-                                        -webkit-line-clamp: 1;
-                                        -webkit-box-orient: vertical;">{{ review.content }}</th>
-                                        <th class='col-2'>{{ review.user.username }}</th>
-                                        <th class='col-2'>{{ review.created_at|date:'Y.m.d A h:i' }}</th>
-                                    </tr>
-                                </thead>
-                            </table>
-            
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th class='col-2'>
+                                        {% if review.grade == 5 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 4 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 3 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 2 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 1 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% endif %}
+                                    </th>
+                                    <th class='col-6' style="width: 100%;
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    word-break: break-word;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 1;
+                                    -webkit-box-orient: vertical;">{{ review.content }}</th>
+                                    <th class='col-2'>{{ review.user.username }}</th>
+                                    <th class='col-2'>{{ review.created_at|date:'Y.m.d A h:i' }}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </button>
                    
                     <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
@@ -121,7 +122,7 @@
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-                                          <a class="btn btn-danger" href="{% url 'foods:delete' store.team_id store.pk review.pk %}">삭제</a>
+                                          <a class="btn btn-danger" href="{% url 'foods:store_review_delete' store.team_id store.pk review.pk %}">삭제</a>
                                         </div>
                                       </div>
                                     </div>
@@ -135,11 +136,11 @@
             </div>
         </div>
         <div class="tab-pane fade" id="review-create-tab-pane" role="tabpanel" aria-labelledby="review-create-tab" tabindex="0">
-            <form action="{% url 'foods:create' store.team_id store.pk %}" method="POST" enctype="multipart/form-data">
+            <form action="{% url 'foods:store_review_create' store.team_id store.pk %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form review_form %}
-                <div class="d-flex justify-content-between">
-                    <input type="file" name="image" style="cursor:pointer;" multiple>
+                {% bootstrap_form reviewimage_form %}
+                <div class="d-flex justify-content-end">
                     <input type="submit" value="작성하기" class="btn btn-primary">
                 </div>
             </form>
