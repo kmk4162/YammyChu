@@ -158,15 +158,17 @@
         </div>
       </div>
       <div class="col-12 col-md-4 mt-4">
-        <div class="pt-4" style="background-color:white; border-radius:10px; overflow:hidden;">
-          <h2 class="ms-5 fw-bold">팀 순위<h2>
-          <p class="ms-5" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
-          <table class="table table-borderless rounded-1 bg-white ms-5" style="font-size:1rem;">
-            <thead class="mb-4">
-            </thead>
+        <div class="pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden;">
+          <h2 class=" fw-bold">팀 순위<h2>
+          <p class="" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
+          <table class="table table-borderless rounded-1 bg-white text-center" style="font-size:1rem;">
             <tbody>
               {% for team in teams %}
+              {% if team == user.team %}
+              <tr style="border:2px solid {{ team.color }};">
+              {% else %}
               <tr>
+              {% endif %}
                 <th scope="row">{{ team.pk }}</th>
                 <td>
                   <img src="{{ team.logo.url }}" style="width:1.5rem; height:1.5rem">
