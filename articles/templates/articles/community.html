@@ -68,7 +68,7 @@
             <td class="text-start"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
             <td>{{ article.created_at|date:'Y-m-d H:i' }}</td>
             <td>{{ article.hits }}</td>
-            <td>{{ article.user.username }}</td>
+            <td>{{ article.user.nickname }}</td>
           </tr>
           {% endfor %}
         </tbody>
