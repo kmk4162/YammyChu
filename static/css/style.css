@@ -55,9 +55,6 @@ video {
 
 /* base.html --------------------------------------------------------------------------------------------*/
 
-body {
-  background-color: beige;
-}
 
 .menu a{
   color: #fff;/*폰트컬러*/
@@ -190,10 +187,81 @@ footer {
   transform:rotateY(180deg);
 }
 
-.community-top5-review {
-  background-color: #000000ba;
-  color: white;
-  text-align: center;
+
+/* 카드 자동 스라이더 효과 */
+
+.slider{
+  height: 450px;
+  margin: auto;
+  position:relative;
+  width: 120%;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  left:-10%;
+}
+
+.slide-track{
+  display:flex;
+  width: calc(300px * 12);
+  animation: scroll 40s linear infinite;
+}
+
+.slide-track:hover{
+  animation-play-state:paused;
+}
+
+@keyframes scroll{
+  0% {
+    transform: translateX(0);
+  }
+  100%{
+    transform: translateX(calc(-300px * 6));
+  }
+}
+
+.slide{
+  height: 250px;
+  width: 300px;
+  display: flex;
+  align-items:center;
+  padding: 15px;
+  perspective:100px;
+}
+
+.train-card{
+  width:100%;
+  transition:transform 1s;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.train-card:hover{
+  transform:translateZ(18px);
+}
+
+/* 슬라이더 그라데이션 그림자 */
+
+.slider::before,
+.slider::after {
+  background:linear-gradient(to right, #f6f4f2 0%,
+  rgba(255,255,255,0) 100%);
+  content:'';
+  height:100%;
+  position:absolute;
+  width:15%;
+  z-index:2;
+}
+
+.slider::before{
+  left:0;
+  top:0;
+}
+
+.slider::after{
+  right:0;
+  top:0;
+  transform: rotateZ(180deg);
 }
 
 /* COMMUINITY */
