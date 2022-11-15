@@ -63,7 +63,10 @@
   </div>
   <div class="container">
     <section class="">
-      <h2>인기 리뷰</h2>
+      <div class="d-flex flex-column align-items-center my-3">
+        <h2 class="fw-bold" style="font-size:2.5rem;">인기 리뷰<h2>
+        <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 리뷰를 찾아보세요💯</p>
+      </div>
       <div class="row">
         <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
           <div class=" border border-1 bg-white p-3">
@@ -148,7 +151,7 @@
                 {% for article in articles %}
                 <tr class="mt-4" style="font-size:1.2rem; margin:2rem 0 2rem 0; height:2.8rem;">
                   <th scope="row" style="font-size:1.2rem; font-weight:300;">{{ article.category }}</th>
-                  <td class="text-start" style="font-size:1.2rem;><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none"">{{ article.title }}</a></td>
+                  <td class="text-start" style="font-size:1.2rem;"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
                 </tr>
                 {% endfor %}
               </tbody>
