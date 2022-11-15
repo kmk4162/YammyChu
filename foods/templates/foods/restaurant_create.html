@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load tag_check %}
+{% load static %}
+{% bootstrap_css %}
+{% block content %}
+
+<div class='container'>
+    
+    <form name='mapform' action='' method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <label class='form-label' for='id_name'>가게명</label>
+        <input type='text' name='name' maxlength='30' class='form-control' placeholder='가게명' required='' id='id_name'>
+
+        <div id="map" class='my-3' style="width:100%;height:400px;"></div>
+        <label for="id_address" class="form-label">주소</label>
+        <div class='input-group'>
+            <input name="address" maxlength='100' required="주소를 입력하고 지도를 클릭해 마커를 표시해 주세요!" type="text" class="form-control"
+                placeholder="직접 입력하거나 지도를 클릭해 마커를 표시하세요." id="id_address" aria-label="Recipient's username"
+                aria-describedby="button-addon2">
+            <button onclick="transform()" class="btn btn-primary" type="button" id="button-addon2">주소 확인</button>
+        </div>
+
+        <label class='form-label' for='id_content'>소개</label>
+        <input type='text' name='content' class='form-control' placeholder='소개' required='' id='id_content'>
+
+        <input name="lon" type="hidden" value="">
+        <input name="lat" type="hidden" value="">
+
+        {% bootstrap_form restaurantimage_form %}
+
+        <button class="btn btn-primary" type="submit">작성하기</button>
+    </form>
+</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
+<script>
+  var enteraddress = document.querySelector('[name="address"]')
+  enteraddress.addEventListener('keydown', function (event) {
+    if (event.keyCode === 13) {
+      document.getElementById('button-addon2').click();
+    };
+  }, true);
+
+  var mapContainer = document.getElementById('map'),
+    mapOption = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3
+    };
+
+
+  var geocoder = new kakao.maps.services.Geocoder();
+  geocoder.addressSearch(`{{ team.stadium.address }}`, function (result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+      map.setCenter(coords);
+    }
+  });
+
+  var map = new kakao.maps.Map(mapContainer, mapOption);
+
+  var marker = new kakao.maps.Marker({
+    position: map.getCenter()
+  });
+
+  marker.setMap(map);
+  kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+    function searchAddrFromCoords(coords, callback) {
+      geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+    }
+
+    function searchDetailAddrFromCoords(coords, callback) {
+      geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+    }
+    searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+        var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+
+        var content = '<div class="bAddr">' +
+          '<span class="title">법정동 주소정보</span>' +
+          detailAddr +
+          '</div>';
+        marker.setPosition(mouseEvent.latLng);
+        marker.setMap(map);
+        document.mapform.address.value = result[0].road_address.address_name
+
+      }
+    });
+
+    var latlng = mouseEvent.latLng;
+
+    // 마커 위치를 클릭한 위치로 옮깁니다
+    marker.setPosition(latlng);
+    document.mapform.lon.value = latlng['La']
+    document.mapform.lat.value = latlng['Ma']
+
+  });
+  function transform() {
+    var geocoder = new kakao.maps.services.Geocoder();
+    var address = document.mapform.address.value
+    geocoder.addressSearch(`${address}`, function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+      } else {
+        alert('정확한 주소를 입력해 주세요. \n( 지번 또는 도로명주소 포맷을 지원합니다. )')
+      }
+    });
+  }
+</script>
+
+{% endblock %}
