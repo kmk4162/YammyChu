@@ -75,6 +75,7 @@ def comments_create(request, article_pk):
         comment_data.append({
             'userId': t.user_id, 
             'userName': t.user.username, 
+            'nickname': t.user.nickname, 
             'content': t.content,
             'commentPk': t.pk,
         })
@@ -100,6 +101,7 @@ def comments_update(request, article_pk, comment_pk):
         comment_data.append({
             'userId':t.user_id, 
             'userName': t.user.username, 
+            'nickname': t.user.nickname, 
             'content': t.content,
             'commentPk': t.pk,
         })
@@ -124,6 +126,7 @@ def comments_delete(request, article_pk, comment_pk):
         comment_data.append({
             'userId':t.user_id, 
             'userName': t.user.username, 
+            'nickname': t.user.nickname, 
             'content': t.content,
             'commentPk': t.pk,
         })

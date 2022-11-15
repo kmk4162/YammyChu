@@ -37,31 +37,36 @@
   <h4 class="mt-5 mb-3 fw-bold">댓글 목록</h4>
   <div id="comments">
     {% for comment in comments %}
-      <div id="comment">
-        <span> {{ comment.user.username }}님 | {{ comment.content }}</span>
+      <div id="comment" class="d-flex">
+        <span> {{ comment.user.nickname }}님 | <span id="comment-content-{{ comment.pk }}" data-comment-id="{{ comment.pk }}">{{ comment.content }}</span></span>
         {% if request.user.pk == comment.user.pk %}
-          <div id="form-comment-update-{{ comment.pk }}" style="display:none;">
-            <input id="input-{{ comment.pk }}" type="text" value="{{comment.content}}">
-            <button onclick="ok_function(this)" id="okBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">확인</button>
-            <button onclick="cancel_function(this)" id="cancelBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">취소</button>
+          <div id="form-comment-update-{{ comment.pk }}" class="ms-1 col-10 col-md-11" style="display:none;">
+            <div class="row d-flex justify-context-space-between">
+              <div class="col-7 col-md-7 col-xl-9 align-middle mx-0">
+                <input id="input-{{ comment.pk }}" class="form-control" type="text" value="{{comment.content}}">
+              </div>
+              <div class="row col-5 col-md-5 col-xl-3 align-middle">
+                <button onclick="ok_function(this)" class="btn btn-dark col ms-2" id="okBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">확인</button>
+                <button onclick="cancel_function(this)" class="btn btn-dark col ms-2" id="cancelBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">취소</button>
+              </div>
+            </div>
           </div>
           <div id="comment-buttons-{{ comment.pk }}">
-            <button onclick="update_comment(this)" id="comment-update-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">수정</button>
-            <button onclick="delete_comment(this)" id="comment-delete-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">삭제</button>
+            <button onclick="update_comment(this)" class="btn btn-dark ms-2" id="comment-update-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">수정</button>
+            <button onclick="delete_comment(this)" class="btn btn-dark ms-2" id="comment-delete-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">삭제</button>
           </div>  
-          <hr>   
-          {% endif %}
-
+        {% endif %}
       </div> 
+      <hr>
     {% empty %}
-      <p>댓글이 없어요 ㅠ_ㅠ</p>
+    <p>댓글이 없어요 ㅠ_ㅠ</p>
     {% endfor %}
   </div>
 
   {% comment %} 댓글 작성 {% endcomment %}
   <form id="comment-form" data-article-id="{{ article.pk }}">
     {% csrf_token %}
-    <div class="row d-flex justify-context-space-between">
+    <div class="row mt-3 d-flex justify-context-space-between">
       <div class="col-9 col-md-10 col-xl-11 align-middle">
         {% bootstrap_form comment_form %}
       </div>
@@ -120,23 +125,30 @@ likeBtn.addEventListener('click', function(event) {
       for (let i = 0; i < comment_data.length; i++) {
         const article_pk = response.data.article_pk
         if (user === comment_data[i].userId ){
-        comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].userName } | ${ comment_data[i].content }</span>
-          <div id="form-comment-update-${comment_data[i].commentPk}" style="display:none;">
-            <input id="input-${comment_data[i].commentPk}" type="text" value="${comment_data[i].content}">
-            <button onclick="ok_function(this)" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-            <button onclick="cancel_funtion(this)" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
-          </div>
-          <div id="comment-buttons-${comment_data[i].commentPk}">
-            <button onclick="update_comment(this)" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
-            <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+          comments.insertAdjacentHTML('beforeend', `
+          <div id="comment" class="d-flex">
+            <span> ${ comment_data[i].nickname }님 | <span id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span></span>
+            <div id="form-comment-update-${comment_data[i].commentPk}" class="ms-1 col-10 col-md-11" style="display:none;">
+              <div class="row d-flex justify-context-space-between">
+                <div class="col-7 col-md-7 col-xl-9 align-middle mx-0">
+                  <input id="input-${comment_data[i].commentPk}" class="form-control" type="text" value="${comment_data[i].content}">
+                </div>
+                <div class="row col-5 col-md-5 col-xl-3 align-middle">
+                  <button onclick="ok_function(this)" class="btn btn-dark col ms-2" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
+                  <button onclick="cancel_funtion(this)" class="btn btn-dark col ms-2" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
+                </div>
+              </div>
+            </div>
+            <div id="comment-buttons-${comment_data[i].commentPk}">
+              <button onclick="update_comment(this)" class="btn btn-dark ms-2" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
+              <button onclick="delete_comment(this)" class="btn btn-dark ms-2" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+            </div>
           </div>
           <hr>
-
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].userName } | ${ comment_data[i].content }</span>
+          <span> ${ comment_data[i].nickname }님 | ${ comment_data[i].content }</span>
           <hr>
           `);
         }
@@ -171,22 +183,29 @@ likeBtn.addEventListener('click', function(event) {
         const article_pk = response.data.article_pk
         if (user === comment_data[i].userId ){
         comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].userName } | ${ comment_data[i].content }</span>
-          <div id="form-comment-update-${comment_data[i].commentPk}" style="display:none;">
-            <input id="input-${comment_data[i].commentPk}" type="text" value="${comment_data[i].content}">
-            <button onclick="ok_function(this)" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-            <button onclick="cancel_funtion(this)" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
-          </div>
-          <div id="comment-buttons-${comment_data[i].commentPk}">
-            <button onclick="update_comment(this)" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
-            <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+          <div id="comment" class="d-flex">
+            <span> ${ comment_data[i].nickname }님 | <span id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span></span>
+            <div id="form-comment-update-${comment_data[i].commentPk}" class="ms-1 col-10 col-md-11" style="display:none;">
+              <div class="row d-flex justify-context-space-between">
+                <div class="col-7 col-md-7 col-xl-9 align-middle mx-0">
+                  <input id="input-${comment_data[i].commentPk}" class="form-control" type="text" value="${comment_data[i].content}">
+                </div>
+                <div class="row col-5 col-md-5 col-xl-3 align-middle">
+                  <button onclick="ok_function(this)" class="btn btn-dark col ms-2" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
+                  <button onclick="cancel_funtion(this)" class="btn btn-dark col ms-2" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
+                </div>
+              </div>
+            </div>
+            <div id="comment-buttons-${comment_data[i].commentPk}">
+              <button onclick="update_comment(this)" class="btn btn-dark ms-2" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
+              <button onclick="delete_comment(this)" class="btn btn-dark ms-2" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+            </div>
           </div>
           <hr>
-
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].userName } | ${ comment_data[i].content }</span>
+          <span> ${ comment_data[i].nickname }님 | ${ comment_data[i].content }</span>
           <hr>
           `);
         }
@@ -212,6 +231,9 @@ likeBtn.addEventListener('click', function(event) {
     const input = document.createElement('input');
     const comment = document.querySelector('#comment');
     const span = document.createElement('span');
+    const commentContent = document.querySelector(`#comment-content-${ event.target.dataset.commentId }`);
+    console.log(commentContent)
+    commentContent.style.display = "none";
     const comment_update_form = document.querySelector(`#form-${ e.id }`);
     comment_update_form.style.display = "block";
     const comment_buttons = document.querySelector(`#comment-buttons-${ event.target.dataset.commentId }`);
@@ -236,23 +258,30 @@ likeBtn.addEventListener('click', function(event) {
       for (let i = 0; i < comment_data.length; i++) {
         const article_pk = response.data.article_pk
         if (user === comment_data[i].userId ){
-        comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].userName } | ${ comment_data[i].content }</span>
-          <div id="form-comment-update-${comment_data[i].commentPk}" style="display:none;">
-            <input id="input-${comment_data[i].commentPk}" type="text" value="${comment_data[i].content}">
-            <button onclick="ok_function(this)" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-            <button onclick="cancel_funtion(this)" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
-          </div>
-          <div id="comment-buttons-${comment_data[i].commentPk}">
-            <button onclick="update_comment(this)" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
-            <button onclick="delete_comment(this)" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+          comments.insertAdjacentHTML('beforeend', `
+          <div id="comment" class="d-flex">
+            <span> ${ comment_data[i].nickname }님 | <span id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span></span>
+            <div id="form-comment-update-${comment_data[i].commentPk}" class="ms-1 col-10 col-md-11" style="display:none;">
+              <div class="row d-flex justify-context-space-between">
+                <div class="col-7 col-md-7 col-xl-9 align-middle mx-0">
+                  <input id="input-${comment_data[i].commentPk}" class="form-control" type="text" value="${comment_data[i].content}">
+                </div>
+                <div class="row col-5 col-md-5 col-xl-3 align-middle">
+                  <button onclick="ok_function(this)" class="btn btn-dark col ms-2" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
+                  <button onclick="cancel_funtion(this)" class="btn btn-dark col ms-2" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
+                </div>
+              </div>
+            </div>
+            <div id="comment-buttons-${comment_data[i].commentPk}">
+              <button onclick="update_comment(this)" class="btn btn-dark ms-2" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
+              <button onclick="delete_comment(this)" class="btn btn-dark ms-2" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+            </div>
           </div>
           <hr>
-
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].userName } | ${ comment_data[i].content }</span>
+          <span> ${ comment_data[i].nickname }님 | ${ comment_data[i].content }</span>
           <hr>
           `);
         }
