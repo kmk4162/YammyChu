@@ -7,4 +7,3 @@ class User(AbstractUser):
     nickname = models.CharField(max_length=10, unique=True)
     first_name = None
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
-    

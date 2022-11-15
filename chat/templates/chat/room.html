@@ -19,7 +19,7 @@
               <h5 class="mb-0"></h5>
             </div>
             <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative;">
-                <textarea class="w-100 border border-none p-5" id="chat-log" cols="100" rows="20" style="resize:none" disabled></textarea><br>
+                <div class="w-100 border border-none p-5" id="chat-log" cols="100" rows="20" style="resize:none" disabled></div><br>
             </div>
             <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
               <div class="input-group mb-0">
@@ -38,9 +38,11 @@
     </div>
   </section>
     {{ room_name|json_script:"room-name" }}
+    {{ user.nickname|json_script:"user_nickname" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
+        const user_nickname = JSON.parse(document.getElementById('user_nickname').textContent);
+        
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
@@ -51,7 +53,17 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
+            const userId = document.querySelector('#user-nickname').dataset.userId;
+            chatLog = document.querySelector('#chat-log')
+            const new_msg = data.message.split(':')
+            console.log(new_msg)
+            chatLog.insertAdjacentHTML(`beforeend`, `
+              <div>
+                <a href="/accounts/${ new_msg[2] }"><span> ${new_msg[0]}</span></a>
+                :
+                <span>${new_msg[1]}</span>
+              </div>
+            `)
         };
 
         chatSocket.onclose = function(e) {
@@ -68,9 +80,10 @@
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
+            const userNickname = document.querySelector('#user-nickname').innerText;
             chatSocket.send(JSON.stringify({
-                // 'user': request.user.nickname,
-                'message': message
+                'message': message,
+                'username': userNickname,
             }));
             messageInputDom.value = '';
         };
