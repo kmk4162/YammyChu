@@ -9,10 +9,10 @@ from django.core.paginator import Paginator
 
 def index(request):
     teams = Team.objects.all()
-
+    articles = Article.objects.order_by('-pk')
     context = {
         "teams": teams,
-
+        "articles":articles[:8],
     }
     return render(request, "articles/index.html", context)
 

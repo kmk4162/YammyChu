@@ -36,7 +36,10 @@
   {% else %}
   <div class="row py-4 my-5 d-flex justify-content-center bg-light" style="border-top: 1rem solid grey; border-bottom: 1rem solid grey">
   {% endif %}
-    <h2 class="text-center fw-bold my-3">팀별 먹거리 보러가기</h2>
+    <div class="d-flex flex-column align-items-center my-3">
+      <h2 class="fw-bold" style="font-size:2.5rem;">팀별 먹거리 보러가기<h2>
+      <p class="" style="color:gray; font-size:1.2rem;">구장별 맛집 정보를 찾아보세요😀</p>
+    </div>
     {% for team in teams %}
     <div class="team-card text-bg-white col-5 col-sm-3 col-lg-2 m-1 p-0">
       {% if team == user.team %}
@@ -59,109 +62,252 @@
     {% endfor %}
   </div>
   <div class="container">
-    <section class="">
-      <h2>인기 리뷰</h2>
-      <div class="row">
-        <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
-          <div class=" border border-1 bg-white p-3">
-            <a href="">
-              <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-            </a>
-            <div class="card-body py-2 border-top">
-              <h5 class="card-title text-center">"리뷰제목"</h5>
-              <p class="card-text small">
-                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-              </p>
-              <p class="small m-0">잠실야구장</p>
-              <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-            </div>
-          </div>
-        </div>
-        <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
-          <div class=" border border-1 bg-white p-3">
-            <a href="">
-              <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-            </a>
-            <div class="card-body py-2 border-top">
-              <h5 class="card-title text-center">"리뷰제목"</h5>
-              <p class="card-text small">
-                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-              </p>
-              <p class="small m-0">잠실야구장</p>
-              <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-            </div>
-          </div>
-        </div>
-        <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
-          <div class=" border border-1 bg-white p-3">
-            <a href="">
-              <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-            </a>
-            <div class="card-body py-2 border-top">
-              <h5 class="card-title text-center">"리뷰제목"</h5>
-              <p class="card-text small">
-                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-              </p>
-              <p class="small m-0">잠실야구장</p>
-              <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-            </div>
-          </div>
-        </div>
-        <div class="d-none d-sm-block col-6 col-lg-3 container p-3">
-          <div class=" border border-1 bg-white p-3">
-            <a href="">
-              <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-            </a>
-            <div class="card-body py-2 border-top">
-              <h5 class="card-title text-center">"리뷰제목"</h5>
-              <p class="card-text small">
-                리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-              </p>
-              <p class="small m-0">잠실야구장</p>
-              <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-            </div>
-          </div>
-        </div>
-        <div class="d-block d-sm-none pb-1 pt-4" style="border-top:thick inset #D8D8D8; border-bottom:thick inset #D8D8D8">
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"리뷰 제목 리뷰제목" 잠실야구장</span> <span>⭐⭐⭐⭐⭐<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"리뷰 제목 리뷰제목" 잠실야구장</span> <span>⭐⭐⭐⭐⭐<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"리뷰 제목 리뷰제목" 잠실야구장</span> <span>⭐⭐⭐⭐⭐<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"리뷰 제목 리뷰제목" 잠실야구장</span> <span>⭐⭐⭐⭐⭐<span></a><br>
-        </div>
+    <section class="my-5 py-5">
+      <div class="d-flex flex-column align-items-center mt-3">
+        <h2 class="fw-bold" style="font-size:2.5rem;">인기 리뷰<h2>
+        <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 리뷰를 찾아보세요💯</p>
       </div>
+
+      <!-- 카드 슬라이더 효과 -->
+      <div class='slider'>
+
+        <div class='slide-track'>
+
+          <div class='slide'>
+            <div class="train-card bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 한번 더 반복하기 -->
+
+          
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+          <div class='slide'>
+            <div class="train-card border border-1 bg-white p-3">
+              <a href="">
+                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">"리뷰제목"</h5>
+                <p class="card-text small">
+                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
+                </p>
+                <p class="small m-0">잠실야구장</p>
+                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
     </section>
     <section class="row d-flex justify-content-center mt-5">
-      <div class="col-12 col-md-8">
-        <h2>
-          {% if user.is_authenticated %}
-          <img src="{{ user.team.logo.url }}" style="width:5rem; height:5rem">
-          {{ user.team.name }}팬들의 최신 글
+      <div class="col-12 col-md-5 mt-4">
+        <div class="pt-4 ps-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
+          {% if user.is_authenticated and user.team %}
+          <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 팬들의 최신 게시글<h2>
+          <p class="" style="color:gray; font-size:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
           {% else %}
-          커뮤니티 최신글
+          <h2 class="fw-bold">통합 게시판의 최신 글<h2>
+          <p class="" style="color:gray; font-size:1rem;">최신 게시글을 확인하세요🔥</p>
           {% endif %}
-          <span class="small"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기><a></span>
-        </h2>
-        <div class="pb-1 pt-4" style="border-top:thick double {{ user.team.color }}; border-bottom:thick double {{ user.team.color }}">
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
-          <a class="text-decoration-none text-black d-flex justify-content-around" href=""><span>"글제목 어쩌구 저쩌구 이러쿵...."</span> <span>작성자<span></a><br>
+            <table class="mt-4">
+              <tbody class="text-center">
+                {% for article in articles %}
+                {% if article.user.team == user.team %}
+                <tr class="mt-4" style="font-size:1.2rem; margin:2rem 0 2rem 0; height:2.8rem;">
+                  <th scope="row" style="font-size:1.2rem; font-weight:500; color:gray;">{{ article.category }}</th>
+                  <td class="text-start" style="font-size:1.2rem;"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="small text-end me-5"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a></div>
         </div>
       </div>
-      <div class="col-8 col-md-4 mt-4">
-        <div class="pt-4" style="background-color:white; border-radius:10px; overflow:hidden;">
-          <h2 class="ms-5 fw-bold">팀 순위<h2>
-          <p class="ms-5" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
-          <table class="table table-borderless rounded-1 bg-white ms-5" style="font-size:1rem;">
-            <thead class="mb-4">
-            </thead>
+
+
+      <div class="col-12 col-md-4 p-0 mt-4" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
+        <iframe class="" src="https://m.sports.naver.com/kbaseball/index" style="width:100%; height:100%;" scrolling="no">
+          <p>현재 사용 중인 브라우저는 iframe 요소를 지원하지 않습니다!</p>
+        </iframe>
+      </div>
+
+      <div class="col-12 col-md-3 mt-4">
+        <div class="pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
+          <h2 class=" fw-bold">팀 순위<h2>
+          <p class="" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
+          <table class="table table-borderless rounded-1 bg-white text-center" style="font-size:1rem;">
             <tbody>
               {% for team in teams %}
+              {% if team == user.team %}
+              <tr style="border:2px solid {{ team.color }};">
+              {% else %}
               <tr>
+              {% endif %}
                 <th scope="row">{{ team.pk }}</th>
                 <td>
                   <img src="{{ team.logo.url }}" style="width:1.5rem; height:1.5rem">
