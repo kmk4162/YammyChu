@@ -11,6 +11,7 @@ class ReviewForm(forms.ModelForm):
             "grade": "평점",
         }
 
+
 class ReviewImageForm(forms.ModelForm):
     class Meta:
         model = ReviewImage

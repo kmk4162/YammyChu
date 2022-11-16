@@ -15,11 +15,16 @@
   }
 </style>
 <div class="container my-5">
-  <form action="" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form article_form %}
-    {% comment %} 버튼 색깔도 테마 따라 바꾸면 괜찮을듯! {% endcomment %}
-    <button type="submit" id="submit-btn">작성완료</button>
-  </form>
+  <div class="container col-10 border border-1 rounded-1 p-5">
+    <h2 class="text-center">글 작성</h2>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form article_form %}
+      {% comment %} 버튼 색깔도 테마 따라 바꾸면 괜찮을듯! {% endcomment %}
+      <div class="text-center">
+        <button type="submit" id="submit-btn">작성완료</button>
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock %}

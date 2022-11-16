@@ -13,6 +13,10 @@
     border-radius:5px;
     padding:5px 15px;
   }
+  li#page-now > a.page-link {
+    background-color:black !important; 
+    border-color:black;
+   }
 </style>
 
 <div class='container'>
@@ -71,11 +75,11 @@
       <ul class="pagination justify-content-center">
         <!-- 이전페이지 -->
         {% if articles_category.has_previous %}
-        <li class="page-item mx-0">
+        <li class="page-item mx-0" id="page-pre">
             <a class="page-link" href="?page={{ articles_category.previous_page_number }}" >이전</a>
         </li>
         {% else %}
-        <li class="page-item disabled mx-0">
+        <li class="page-item disabled mx-0" id="page-pre">
             <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
         </li>
         {% endif %}
@@ -83,11 +87,11 @@
         {% for page_number in articles_category.paginator.page_range %}
         {% if page_number >= articles_category.number|add:-3 and page_number <= articles_category.number|add:3 %}
         {% if page_number == articles_category.number %}
-        <li class="page-item active mx-0" aria-current="page">
+        <li class="page-item active mx-0" aria-current="page" id="page-now">
             <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
         {% else %}
-        <li class="page-item mx-0">
+        <li class="page-item mx-0" id="page-now">
             <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
         {% endif %}
@@ -95,11 +99,11 @@
         {% endfor %}
         <!-- 다음페이지 -->
         {% if articles_category.has_next %}
-        <li class="page-item mx-0">
+        <li class="page-item mx-0" id="page-next">
             <a class="page-link" href="?page={{ articles_category.next_page_number }}">다음</a>
         </li>
         {% else %}
-        <li class="page-item disabled mx-0">
+        <li class="page-item disabled mx-0" id="page-next">
             <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
         </li>
         {% endif %}
