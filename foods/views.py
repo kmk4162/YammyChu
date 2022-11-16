@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Avg
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db.models import Q
 
 
 def home(request, team_pk):
@@ -201,4 +202,32 @@ def tag(request, team_pk, tag_pk):
             reviews.append(review)
     context={'team': team, 'tag': tag, 'reviews': reviews}
     return render(request, 'foods/tag.html', context)
+
+def search(request, team_pk):
+    searched = request.GET.get("searched", False)
+    field = request.GET.get("field")
+    team = Team.objects.get(pk=team_pk)
+    # 내부 매장
+    if field == "1":
+        result = Store.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
+    # 외부 가게
+    elif field == "2":
+        result = Restaurant.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
+    # 리뷰
+    elif field == "3":
+        result = Review.objects.filter(Q(team=team) & (Q(content__contains=searched))).order_by("-pk")
+    if not searched:
+        result = []
+        text = "검색어를 입력하세요."
+    elif len(result) == 0:
+        text = "검색 결과가 없습니다."
+    else:
+        text = "검색 결과"
+    context = {
+        "result": result,
+        "text": text,
+        'field': field,
+        'team' : team,
+    }
+    return render(request, "foods/search.html", context)
     
