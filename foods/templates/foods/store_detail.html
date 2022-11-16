@@ -13,11 +13,11 @@
         {% if store.store_image.all %}
             {% for image in store.store_image.all %}
             {% if forloop.counter == 1 %}
-            <img src="{{ image.image.url }}" alt="{{ image.image }}">
+            <img src="{{ image.image.url }}" alt="{{ image.image }}" style='height:350px; width:auto;'>
             {% endif %}
             {% endfor %}
         {% else %}
-        <img src="{% static 'images/슈렉.jpg' %}" style='width:100%'>
+        <img src="{% static 'images/슈렉.jpg' %}" style='height:350px; width:auto;'>
         {% endif %}
     </div>
 </div>
