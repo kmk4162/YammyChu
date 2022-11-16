@@ -9,17 +9,19 @@ class Store(models.Model):
     name = models.TextField(max_length=30)
     lat = models.TextField()
     lon = models.TextField()    
-    image = ProcessedImageField(
-        upload_to="images/",
-        blank=True,
-        processors=[ResizeToFill(1200, 960)],
-        format="JPEG",
-        options={"quality": 80},
-        null=True
-    )
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_stores', default=1)
+    # 판매 품목
     items = models.TextField()
+    # 상세 위치
     detail = models.TextField()
+    following_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='following_stores')
+
+class StoreImage(models.Model):
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='store_image')
+    image = ProcessedImageField(upload_to='images/', blank=True,
+                                processors=[ResizeToFill(800, 800)],
+                                format='JPEG',
+                                options={'quality': 80})
     
 class Tag(models.Model):
     content = models.TextField(unique=True)

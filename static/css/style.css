@@ -5,13 +5,37 @@
 
 
 
-.intro-box { width: 100vw; height: 100vh; overflow: hidden;margin: 0px auto; position: fixed; top:5rem; z-index: 100; transform:scale(1.3);}
-.intro-mv { width: 100%; }
-.jb-text { position: absolute; top: 50%; width: 100%; }
-.jb-text p { margin-top: -24px; text-align: center; font-size: 48px; color: #ffffff; }
-.intro-bg{
-  z-index:100;
-  height:100em;
+.intro-box {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0px auto;
+  position: fixed;
+  top: 5rem;
+  z-index: 100;
+  transform: scale(1.3);
+}
+
+.intro-mv {
+  width: 100%;
+}
+
+.jb-text {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.jb-text p {
+  margin-top: -24px;
+  text-align: center;
+  font-size: 48px;
+  color: #ffffff;
+}
+
+.intro-bg {
+  z-index: 100;
+  height: 100em;
   background-color: black;
 }
 
@@ -30,10 +54,11 @@
   margin: 0;
 }
 
-.center-video{
-  position:relative;
-  top:50%;
+.center-video {
+  position: relative;
+  top: 50%;
 }
+
 video {
   width: 100%;
 }
@@ -56,27 +81,37 @@ video {
 /* base.html --------------------------------------------------------------------------------------------*/
 
 
-.menu a{
-  color: #fff;/*폰트컬러*/
-  font-weight: 200;/*폰트굵기*/
-  text-decoration: none;/*a href 밑줄 등 글자 꾸밈 없음*/
+.menu a {
+  color: #fff;
+  /*폰트컬러*/
+  font-weight: 200;
+  /*폰트굵기*/
+  text-decoration: none;
+  /*a href 밑줄 등 글자 꾸밈 없음*/
   line-height: 40px;
-  position:relative;
-  top:1.2rem;
+  position: relative;
+  top: 1.2rem;
 }
-.menu a:after {/*after 가상요소*/
-  display:block;/*a요소를 블록 요소라고 선언*/
+
+.menu a:after {
+  /*after 가상요소*/
+  display: block;
+  /*a요소를 블록 요소라고 선언*/
   /*width:70px;카테고리 메뉴 밑줄의 크기를 동일하게 주기 위해 width 설정*/
-/*혹시 동일하지 않길 바란다면 width 삭제*/
+  /*혹시 동일하지 않길 바란다면 width 삭제*/
   content: '';
   border-bottom: solid 4px #fff;
-  transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
-  transition: transform 250ms ease-in-out; /*변형 방식*/
-  margin-left:1rem;
-  height:1px;
+  transform: scaleX(0);
+  /*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
+  transition: transform 250ms ease-in-out;
+  /*변형 방식*/
+  margin-left: 1rem;
+  height: 1px;
 }
+
 .menu a:hover:after {
-  transform: scaleX(1);/*a 속성에 hover시 기존 크기로*/
+  transform: scaleX(1);
+  /*a 속성에 hover시 기존 크기로*/
 }
 
 
@@ -84,7 +119,7 @@ video {
 
 
 
-.navbar{
+.navbar {
   z-index: 9;
 }
 
@@ -97,12 +132,12 @@ video {
   padding: 0;
 }
 
-.nav-sticky{
-  position:sticky;
-  top:0;
+.nav-sticky {
+  position: sticky;
+  top: 0;
 }
 
-.nav-custom{
+.nav-custom {
   width: 100%;
 }
 
@@ -122,8 +157,8 @@ video {
 }
 
 .nav-main-menu:hover {
-  color:white;
-  transform:scale(1.05);
+  color: white;
+  transform: scale(1.05);
 }
 
 footer {
@@ -154,113 +189,114 @@ footer {
   font-size: 20px;
 }
 
-.team-card{
+.team-card {
   position: relative;
 
 }
 
-.team-card:hover .back{
+.team-card:hover .back {
   visibility: visible;
   transform: scale(1.5) rotateY(360deg);
   transition: 0.5s;
 }
 
-.team-card:hover .front{
+.team-card:hover .front {
   visibility: hidden;
   transform: rotateY(180deg);
   transition: 0.5s;
 }
 
-.front{
+.front {
   transition: 0.5s;
 }
 
-.back{
-  position:absolute;
+.back {
+  position: absolute;
   visibility: hidden;
-  top:0;
-  left:0;
-  z-index:10;
-  height:100%;
-  width:100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
   transition: 0.5s;
-  transform:rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 
 /* 카드 자동 스라이더 효과 */
 
-.slider{
+.slider {
   height: 450px;
   margin: auto;
-  position:relative;
+  position: relative;
   width: 120%;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  left:-10%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  left: -10%;
 }
 
-.slide-track{
-  display:flex;
+.slide-track {
+  display: flex;
   width: calc(300px * 12);
   animation: scroll 40s linear infinite;
 }
 
-.slide-track:hover{
-  animation-play-state:paused;
+.slide-track:hover {
+  animation-play-state: paused;
 }
 
-@keyframes scroll{
+@keyframes scroll {
   0% {
     transform: translateX(0);
   }
-  100%{
+
+  100% {
     transform: translateX(calc(-300px * 6));
   }
 }
 
-.slide{
+.slide {
   height: 250px;
   width: 300px;
   display: flex;
-  align-items:center;
+  align-items: center;
   padding: 15px;
-  perspective:100px;
+  perspective: 100px;
 }
 
-.train-card{
-  width:100%;
-  transition:transform 1s;
-  border-radius:10px;
-  overflow:hidden;
+.train-card {
+  width: 100%;
+  transition: transform 1s;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.train-card:hover{
-  transform:translateZ(18px);
+.train-card:hover {
+  transform: translateZ(18px);
 }
 
 /* 슬라이더 그라데이션 그림자 */
 
 .slider::before,
 .slider::after {
-  background:linear-gradient(to right, #f6f4f2 0%,
-  rgba(255,255,255,0) 100%);
-  content:'';
-  height:100%;
-  position:absolute;
-  width:15%;
-  z-index:2;
+  background: linear-gradient(to right, #f6f4f2 0%,
+      rgba(255, 255, 255, 0) 100%);
+  content: '';
+  height: 100%;
+  position: absolute;
+  width: 15%;
+  z-index: 2;
 }
 
-.slider::before{
-  left:0;
-  top:0;
+.slider::before {
+  left: 0;
+  top: 0;
 }
 
-.slider::after{
-  right:0;
-  top:0;
+.slider::after {
+  right: 0;
+  top: 0;
   transform: rotateZ(180deg);
 }
 
@@ -279,4 +315,3 @@ footer {
   list-style: none;
   display: flex;
 }
-

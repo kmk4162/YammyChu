@@ -9,3 +9,4 @@ class ReviewForm(forms.ModelForm):
             "content": "내용",
             "grade": "평점",
         }
+
