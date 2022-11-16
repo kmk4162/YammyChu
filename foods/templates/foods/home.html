@@ -160,14 +160,28 @@ var marker = new kakao.maps.Marker({
     position: coords
 });
 
-var infowindow = new kakao.maps.InfoWindow({
-    content: '<div style="padding:5px; width:auto;">{{ stadium.name }}</div>',
-    position: map,
+var customOverlay = new kakao.maps.CustomOverlay({
+    map: map,
+    clickable: true,
+    content: '<div class="customOverlay">{{ stadium.name }}</div>',
+    position: new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }}),
+    xAnchor: 0.5,
+    yAnchor: 2,
+    
 });
 
 
-infowindow.open(map, marker);
-
+// 마커에 마우스오버 이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseover', function() {
+    // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+    customOverlay.setMap(map)
+  });
+  
+// 마커에 마우스아웃 이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseout', function() {
+    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+    customOverlay.setMap(null)
+});
     {% comment %} var geocoder = new kakao.maps.services.Geocoder();
 
     geocoder.addressSearch("{{ stadium.address }}", function(result, status) {
