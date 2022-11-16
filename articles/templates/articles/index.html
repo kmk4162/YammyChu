@@ -262,40 +262,10 @@
 
     </section>
     <section class="row d-flex justify-content-center mt-5">
-      <div class="col-12 col-xl-4 col-xxl-5 mt-4">
-        <div class="pt-4 ps-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
-          {% if user.is_authenticated and user.team %}
-          <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 팬들의 최신 게시글<h2>
-          <p class="" style="color:gray; font-size:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
-          {% else %}
-          <h2 class="fw-bold">통합 게시판의 최신 글<h2>
-          <p class="" style="color:gray; font-size:1rem;">최신 게시글을 확인하세요🔥</p>
-          {% endif %}
-            <table class="mt-4">
-              <tbody class="text-center">
-                {% for article in articles %}
-                {% if article.user.team == user.team %}
-                <tr class="mt-4" style="font-size:1.2rem; margin:2rem 0 2rem 0; height:2.8rem;">
-                  <th scope="row" style="font-size:1.2rem; font-weight:500; color:gray;">{{ article.category }}</th>
-                  <td class="text-start" style="font-size:1.2rem;"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-              </tbody>
-            </table>
-            <div class="small text-end me-5"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a></div>
-          </div>
-        </div>
 
-      <div class="col-12 col-xl-4 col-xxl-4 p-0 mt-4" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
-        <iframe class="" src="https://m.sports.naver.com/kbaseball/index" style="width:100%; height:100%;" scrolling="no">
-          <p>현재 사용 중인 브라우저는 iframe 요소를 지원하지 않습니다!</p>
-        </iframe>
-      </div>
-
-      <div class="col-12 col-xl-4 col-xxl-3 mt-4">
+      <div class="col-12 col-md-6 col-xl-5 mt-4">
         <div class="pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
-          <h2 class=" fw-bold">팀 순위<h2>
+          <h2 class=" fw-bold">팀 순위</h2>
           <p class="" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
           <table class="table table-borderless rounded-1 bg-white text-center" style="font-size:1rem;">
             <tbody>
@@ -316,6 +286,56 @@
           </table>
         </div>
       </div>
+
+      <div class="col-12 col-md-6 col-xl-7 mt-4">
+        <div class="pt-4 ps-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
+          {% if user.is_authenticated and user.team %}
+          <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 게시판</h2>
+          <p class="" style="color:gray; font-size:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
+          {% else %}
+          <h2 class="fw-bold">통합 게시판의 최신 글<h2>
+          <p class="" style="color:gray; font-size:1rem;">최신 게시글을 확인하세요🔥</p>
+          {% endif %}
+            <table class="mt-4">
+              <tbody class="text-center">
+                {% for article in articles %}
+                {% if article.user.team == user.team %}
+                <tr class="mt-4" style="font-size:1.2rem; margin:2rem 0 2rem 0; height:2.8rem;">
+                  <th scope="row" style="font-size:1.2rem; font-weight:500; color:gray;">{{ article.category }}</th>
+                  <td class="text-start" style="font-size:1.2rem;"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="small text-end me-5"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-12 col-xl-12 col-xxl-12 px-2 mt-4">
+        <div class="row pt-4 px-5 d-flex" style="background-color:white; border-radius:10px; overflow:hidden;">
+          <div class="col-12 col-md-5">
+            <h2 class=" fw-bold">뉴스 기사</h2>
+            <p class="" style="color:gray; font-size:1rem;">최신 뉴스를 확인해보세요📰</p>
+          </div>
+          <div style="overflow:hidden;" id="carouselExampleControls" class="col-12 col-md-7 carousel slide rotate-carousel w-25" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active rotate-carousel-inner">
+                  <p>글자 캐러셀 테스트 alphabet 11111111</p>
+                </div>
+                <div class="carousel-item rotate-carousel-inner">
+                  <p>글자 캐러셀 테스트 alphabet 22222222</p>
+                </div>
+                <div class="carousel-item rotate-carousel-inner">
+                  <p>글자 캐러셀 테스트 alphabet 33333333</p>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      
 
       <!-- 네이버 뉴스 API -->
       {% for news in temp_news.items %}

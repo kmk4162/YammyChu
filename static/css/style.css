@@ -293,6 +293,23 @@ footer {
   transform: rotateZ(180deg);
 }
 
+/* 뉴스 캐러셀 만들기 */
+.rotate-carousel{
+  transform: rotate(-90deg);
+}
+
+.rotate-carousel-inner{
+  writing-mode: vertical-rl;
+  text-orientation:sideways;
+}
+
+.carousel-inner{
+  height:100%;
+}
+
+
+
+
 /* COMMUINITY */
 
 .community-box {
