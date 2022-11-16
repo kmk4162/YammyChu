@@ -13,7 +13,12 @@ from django.db.models import Q
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
-    stores = Store.objects.filter(team=team)
+    if team.pk == 3:
+        middle = Team.objects.filter(stadium_id=team.stadium_id)
+        stores = Store.objects.filter(team=middle[1])
+    else:
+        print(team)
+        stores = Store.objects.filter(team=team)
     restaurants = Restaurant.objects.filter(team=team)
     context = {
         "team": team,
