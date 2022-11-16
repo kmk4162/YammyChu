@@ -6,6 +6,7 @@ from articles.models import Stadium, Team
 from django.contrib.auth import get_user_model
 from django.db.models import Avg
 from django.contrib import messages
+from django.http import JsonResponse
 
 
 def home(request, team_pk):
@@ -30,6 +31,22 @@ def store_detail(request, team_pk, store_pk):
     reviewimage_form = ReviewImageForm()
     context = {'team': team, 'store': store, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/store_detail.html', context)
+
+@login_required
+def store_follow(request, team_pk, store_pk):
+    store = Store.objects.get(pk=store_pk)
+    if request.user in store.following_users.all():
+        store.following_users.remove(request.user)
+        store_follow = False
+    else:
+        store.following_users.add(request.user)
+        store_follow = True
+    return JsonResponse(
+        {
+            "storeFollow": store_follow,
+            "storeFollowCount": store.following_users.count(),
+        }
+    )
 
 @login_required
 def store_review_create(request, team_pk, store_pk):
@@ -81,6 +98,22 @@ def restaurant_detail(request, team_pk, restaurant_pk):
     reviewimage_form = ReviewImageForm()
     context = {'team': team, 'restaurant': restaurant, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/restaurant_detail.html', context)
+
+@login_required
+def restaurant_follow(request, team_pk, restaurant_pk):
+    restaurant = Restaurant.objects.get(pk=restaurant_pk)
+    if request.user in restaurant.following_users.all():
+        restaurant.following_users.remove(request.user)
+        restaurant_follow = False
+    else:
+        restaurant.following_users.add(request.user)
+        restaurant_follow = True
+    return JsonResponse(
+        {
+            "restaurantFollow": restaurant_follow,
+            "restaurantFollowCount": restaurant.following_users.count(),
+        }
+    )
 
 # restaurant를 유저가 직접 쓸 수 있게 하는 페이지, update와 delete는 관리자 권한으로
 @login_required
