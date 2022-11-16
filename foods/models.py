@@ -17,9 +17,12 @@ class Store(models.Model):
     detail = models.TextField()
     following_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='following_stores')
 
-class StoreImage(models.Model):
+def user_directory_path(instance, filename):
+    return f'images/{instance.store.team.name}/{instance.store.detail}/{instance.store.name}/{filename}'
+
+class StoreImage(models.Model):    
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='store_image')
-    image = ProcessedImageField(upload_to='images/', blank=True,
+    image = ProcessedImageField(upload_to=user_directory_path, blank=True,
                                 processors=[ResizeToFill(1200, 960)],
                                 format='JPEG',
                                 options={'quality': 80})

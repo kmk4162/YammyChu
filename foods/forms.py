@@ -32,4 +32,3 @@ class RestaurantImageForm(forms.ModelForm):
         fields = ('image', )
         labels = {'image' : '이미지'}
         widgets = {'image' : ClearableFileInput(attrs={'multiple' : True}), }
-
