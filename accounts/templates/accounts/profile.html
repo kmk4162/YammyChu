@@ -3,8 +3,8 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-  <div class="border mx-auto m-5 p-5 text-center bg-white" style="width: 600px; height: 600px; box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
+<div class="container d-flex justify-content-center">
+  <div class="border mx-auto m-5 p-5 text-center bg-white col-10 col-lg-10 col-xl-8 col-xxl-7 rounded-1">
     <div class="d-flex p-2 justify-content-center">
       <div>
         {% if team %}
@@ -14,7 +14,11 @@
         {% endif %}
       </div>
       <div class="ms-3 my-auto">
-        <h3>{{ nickname }} 님의 프로필</h3>
+        {% if nickname == request.user.nickname %}
+        <h3>나의 프로필</h3>
+        {% else %}
+        <h3>{{ nickname }}님의 프로필</h3>
+        {% endif %}
       </div>
     </div>
     <div class="d-flex justify-content-center my-2">
@@ -22,26 +26,29 @@
         <p class="fw-bold">팔로워</p>
         <p id="followers-count" class="mb-0 fw-bold">{{ request_user.followers.all|length }}</p>
       </div>
-      <!-- Modal -->
+      <!-- Modal 팔로워 -->
       <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">follower list</h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">팔로워</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="follow-user">
+            <div class="modal-body text-start" id="follow-user">
               {% if not request_user.followers.all.count %}
                 <p>팔로우한 사람이 없어요</p>
               {% else %}
                 {% for follower in request_user.followers.all %}
-                  <a href="{% url 'accounts:profile' follower.pk %}" class="text-decoration-none fw-bold text-dark">{{ follower.username }}</a>
+                  <a href="{% url 'accounts:profile' follower.pk %}" class="text-decoration-none fw-bold text-dark">
+                    <img src="{{ follower.team.logo.url }}" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;">
+                    {{ follower.nickname }}
+                  </a>
                   <br>
                 {% endfor %}
               {% endif %}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
             </div>
           </div>
         </div>
@@ -51,65 +58,212 @@
         <p class="fw-bold">팔로윙</p>
         <p id="followings-count" class="mb-0 fw-bold">{{ request_user.followings.all|length }}</p>
       </div>
-      <!-- Modal -->
+      <!-- Modal 팔로잉 -->
       <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">following list</h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">팔로잉</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-start">
               {% if not request_user.followings.all.count %}
                 <p>팔로잉한 사람이 없어요</p>
               {% else %}
                 {% for following in request_user.followings.all %}
-                <a href="{% url 'accounts:profile' following.pk %}" class="text-decoration-none fw-bold text-dark">{{ following.username }}</a>
+                <a href="{% url 'accounts:profile' following.pk %}" class="text-decoration-none fw-bold text-dark">
+                  <img src="{{ following.team.logo.url }}" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;">
+                  {{ following.nickname }}
+                </a>
                 <br>
                 {% endfor %}
               {% endif %}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
             </div>
           </div>
         </div>
       </div>
+      <!-- Modalend -->
+    </div>
+    <div class="row mx-auto mt-5 p-1 p-md-3 col-10 d-flex align-middle text-start" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px;">
+      <p class="my-2">아이디 | {{ request_user.username }}</p>
+      <p class="my-2">이름 | {{ request_user.last_name }}</p>
+      <p class="my-2">이메일 | {{ request_user.email }}</p>
     </div>
     <div>
-      <p>아이디 | {{ request_user.username }}</p>
-      <p>이름 | {{ request_user.last_name }}</p>
-      <p>이메일 | {{ request_user.email }}</p>
-    </div>
-    <div>
-      <div class="row mx-auto mt-5" style="width: 100%;">
-        <div class="col p-3" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-          <p>{{ request_user.nickname }} 님이 좋아하는 스낵바</p>
-          {% for restaurant in request_user.like_restaurants.all %}
-            <a href="" class="text-decoration-none">
-              <p class="fw-bold text-dark">{{ restaurant.name }}</p>
-            </a>
-          {% endfor %}
+      <div class="row mx-auto mt-5 py-3 col-10 d-flex justify-content-center align-middle" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px;">
+        <div class="col-12 col-lg-3 m-1 text-center">
+          <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#snackbar">좋아요한 스낵바</p>
         </div>
-        <div class="col p-3 mx-4" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-          <p>{{ request_user.nickname }} 님이 좋아하는 리뷰</p>
-          {% for review in request_user.review_set.all %}
-            <a href="" class="text-decoration-none">
-              <p class="fw-bold text-dark">{{review.content}}</p>
-            </a>
-            {% endfor %}
+        <div class="col-12 col-lg-3 m-1 text-center">
+          <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#review">좋아요한 리뷰</p>
         </div>
-        <div class="col p-3" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px; ">
-          <p>{{ request_user.nickname }} 님이 작성한 리뷰</p>
-          {% for comment in request_user.comment_set.all %}
-            <a href="" class="text-decoration-none">
-              <p class="fw-bold text-dark">{{comment.content}}</p>
-            </a>
-            {% endfor %}
+        <div class="col-12 col-lg-3 m-1 text-center">
+          <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#myreview">내가 작성한 리뷰</p>
+        </div>
+          <!-- Modal 좋아요 스낵바-->
+          <div class="modal fade" id="snackbar" tabindex="-1" aria-labelledby="snackbarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="snackbarModalLabel">좋아요 한 스낵바</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                  {% if not request_user.review_set.all %}
+                  <p>좋아요한 스낵바가 없어요</p>
+                  {% else %}
+                  {% for review in request_user.review_set.all %}
+                  <a href="" class="text-decoration-none">
+                    <p class="fw-bold text-dark">{{review.content}}</p>
+                  </a>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modalend -->
+          <!-- Modal 좋아요 리뷰-->
+          <div class="modal fade" id="review" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="reviewModalLabel">좋아요 한 리뷰</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                  {% if not request_user.review_set.all %}
+                  <p>좋아요한 리뷰가 없어요</p>
+                  {% else %}
+                  {% for review in request_user.review_set.all %}
+                  <a href="" class="text-decoration-none">
+                    <p class="fw-bold text-dark">{{review.content}}</p>
+                  </a>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modalend -->
+          <!-- Modal 작성한 리뷰-->
+          <div class="modal fade" id="myreview" tabindex="-1" aria-labelledby="myreviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="myreviewModalLabel">내가 작성한 리뷰</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modalend -->
+      </div>
+      <div class="row mx-auto mt-5 py-3 col-10 d-flex justify-content-center align-middle" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 20%); border-radius: 15px;">
+        <div class="col-12 col-lg-3 m-1 text-center">
+          <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#article">좋아요한 게시글</p>
+        </div>
+        <div class="col-12 col-lg-3 m-1 text-center">
+          <p class="mb-0" scol-12 col-lg-3"cursor : pointer;" data-bs-toggle="modal" data-bs-target="#myarticle">작성한 게시글</p>
+        </div>
+        <div class="col-12 col-lg-3 m-1 text-center">
+          <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#comment">작성한 댓글</p>
         </div>
       </div>
+      <!-- Modal 좋아요한 글-->
+      <div class="modal fade" id="article" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="articleModalLabel">내가 작성한 게시글</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+              {% if not request_user.like_articles.all %}
+              <p>좋아요한 글이 없어요</p>
+              {% else %}
+              {% for article in request_user.like_articles.all %}
+              <a href="{% url 'articles:detail' article.pk %}" class="text-decoration-none">
+                <p class="fw-bold text-dark">{{ article.title }}</p>
+              </a>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modalend -->
+      <!-- Modal 작성한 글-->
+      <div class="modal fade" id="myarticle" tabindex="-1" aria-labelledby="myarticleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="myarticleModalLabel">내가 작성한 게시글</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+              {% if not request_user.article_set.all %}
+              <p>작성한 글이 없어요</p>
+              {% else %}
+              {% for article in request_user.article_set.all %}
+              <a href="{% url 'articles:detail' article.pk %}" class="text-decoration-none">
+                <p class="fw-bold text-dark">{{ article.title }}</p>
+              </a>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modalend -->
+      <!-- Modal 작성한 댓글-->
+      <div class="modal fade" id="comment" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="commentModalLabel">내가 작성한 댓글</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+              {% if not request_user.comment_set.all %}
+              <p>작성한 댓글이 없어요</p>
+              {% else %}
+              {% for comment in request_user.comment_set.all %}
+              <a href="{% url 'articles:detail' comment.article.pk %}" class="text-decoration-none">
+                <p class="fw-bold text-dark">{{ comment.content }}</p>
+              </a>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modalend -->
     </div>
-    <div class="row m-4">
+    <div class="row m-4 d-flex justify-content-between py-0 py-lg-5">
       {% if request.user.is_authenticated %}
       {% if request.user != request_user %}
       <div class="col" style="width: 100%;">
@@ -125,14 +279,14 @@
         {% endif %}
       {% endif %}
       {% if request.user == request_user %}
-        <div class="col" style="width: 100%;">
-          <a href="{% url 'accounts:update' %}" class="btn btn-dark">정보 수정</a>
+        <div class="col-12 col-md-4 col-lg-3 mb-1">
+          <a href="{% url 'accounts:update' %}" class="btn btn-dark w-100">정보 수정</a>
         </div>
-        <div class="col" style="width: 100%;">
-          <a href="{% url 'accounts:password' %}" class="btn btn-dark">비밀번호 변경</a>
+        <div class="col-12 col-md-4 col-lg-3 mb-1">
+          <a href="{% url 'accounts:password' %}" class="btn btn-dark w-100">비밀번호 변경</a>
         </div>
-        <div class="col" style="width: 100%;">
-          <a href="{% url 'accounts:delete' %}" class="btn btn-dark">탈퇴하기</a>
+        <div class="col-12 col-md-4 col-lg-3 mb-1">
+          <a href="{% url 'accounts:delete' %}" class="btn btn-dark w-100">탈퇴하기</a>
         </div>
       {% endif %}
     </div>

@@ -13,11 +13,11 @@
         {% if restaurant.restaurant_image.all %}
             {% for image in restaurant.restaurant_image.all %}
             {% if forloop.counter == 1 %}
-            <img src="{{ image.image.url }}" alt="{{ image.image }}">
+            <img src="{{ image.image.url }}" alt="{{ image.image }}" style='height:350px; width:auto;'>
             {% endif %}
             {% endfor %}
         {% else %}
-        <img src="{% static 'images/슈렉.jpg' %}" style='width:100%'>
+        <img src="{% static 'images/슈렉.jpg' %}" style='height:350px; width:auto;'>
         {% endif %}
     </div>
 </div>
@@ -25,6 +25,16 @@
 <div class='container'>
     <div class='d-flex justify-content-between my-5'>
         <span class='h1'>{{ restaurant.name }}</span>
+        <div>
+            {% if request.user.is_authenticated %}
+                {% if request.user in restaurant.following_users.all %}
+                <span id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='btn btn-outline-primary mb-2'>팔로우 취소</span>
+                {% else %}
+                <span id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='btn btn-primary mb-2'>팔로우</span>
+                {% endif %}
+            {% endif %}
+            <span class="mx-2">팔로워 <b id='followers'>{{ restaurant.following_users.count }}</b></span>
+        </div>
         {% if restaurant.restaurant_reviews.all.count == 0 %}
         <span class='h3'>★ 0</span>
         {% else %}
@@ -170,5 +180,29 @@
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map)
     map.setCenter(markerPosition);   
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const followBtn = document.querySelector('#follow')
+    followBtn.addEventListener('click', function(event) {
+        axios({
+            method: 'get',
+            url: `/foods/home/${event.target.dataset.teamId}/restaurant/${event.target.dataset.restaurantId}/follow/`,
+        })
+        .then(response => {
+            if (response.data.restaurantFollow === true) {
+                event.target.classList.remove('btn-primary')
+                event.target.classList.add('btn-outline-primary')
+                followBtn.innerText= '팔로우 취소'
+            } else {
+                event.target.classList.remove('btn-outline-primary')
+                event.target.classList.add('btn-primary')
+                followBtn.innerText= '팔로우'
+            } 
+            const followers = document.querySelector('#followers')
+            followers.innerText = response.data.restaurantFollowCount
+
+        })
+    })
 </script>
 {% endblock %}

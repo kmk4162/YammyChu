@@ -309,6 +309,7 @@
               </tbody>
             </table>
             <div class="small text-end me-5"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a></div>
+          </div>
         </div>
       </div>
 
@@ -335,6 +336,11 @@
       </div>
 
       
+
+      <!-- 네이버 뉴스 API -->
+      {% for news in temp_news.items %}
+        <a href="{{ news.link }}"><p>{{ news.title }}</p></a>
+      {% endfor %}
     </section>
   </div>
 </div>

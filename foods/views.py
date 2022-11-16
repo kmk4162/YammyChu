@@ -6,12 +6,19 @@ from articles.models import Stadium, Team
 from django.contrib.auth import get_user_model
 from django.db.models import Avg
 from django.contrib import messages
+from django.http import JsonResponse
+from django.db.models import Q
 
 
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
-    stores = Store.objects.filter(team=team)
+    if team.pk == 3:
+        middle = Team.objects.filter(stadium_id=team.stadium_id)
+        stores = Store.objects.filter(team=middle[1])
+    else:
+        print(team)
+        stores = Store.objects.filter(team=team)
     restaurants = Restaurant.objects.filter(team=team)
     context = {
         "team": team,
@@ -30,6 +37,22 @@ def store_detail(request, team_pk, store_pk):
     reviewimage_form = ReviewImageForm()
     context = {'team': team, 'store': store, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/store_detail.html', context)
+
+@login_required
+def store_follow(request, team_pk, store_pk):
+    store = Store.objects.get(pk=store_pk)
+    if request.user in store.following_users.all():
+        store.following_users.remove(request.user)
+        store_follow = False
+    else:
+        store.following_users.add(request.user)
+        store_follow = True
+    return JsonResponse(
+        {
+            "storeFollow": store_follow,
+            "storeFollowCount": store.following_users.count(),
+        }
+    )
 
 @login_required
 def store_review_create(request, team_pk, store_pk):
@@ -81,6 +104,22 @@ def restaurant_detail(request, team_pk, restaurant_pk):
     reviewimage_form = ReviewImageForm()
     context = {'team': team, 'restaurant': restaurant, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/restaurant_detail.html', context)
+
+@login_required
+def restaurant_follow(request, team_pk, restaurant_pk):
+    restaurant = Restaurant.objects.get(pk=restaurant_pk)
+    if request.user in restaurant.following_users.all():
+        restaurant.following_users.remove(request.user)
+        restaurant_follow = False
+    else:
+        restaurant.following_users.add(request.user)
+        restaurant_follow = True
+    return JsonResponse(
+        {
+            "restaurantFollow": restaurant_follow,
+            "restaurantFollowCount": restaurant.following_users.count(),
+        }
+    )
 
 # restaurant를 유저가 직접 쓸 수 있게 하는 페이지, update와 delete는 관리자 권한으로
 @login_required
@@ -168,4 +207,32 @@ def tag(request, team_pk, tag_pk):
             reviews.append(review)
     context={'team': team, 'tag': tag, 'reviews': reviews}
     return render(request, 'foods/tag.html', context)
+
+def search(request, team_pk):
+    searched = request.GET.get("searched", False)
+    field = request.GET.get("field")
+    team = Team.objects.get(pk=team_pk)
+    # 내부 매장
+    if field == "1":
+        result = Store.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
+    # 외부 가게
+    elif field == "2":
+        result = Restaurant.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
+    # 리뷰
+    elif field == "3":
+        result = Review.objects.filter(Q(team=team) & (Q(content__contains=searched))).order_by("-pk")
+    if not searched:
+        result = []
+        text = "검색어를 입력하세요."
+    elif len(result) == 0:
+        text = "검색 결과가 없습니다."
+    else:
+        text = "검색 결과"
+    context = {
+        "result": result,
+        "text": text,
+        'field': field,
+        'team' : team,
+    }
+    return render(request, "foods/search.html", context)
     

@@ -11,6 +11,16 @@
         <img class="team_logo" src="{{ team.logo.url }}" alt="">
         <div id="map" style="width:100%;height:400px;"></div>
     </div>
+    <form class="d-flex" role="search" method='GET' action="{% url 'foods:search' team.pk %}">
+        <select class="select border rounded me-2" aria-label="Default select example" name='field'>
+          <option value="1">내부 매장</option>
+          <option value="2">외부 매장</option>
+          <option value="3">리뷰</option>
+        </select>
+        <input class="form-control me-2" type="search" placeholder="게시글 검색" name='searched'>
+    
+        <button class="btn btn-dark me-2" type="submit" style="width: 7rem;">검색</button>
+      </form>
     <div class="container text-center py-3" style="border-top: 1rem groove {{ team.color }}; border-bottom: 1rem groove {{ team.color }}">
         <h1>구장 내 스낵바</h1>
         <div class="row row-cols-1 row-cols-md-5 g-4 d-flex justify-content-around p-3">
@@ -104,7 +114,7 @@
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }}), // 지도의 중심좌표
         level: 2 // 지도의 확대 레벨
     };
 
@@ -120,7 +130,6 @@ var positions = [];
         var lon = {{ store.lon }};
         new_dicts['name'] = name;
         new_dicts['latlng'] = new kakao.maps.LatLng(lat,lon)
-        console.log(new_dicts)
         positions.push(new_dicts);
         var new_dicts = {};
     {% endfor %}
@@ -144,7 +153,36 @@ for (var i = 0; i < positions.length; i ++) {
     });
 }
 
-    var geocoder = new kakao.maps.services.Geocoder();
+var coords = new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }});
+
+var marker = new kakao.maps.Marker({
+    map: map,
+    position: coords
+});
+
+var customOverlay = new kakao.maps.CustomOverlay({
+    map: map,
+    clickable: true,
+    content: '<div class="customOverlay">{{ stadium.name }}</div>',
+    position: new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }}),
+    xAnchor: 0.5,
+    yAnchor: 2,
+    
+});
+
+customOverlay.setMap(null)
+// 마커에 마우스오버 이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseover', function() {
+    // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+    customOverlay.setMap(map)
+  });
+  
+// 마커에 마우스아웃 이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseout', function() {
+    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+    customOverlay.setMap(null)
+});
+    {% comment %} var geocoder = new kakao.maps.services.Geocoder();
 
     geocoder.addressSearch("{{ stadium.address }}", function(result, status) {
     
@@ -157,7 +195,6 @@ for (var i = 0; i < positions.length; i ++) {
                 map: map,
                 position: coords
             });
-            console.log(marker)
     
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
@@ -170,7 +207,7 @@ for (var i = 0; i < positions.length; i ++) {
         } 
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
     // 주소로 좌표를 검색합니다
-    });
+    }); {% endcomment %}
 </script>
 {% endblock script %}
 {% endblock content %}
