@@ -15,4 +15,5 @@ urlpatterns = [
     path('home/<int:team_pk>/restaurant/<int:restaurant_pk>/follow/', views.restaurant_follow, name='restaurant_follow'),
     path('home/<int:team_pk>/restaurant/<int:restaurant_pk>/create/', views.restaurant_review_create, name='restaurant_review_create'),
     path('home/<int:team_pk>/restaurant/<int:restaurant_pk>/<int:review_pk>/delete/', views.restaurant_review_delete, name='restaurant_review_delete'),
+    path("home/<int:team_pk>/search/", views.search, name="search"),
 ]

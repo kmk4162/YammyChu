@@ -11,6 +11,16 @@
         <img class="team_logo" src="{{ team.logo.url }}" alt="">
         <div id="map" style="width:100%;height:400px;"></div>
     </div>
+    <form class="d-flex" role="search" method='GET' action="{% url 'foods:search' team.pk %}">
+        <select class="select border rounded me-2" aria-label="Default select example" name='field'>
+          <option value="1">내부 매장</option>
+          <option value="2">외부 매장</option>
+          <option value="3">리뷰</option>
+        </select>
+        <input class="form-control me-2" type="search" placeholder="게시글 검색" name='searched'>
+    
+        <button class="btn btn-dark me-2" type="submit" style="width: 7rem;">검색</button>
+      </form>
     <div class="container text-center py-3" style="border-top: 1rem groove {{ team.color }}; border-bottom: 1rem groove {{ team.color }}">
         <h1>구장 내 스낵바</h1>
         <div class="row row-cols-1 row-cols-md-5 g-4 d-flex justify-content-around p-3">
