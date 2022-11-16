@@ -2,7 +2,25 @@
   opacity:0;
   transition:all 0.7s;
 } */
+/*화면이 작을때 */
+/* @media (max-width: 1200px) {
 
+  .nav-large {
+    visibility: hidden;
+    position:absolute;
+    left:-200%;
+  }
+
+} */
+
+/*화면이 클때 */
+/* @media (min-width: 1200px) {
+
+  .nav-small {
+    display:none;
+  }
+
+} */
 
 
 .intro-box { width: 100vw; height: 100vh; overflow: hidden;margin: 0px auto; position: fixed; top:5rem; z-index: 100; transform:scale(1.3);}
