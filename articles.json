@@ -1,31 +1,5 @@
 [
     {
-        "model": "articles.article",
-        "pk": 1,
-        "fields": {
-            "title": "ddddddddddddddddddd",
-            "user": 1,
-            "content": "dddddddddddddddddd",
-            "category": "잡담",
-            "created_at": "2022-11-14T05:47:46.861Z",
-            "updated_at": "2022-11-14T05:47:46.861Z",
-            "hits": 0,
-            "like_count": 0,
-            "user_article_like": []
-        }
-    },
-    {
-        "model": "articles.comment",
-        "pk": 1,
-        "fields": {
-            "article": 1,
-            "content": "ㅁㄴㅇㄹ",
-            "user": 1,
-            "created_at": "2022-11-15T00:40:00.035Z"
-        }
-    },
-
-    {
         "model": "articles.stadium",
         "pk": 1,
         "fields": {

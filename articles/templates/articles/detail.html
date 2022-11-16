@@ -5,23 +5,29 @@
 {% block content %}
 <style>
   .baseball {
-    width: 48px;
-    height: 48px;
+    width: 2rem;
+    height: 2rem;
     background-image: url('{% static 'css/baseball.png' %}');
+    background-size: contain;
   }
   .baseball-fill {
-    width: 48px;
-    height: 48px;
+    width: 2rem;
+    height: 2rem;
     background-image: url('{% static 'css/baseball_fill.png' %}');
+    background-size: contain;
   }
 </style>
 <div class="my-5 mx-5 bg-white p-5 border boder-1">
   {% comment %} <h2 class="text-center fw-bold my-3">커뮤니티</h2> {% endcomment %}
   <p>카테고리: {{ article.category }}</p>
   <span class="d-none">{{ article.update_hits }}</span>
-  <div class="d-flex justify-content-between">
-    <h1>{{ article.title }}</h1>
-    <p class="d-flex align-items-end">조회수: {{ article.hits }}</p>
+  <div class="d-flex justify-content-between row">
+    <div class="fs-1" style="word-wrap: break-word;">
+      {{ article.title }}
+    </div>
+    <div class="d-flex align-items-end justify-content-end">
+      <p class="">조회수: {{ article.hits }}</p>
+    </div>
   </div>
   <div class="d-flex justify-content-between">
     <a class="text-decoration-none text-black" href="{% url 'accounts:profile' article.user.pk %}">
@@ -42,12 +48,26 @@
     </div>
     {% else %}
     <div class="baseball" id="like-btn" data-article-id="{{ article.pk }}" style="cursor:pointer">
-      
     </div>
     {% endif %}
     <span id="like-count" style="color:#e195a5;" class="fs-4">{{ article.user_article_like.count }}</span>
     {% endif %}
   </div>
+  
+  <div class="text-end">
+    {% if request.user == article.user %}
+    <a class="btn btn-outline-success btn-sm" href="{% url 'articles:update' article.pk %}">
+      수정
+    </a>
+    <a class="btn btn-outline-danger btn-sm" href="{% url 'articles:delete' article.pk %}">
+      삭제
+    </a>
+    {% endif %}
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'articles:community' %}">
+      목록
+    </a>
+  </div>
+  
   <hr style="background-color:black; height:5px;">
   <h4 class="mt-5 mb-3 fw-bold">댓글 목록</h4>
   <div id="comments">

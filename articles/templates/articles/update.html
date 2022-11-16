@@ -3,13 +3,28 @@
 {% load static %}
 
 {% block content %}
+<style>
+  #submit-btn{
+    background-color:{{ user.team.color }};
+    color:white;
+    width:100px;
+    height:40px;
+    font-size:16px;
+    border-radius:5px;
+    border-color:{{ user.team.color }};
+  }
+</style>
 <div class="container my-5">
-  <h1>수정하기</h1>
-  <form action="" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form article_form %}
-    {% comment %} 버튼 색깔도 테마 따라 바꾸면 괜찮을듯! {% endcomment %}
-    {% bootstrap_button content="작성완료" button_type="submit" %}
-  </form>
+  <div class="container col-10 border border-1 rounded-1 p-5">
+    <h2 class="text-center">글 수정</h2>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form article_form %}
+      {% comment %} 버튼 색깔도 테마 따라 바꾸면 괜찮을듯! {% endcomment %}
+      <div class="text-center">
+        <button type="submit" id="submit-btn">수정완료</button>
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock %}
