@@ -104,7 +104,7 @@
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }}), // 지도의 중심좌표
         level: 2 // 지도의 확대 레벨
     };
 
@@ -120,7 +120,6 @@ var positions = [];
         var lon = {{ store.lon }};
         new_dicts['name'] = name;
         new_dicts['latlng'] = new kakao.maps.LatLng(lat,lon)
-        console.log(new_dicts)
         positions.push(new_dicts);
         var new_dicts = {};
     {% endfor %}
@@ -144,7 +143,22 @@ for (var i = 0; i < positions.length; i ++) {
     });
 }
 
-    var geocoder = new kakao.maps.services.Geocoder();
+var coords = new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }});
+
+var marker = new kakao.maps.Marker({
+    map: map,
+    position: coords
+});
+
+var infowindow = new kakao.maps.InfoWindow({
+    content: '<div style="padding:5px; width:auto;">{{ stadium.name }}</div>',
+    position: map,
+});
+
+
+infowindow.open(map, marker);
+
+    {% comment %} var geocoder = new kakao.maps.services.Geocoder();
 
     geocoder.addressSearch("{{ stadium.address }}", function(result, status) {
     
@@ -157,7 +171,6 @@ for (var i = 0; i < positions.length; i ++) {
                 map: map,
                 position: coords
             });
-            console.log(marker)
     
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             var infowindow = new kakao.maps.InfoWindow({
@@ -170,7 +183,7 @@ for (var i = 0; i < positions.length; i ++) {
         } 
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
     // 주소로 좌표를 검색합니다
-    });
+    }); {% endcomment %}
 </script>
 {% endblock script %}
 {% endblock content %}
