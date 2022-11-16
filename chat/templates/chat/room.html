@@ -13,13 +13,13 @@
       </h1>
       <p class="text-center mb-5">자유롭게 실시간 채팅을 해보세요</p>
       <div class="row d-flex justify-content-center">
-        <div class="col-12">
+        <div class="col-9">
           <div class="bg-white p-3 rounded-1" style="border: 0.5rem solid {{ team.color }}">
             <div class="card-header text-center p-3">
               <h5 class="mb-0"></h5>
             </div>
             <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative;">
-                <textarea class="w-100 border border-none p-5" id="chat-log" cols="100" rows="20" style="resize:none" disabled></textarea><br>
+              <div class="w-100 border border-none p-5" id="chat-log" style="overflow:auto; width:500px; height:400px;"></div>
             </div>
             <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
               <div class="input-group mb-0">
@@ -31,16 +31,24 @@
               </div>
             </div>
           </div>
-  
+        </div>
+        <div class="col-3">
+          <div class="bg-white p-3 rounded-1 h-100" style="border: 0.5rem solid {{ team.color }}">
+            <h5 class="text-center">채팅 참여자 목록</h5>
+            <hr>
+            <div id="chat-part"></div>
+          </div>
         </div>
       </div>
-  
     </div>
   </section>
     {{ room_name|json_script:"room-name" }}
+    {{ user.nickname|json_script:"user_nickname" }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
+        const user_nickname = JSON.parse(document.getElementById('user_nickname').textContent);
+        
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
@@ -51,9 +59,35 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
+            const userId = document.querySelector('#user-nickname').dataset.userId;
+            chatLog = document.querySelector('#chat-log')
+            const new_msg = data.message.split(':')
+            const chatPart = document.querySelector('#chat-part');
+            if (data.username == "admin") {
+              chatLog.insertAdjacentHTML(`beforeend`, `
+              <div class="text-center fw-bold">
+                ${new_msg}
+              </div>
+            `)
+            chatPart.innerText = ""
+            for(let i=0; i<data.connected_user.length; i++) {
+              chatPart.insertAdjacentHTML(`beforeend`, `
+                <p>${data.connected_user[i]}</p>
+              `)
+              }
+            }
+            else {
+              chatLog.insertAdjacentHTML(`beforeend`, `
+                <div>
+                  <a href="/accounts/${ new_msg[2] }"><span> ${new_msg[0]}</span></a>
+                  :
+                  <span>${new_msg[1]}</span>
+                </div>
+              `)
+            }
+            document.getElementById('chat-log').scrollTop = document.getElementById('chat-log').scrollHeight;
         };
-
+        
         chatSocket.onclose = function(e) {
             console.error('Chat socket closed unexpectedly');
         };
@@ -68,8 +102,10 @@
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
+            const userNickname = document.querySelector('#user-nickname').innerText;
             chatSocket.send(JSON.stringify({
-                'message': message
+                'message': message,
+                'username': userNickname,
             }));
             messageInputDom.value = '';
         };

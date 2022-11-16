@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load tag_check %}
+{% load static %}
+{% bootstrap_css %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-8'>
+        <div id="map" style="width:100%;height:350px;"></div>
+    </div>
+    <div class='col-4'>
+        {% if restaurant.restaurant_image.all %}
+            {% for image in restaurant.restaurant_image.all %}
+            {% if forloop.counter == 1 %}
+            <img src="{{ image.image.url }}" alt="{{ image.image }}">
+            {% endif %}
+            {% endfor %}
+        {% else %}
+        <img src="{% static 'images/슈렉.jpg' %}" style='width:100%'>
+        {% endif %}
+    </div>
+</div>
+
+<div class='container'>
+    <div class='d-flex justify-content-between my-5'>
+        <span class='h1'>{{ restaurant.name }}</span>
+        {% if restaurant.restaurant_reviews.all.count == 0 %}
+        <span class='h3'>★ 0</span>
+        {% else %}
+        <span class='h3'>★ {{ restaurant.grade_avg|floatformat:"1" }}</span>
+        {% endif %}
+    </div>
+    <div class='d-flex justify-content-center'>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">홈</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">리뷰 보기</button>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="review-create-tab" data-bs-toggle="tab" data-bs-target="#review-create-tab-pane" type="button" role="tab" aria-controls="review-create-tab-pane" aria-selected="false">리뷰 작성</button>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <p>가게 이름 : {{ restaurant.name }}</p>
+            <p>주소 : {{ restaurant.address }}</p>
+            <p>소개 : {{ restaurant.content }}</p>
+        </div>
+        <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
+            <div class="accordion" id="accordionExample">
+                {% for review in restaurant.restaurant_reviews.all reversed %}
+                <div class="accordion-item">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th class='col-2'>
+                                        {% if review.grade == 5 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 4 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 3 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 2 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 1 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% endif %}
+                                    </th>
+                                    <th class='col-6' style="width: 100%;
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    word-break: break-word;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 1;
+                                    -webkit-box-orient: vertical;">{{ review.content }}</th>
+                                    <th class='col-2'>{{ review.user.username }}</th>
+                                    <th class='col-2'>{{ review.created_at|date:'Y.m.d A h:i' }}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </button>
+                   
+                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {{ review|tag_check|safe }}
+                            <div class='row'>
+                                {% for image in review.review_image.all %}
+                                <div class='col-3'>
+                                    <img class='my-2' src="{{ image.image.url }}" style='width:100%'>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% if request.user == review.user %}
+                            <div class='d-flex justify-content-end'>
+                                <a class='btn btn-danger' data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</a>
+                                <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          리뷰를 삭제하시겠습니까?
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+                                          <a class="btn btn-danger" href="{% url 'foods:restaurant_review_delete' restaurant.team_id restaurant.pk review.pk %}">삭제</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="review-create-tab-pane" role="tabpanel" aria-labelledby="review-create-tab" tabindex="0">
+            <form action="{% url 'foods:restaurant_review_create' restaurant.team_id restaurant.pk %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form review_form %}
+                {% bootstrap_form reviewimage_form %}
+                <div class="d-flex justify-content-end">
+                    <input type="submit" value="작성하기" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>  
+</div>
+
+<!-- JavaScript Bundle with Popper -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 2 // 지도의 확대 레벨
+    };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커가 표시될 위치입니다 
+    var markerPosition  = new kakao.maps.LatLng({{ lat }}, {{ lon }}); 
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map)
+    map.setCenter(markerPosition);   
+</script>
+{% endblock %}
