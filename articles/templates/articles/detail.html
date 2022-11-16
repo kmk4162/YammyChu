@@ -3,6 +3,18 @@
 {% load static %}
 
 {% block content %}
+<style>
+  .baseball {
+    width: 48px;
+    height: 48px;
+    background-image: url('{% static 'css/baseball.png' %}');
+  }
+  .baseball-fill {
+    width: 48px;
+    height: 48px;
+    background-image: url('{% static 'css/baseball_fill.png' %}');
+  }
+</style>
 <div class="my-5 mx-5 bg-white p-5 border boder-1">
   {% comment %} <h2 class="text-center fw-bold my-3">커뮤니티</h2> {% endcomment %}
   <p>카테고리: {{ article.category }}</p>
@@ -12,10 +24,10 @@
     <p class="d-flex align-items-end">조회수: {{ article.hits }}</p>
   </div>
   <div class="d-flex justify-content-between">
-    <span> 
+    <a class="text-decoration-none text-black" href="{% url 'accounts:profile' article.user.pk %}">
       <img src="{{ article.user.team.logo.url }}" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;">
       {{ article.user.nickname }}
-    </span>
+    </a>
     {% if article.created_at == article.updated_at %}
     <span>{{ article.created_at|date:'Y-m-d H:i' }}</span>
     {% else %}
@@ -23,12 +35,15 @@
     {% endif %}
   </div>
   <p class="mt-5 fs-5">{{ article.content }}</p>
-  <div class="mt-5 text-center">
+  <div class="mt-5 d-flex align-items-center justify-content-center">
     {% if request.user.is_authenticated %}
-    {% if request.user in article.like_users.all %}
-    <i id="like-btn" data-article-id="{{ article.pk }}" class="bi bi-heart-fill fs-4" style="cursor : pointer; color:#e195a5;"></i>
+    {% if request.user in article.user_article_like.all %}
+    <div class="baseball-fill" id="like-btn" data-article-id="{{ article.pk }}" style="cursor:pointer">
+    </div>
     {% else %}
-    <i id="like-btn" data-article-id="{{ article.pk }}" class="bi bi-heart fs-4" style="cursor : pointer; color:#e195a5;"></i>
+    <div class="baseball" id="like-btn" data-article-id="{{ article.pk }}" style="cursor:pointer">
+      
+    </div>
     {% endif %}
     <span id="like-count" style="color:#e195a5;" class="fs-4">{{ article.user_article_like.count }}</span>
     {% endif %}
@@ -37,27 +52,35 @@
   <h4 class="mt-5 mb-3 fw-bold">댓글 목록</h4>
   <div id="comments">
     {% for comment in comments %}
-      <div id="comment" class="d-flex">
-        <span> {{ comment.user.nickname }}님 | <span id="comment-content-{{ comment.pk }}" data-comment-id="{{ comment.pk }}">{{ comment.content }}</span></span>
-        {% if request.user.pk == comment.user.pk %}
-          <div id="form-comment-update-{{ comment.pk }}" class="ms-1 col-10 col-md-11" style="display:none;">
-            <div class="row d-flex justify-context-space-between">
-              <div class="col-7 col-md-7 col-xl-9 align-middle mx-0">
-                <input id="input-{{ comment.pk }}" class="form-control" type="text" value="{{comment.content}}">
-              </div>
-              <div class="row col-5 col-md-5 col-xl-3 align-middle">
-                <button onclick="ok_function(this)" class="btn btn-dark col ms-2" id="okBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">확인</button>
-                <button onclick="cancel_function(this)" class="btn btn-dark col ms-2" id="cancelBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">취소</button>
-              </div>
+    <div class="mb-3">
+      <a class="text-decoration-none text-black" href="{% url 'accounts:profile' comment.user.pk %}">
+        <img src="{{ comment.user.team.logo.url }}" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;"> 
+        {{ comment.user.nickname }}님
+      </a>
+    </div>
+    <div id="comment" class="d-flex row">
+      <div class="d-flex align-items-center row pe-0">
+        <span class="" id="comment-content-{{ comment.pk }}" data-comment-id="{{ comment.pk }}">{{ comment.content }}</span>
+        <div id="form-comment-update-{{ comment.pk }}" class="col-12 mb-2 my-0" style="display:none;">
+          <div class="row d-flex justify-context-space-between">
+            <div class="col-12  col-md-9 col-xl-10 align-middle mx-0 mb-1">
+              <input id="input-{{ comment.pk }}" class="form-control small" type="text" value="{{comment.content}}">
+            </div>
+            <div class="d-flex justify-content-end col-12  col-md-3 col-xl-2 pe-0 mb-1">
+              <button onclick="ok_function(this)" class="btn btn-dark ms-1 btn-sm" id="okBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">확인</button>
+              <button onclick="cancel_function(this)" class="btn btn-dark ms-1 btn-sm" id="cancelBtn-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">취소</button>
             </div>
           </div>
-          <div id="comment-buttons-{{ comment.pk }}">
-            <button onclick="update_comment(this)" class="btn btn-dark ms-2" id="comment-update-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">수정</button>
-            <button onclick="delete_comment(this)" class="btn btn-dark ms-2" id="comment-delete-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">삭제</button>
-          </div>  
-        {% endif %}
-      </div> 
-      <hr>
+        </div>
+      </div>
+      {% if request.user.pk == comment.user.pk %}
+      <div id="comment-buttons-{{ comment.pk }}" class="d-flex justify-content-end">
+        <button onclick="update_comment(this)" class="btn btn-outline-dark ms-1 btn-sm" id="comment-update-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">수정</button>
+        <button onclick="delete_comment(this)" class="btn btn-outline-danger ms-1 btn-sm" id="comment-delete-{{ comment.pk }}" data-article-id="{{ article.pk }}" data-comment-id="{{ comment.pk }}">삭제</button>
+      </div>  
+      {% endif %}
+    </div> 
+    <hr>
     {% empty %}
     <p>댓글이 없어요 ㅠ_ㅠ</p>
     {% endfor %}
@@ -91,11 +114,11 @@ likeBtn.addEventListener('click', function(event) {
   })
   .then(response => {
     if (response.data.isLiked === true) {
-      event.target.classList.add('bi-heart-fill')
-      event.target.classList.remove('bi-heart')
+      event.target.classList.add('baseball-fill')
+      event.target.classList.remove('baseball')
     } else {
-      event.target.classList.add('bi-heart')
-      event.target.classList.remove('bi-heart-fill')
+      event.target.classList.add('baseball')
+      event.target.classList.remove('baseball-fill')
     }
     const likeCount = document.querySelector('#like-count')
     likeCount.innerText = response.data.likeCount
@@ -126,29 +149,47 @@ likeBtn.addEventListener('click', function(event) {
         const article_pk = response.data.article_pk
         if (user === comment_data[i].userId ){
           comments.insertAdjacentHTML('beforeend', `
-          <div id="comment" class="d-flex">
-            <span> ${ comment_data[i].nickname }님 | <span id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span></span>
-            <div id="form-comment-update-${comment_data[i].commentPk}" class="ms-1 col-10 col-md-11" style="display:none;">
-              <div class="row d-flex justify-context-space-between">
-                <div class="col-7 col-md-7 col-xl-9 align-middle mx-0">
-                  <input id="input-${comment_data[i].commentPk}" class="form-control" type="text" value="${comment_data[i].content}">
-                </div>
-                <div class="row col-5 col-md-5 col-xl-3 align-middle">
-                  <button onclick="ok_function(this)" class="btn btn-dark col ms-2" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-                  <button onclick="cancel_funtion(this)" class="btn btn-dark col ms-2" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
+          <div class="mb-3">
+            <a class="text-decoration-none text-black" href="/accounts/${comment_data[i].userId}">
+              <img src="${ comment_data[i].logo }" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;"> 
+              ${ comment_data[i].nickname }님
+            </a>
+          </div>
+          <div id="comment" class="d-flex row">
+            <div class="d-flex align-items-center row pe-0">
+              <span class="" id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span>
+              <div id="form-comment-update-${ comment_data[i].commentPk }" class="col-12 mb-2 my-0" style="display:none;">
+                <div class="row d-flex justify-context-space-between">
+                  <div class="col-12  col-md-9 col-xl-10 align-middle mx-0 mb-1">
+                    <input id="input-${ comment_data[i].commentPk }" class="form-control small" type="text" value="${ comment_data[i].content }">
+                  </div>
+                  <div class="d-flex justify-content-end col-12  col-md-3 col-xl-2 pe-0 mb-1">
+                    <button onclick="ok_function(this)" class="btn btn-dark ms-1 btn-sm" id="okBtn-${ comment_data[i].commentPk }" data-article-id="${article_pk}" data-comment-id="${ comment_data[i].commentPk }">확인</button>
+                    <button onclick="cancel_function(this)" class="btn btn-dark ms-1 btn-sm" id="cancelBtn-${ comment_data[i].commentPk }" data-article-id="${article_pk}" data-comment-id="${ comment_data[i].commentPk }">취소</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div id="comment-buttons-${comment_data[i].commentPk}">
-              <button onclick="update_comment(this)" class="btn btn-dark ms-2" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
-              <button onclick="delete_comment(this)" class="btn btn-dark ms-2" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
-            </div>
+            <div id="comment-buttons-${comment_data[i].commentPk}" class="d-flex justify-content-end">
+              <button onclick="update_comment(this)" class="btn btn-outline-dark ms-1 btn-sm" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
+              <button onclick="delete_comment(this)" class="btn btn-outline-danger ms-1 btn-sm" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+            </div> 
           </div>
           <hr>
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].nickname }님 | ${ comment_data[i].content }</span>
+          <div class="mb-3">
+            <a class="text-decoration-none text-black" href="/accounts/${comment_data[i].userId}">
+              <img src="${ comment_data[i].logo }" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;"> 
+              ${ comment_data[i].nickname }님
+            </a>
+          </div>
+          <div id="comment" class="d-flex row">
+            <div class="d-flex align-items-center row pe-0">
+              <span class="" id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span>
+            </div>
+          </div>
           <hr>
           `);
         }
@@ -178,34 +219,52 @@ likeBtn.addEventListener('click', function(event) {
       const hr = document.createElement('hr')
       const comment_data = response.data.comment_data
       const user = response.data.user
-      
+  
       for (let i = 0; i < comment_data.length; i++) {
         const article_pk = response.data.article_pk
         if (user === comment_data[i].userId ){
         comments.insertAdjacentHTML('beforeend', `
-          <div id="comment" class="d-flex">
-            <span> ${ comment_data[i].nickname }님 | <span id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span></span>
-            <div id="form-comment-update-${comment_data[i].commentPk}" class="ms-1 col-10 col-md-11" style="display:none;">
-              <div class="row d-flex justify-context-space-between">
-                <div class="col-7 col-md-7 col-xl-9 align-middle mx-0">
-                  <input id="input-${comment_data[i].commentPk}" class="form-control" type="text" value="${comment_data[i].content}">
-                </div>
-                <div class="row col-5 col-md-5 col-xl-3 align-middle">
-                  <button onclick="ok_function(this)" class="btn btn-dark col ms-2" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-                  <button onclick="cancel_funtion(this)" class="btn btn-dark col ms-2" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
+          <div class="mb-3">
+            <a class="text-decoration-none text-black" href="/accounts/${comment_data[i].userId}">
+              <img src="${ comment_data[i].logo }" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;"> 
+              ${ comment_data[i].nickname }님
+            </a>
+          </div>
+          <div id="comment" class="d-flex row">
+            <div class="d-flex align-items-center row pe-0">
+              <span class="" id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span>
+              <div id="form-comment-update-${ comment_data[i].commentPk }" class="col-12 mb-2 my-0" style="display:none;">
+                <div class="row d-flex justify-context-space-between">
+                  <div class="col-12  col-md-9 col-xl-10 align-middle mx-0 mb-1">
+                    <input id="input-${ comment_data[i].commentPk }" class="form-control small" type="text" value="${ comment_data[i].content }">
+                  </div>
+                  <div class="d-flex justify-content-end col-12  col-md-3 col-xl-2 pe-0 mb-1">
+                    <button onclick="ok_function(this)" class="btn btn-dark ms-1 btn-sm" id="okBtn-${ comment_data[i].commentPk }" data-article-id="${article_pk}" data-comment-id="${ comment_data[i].commentPk }">확인</button>
+                    <button onclick="cancel_function(this)" class="btn btn-dark ms-1 btn-sm" id="cancelBtn-${ comment_data[i].commentPk }" data-article-id="${article_pk}" data-comment-id="${ comment_data[i].commentPk }">취소</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div id="comment-buttons-${comment_data[i].commentPk}">
-              <button onclick="update_comment(this)" class="btn btn-dark ms-2" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
-              <button onclick="delete_comment(this)" class="btn btn-dark ms-2" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
-            </div>
+            <div id="comment-buttons-${comment_data[i].commentPk}" class="d-flex justify-content-end">
+              <button onclick="update_comment(this)" class="btn btn-outline-dark ms-1 btn-sm" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
+              <button onclick="delete_comment(this)" class="btn btn-outline-danger ms-1 btn-sm" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+            </div> 
           </div>
           <hr>
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].nickname }님 | ${ comment_data[i].content }</span>
+          <div class="mb-3">
+            <a class="text-decoration-none text-black" href="/accounts/${comment_data[i].userId}">
+              <img src="${ comment_data[i].logo }" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;"> 
+              ${ comment_data[i].nickname }님
+            </a>
+          </div>
+          <div id="comment" class="d-flex row">
+            <div class="d-flex align-items-center row pe-0">
+              <span class="" id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span>
+            </div>
+          </div>
           <hr>
           `);
         }
@@ -218,12 +277,14 @@ likeBtn.addEventListener('click', function(event) {
     const comment_id = document.querySelector(`#${e.id}`).id;
     const input = document.createElement('input');
     const comment = document.querySelector('#comment');
+    const commentContent = document.querySelector(`#comment-content-${ event.target.dataset.commentId }`)
+    commentContent.classList.remove("d-none")
     const span = document.createElement('span');
     const comment_update_form = document.querySelector(`#form-comment-update-${ event.target.dataset.commentId }`)
-    console.log(comment_update_form);
     comment_update_form.style.display = "none";
     const comment_buttons = document.querySelector(`#comment-buttons-${ event.target.dataset.commentId }`)
-    comment_buttons.style.display = "block";
+    comment_buttons.classList.remove("d-none");
+    console.log(comment_buttons)
   }
 
   const update_comment = (e) => {
@@ -232,12 +293,11 @@ likeBtn.addEventListener('click', function(event) {
     const comment = document.querySelector('#comment');
     const span = document.createElement('span');
     const commentContent = document.querySelector(`#comment-content-${ event.target.dataset.commentId }`);
-    console.log(commentContent)
-    commentContent.style.display = "none";
+    commentContent.classList.add("d-none");
     const comment_update_form = document.querySelector(`#form-${ e.id }`);
     comment_update_form.style.display = "block";
     const comment_buttons = document.querySelector(`#comment-buttons-${ event.target.dataset.commentId }`);
-    comment_buttons.style.display = "none";
+    comment_buttons.classList.add("d-none");
   }
 
   // 댓글 삭제 비동기
@@ -259,29 +319,47 @@ likeBtn.addEventListener('click', function(event) {
         const article_pk = response.data.article_pk
         if (user === comment_data[i].userId ){
           comments.insertAdjacentHTML('beforeend', `
-          <div id="comment" class="d-flex">
-            <span> ${ comment_data[i].nickname }님 | <span id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span></span>
-            <div id="form-comment-update-${comment_data[i].commentPk}" class="ms-1 col-10 col-md-11" style="display:none;">
-              <div class="row d-flex justify-context-space-between">
-                <div class="col-7 col-md-7 col-xl-9 align-middle mx-0">
-                  <input id="input-${comment_data[i].commentPk}" class="form-control" type="text" value="${comment_data[i].content}">
-                </div>
-                <div class="row col-5 col-md-5 col-xl-3 align-middle">
-                  <button onclick="ok_function(this)" class="btn btn-dark col ms-2" id="okBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">확인</button>
-                  <button onclick="cancel_funtion(this)" class="btn btn-dark col ms-2" id="cancelBtn-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">취소</button>
+          <div class="mb-3">
+            <a class="text-decoration-none text-black" href="/accounts/${comment_data[i].userId}">
+              <img src="${ comment_data[i].logo }" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;"> 
+              ${ comment_data[i].nickname }님
+            </a>
+          </div>
+          <div id="comment" class="d-flex row">
+            <div class="d-flex align-items-center row pe-0">
+              <span class="" id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span>
+              <div id="form-comment-update-${ comment_data[i].commentPk }" class="col-12 mb-2 my-0" style="display:none;">
+                <div class="row d-flex justify-context-space-between">
+                  <div class="col-12  col-md-9 col-xl-10 align-middle mx-0 mb-1">
+                    <input id="input-${ comment_data[i].commentPk }" class="form-control small" type="text" value="${ comment_data[i].content }">
+                  </div>
+                  <div class="d-flex justify-content-end col-12  col-md-3 col-xl-2 pe-0 mb-1">
+                    <button onclick="ok_function(this)" class="btn btn-dark ms-1 btn-sm" id="okBtn-${ comment_data[i].commentPk }" data-article-id="${article_pk}" data-comment-id="${ comment_data[i].commentPk }">확인</button>
+                    <button onclick="cancel_function(this)" class="btn btn-dark ms-1 btn-sm" id="cancelBtn-${ comment_data[i].commentPk }" data-article-id="${article_pk}" data-comment-id="${ comment_data[i].commentPk }">취소</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div id="comment-buttons-${comment_data[i].commentPk}">
-              <button onclick="update_comment(this)" class="btn btn-dark ms-2" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
-              <button onclick="delete_comment(this)" class="btn btn-dark ms-2" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
-            </div>
+            <div id="comment-buttons-${comment_data[i].commentPk}" class="d-flex justify-content-end">
+              <button onclick="update_comment(this)" class="btn btn-outline-dark ms-1 btn-sm" id="comment-update-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">수정</button>
+              <button onclick="delete_comment(this)" class="btn btn-outline-danger ms-1 btn-sm" id="comment-delete-${comment_data[i].commentPk}" data-article-id="${article_pk}" data-comment-id="${comment_data[i].commentPk}">삭제</button>
+            </div> 
           </div>
           <hr>
           `);
         } else {
           comments.insertAdjacentHTML('beforeend', `
-          <span> ${ comment_data[i].nickname }님 | ${ comment_data[i].content }</span>
+          <div class="mb-3">
+            <a class="text-decoration-none text-black" href="/accounts/${comment_data[i].userId}">
+              <img src="${ comment_data[i].logo }" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;"> 
+              ${ comment_data[i].nickname }님
+            </a>
+          </div>
+          <div id="comment" class="d-flex row">
+            <div class="d-flex align-items-center row pe-0">
+              <span class="" id="comment-content-${ comment_data[i].commentPk }" data-comment-id="${ comment_data[i].commentPk }">${ comment_data[i].content }</span>
+            </div>
+          </div>
           <hr>
           `);
         }

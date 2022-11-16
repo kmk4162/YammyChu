@@ -69,13 +69,14 @@ def comments_create(request, article_pk):
         comment.article = article
         comment.user = request.user
         comment.save()
-    temp = Comment.objects.filter(article_id=article_pk).order_by('-pk')
+    temp = Comment.objects.filter(article_id=article_pk).order_by('pk')
     comment_data = []
     for t in temp:
         comment_data.append({
             'userId': t.user_id, 
             'userName': t.user.username, 
             'nickname': t.user.nickname, 
+            'logo': Team.objects.get(pk=t.user.team_id).logo.url,
             'content': t.content,
             'commentPk': t.pk,
         })
@@ -95,16 +96,19 @@ def comments_update(request, article_pk, comment_pk):
     if request.method == 'POST':
         comment.content = jsonObject.get('content')
         comment.save()
-    temp = Comment.objects.filter(article_id=article_pk).order_by('-pk')
+    temp = Comment.objects.filter(article_id=article_pk).order_by('pk')
     comment_data = []
     for t in temp:
         comment_data.append({
             'userId':t.user_id, 
             'userName': t.user.username, 
             'nickname': t.user.nickname, 
+            'logo': Team.objects.get(pk=t.user.team_id).logo.url,
             'content': t.content,
             'commentPk': t.pk,
         })
+    
+        
     context = {
         'comment_data': comment_data,
         'comment_pk': comment_pk,
@@ -120,13 +124,14 @@ def comments_delete(request, article_pk, comment_pk):
     article_pk = Article.objects.get(pk=article_pk).pk
     user = request.user.pk
     comment.delete()
-    temp = Comment.objects.filter(article_id=article_pk).order_by('-pk')
+    temp = Comment.objects.filter(article_id=article_pk).order_by('pk')
     comment_data = []
     for t in temp:
         comment_data.append({
             'userId':t.user_id, 
             'userName': t.user.username, 
             'nickname': t.user.nickname, 
+            'logo': Team.objects.get(pk=t.user.team_id).logo.url,
             'content': t.content,
             'commentPk': t.pk,
         })
@@ -187,7 +192,7 @@ def category(request, num):
 
 def detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)
-    comments = article.comment_set.all().order_by('-pk')
+    comments = article.comment_set.all().order_by('pk')
     comment_form = CommentForm()
     context = {
         'article' : article,

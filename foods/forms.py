@@ -11,6 +11,7 @@ class ReviewForm(forms.ModelForm):
             "grade": "평점",
         }
 
+
 class ReviewImageForm(forms.ModelForm):
     class Meta:
         model = ReviewImage
@@ -32,4 +33,3 @@ class RestaurantImageForm(forms.ModelForm):
         fields = ('image', )
         labels = {'image' : '이미지'}
         widgets = {'image' : ClearableFileInput(attrs={'multiple' : True}), }
-
