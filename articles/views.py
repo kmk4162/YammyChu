@@ -5,14 +5,20 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
 from django.core.paginator import Paginator  
-
+from news import news
+import json
 
 def index(request):
     teams = Team.objects.all()
     articles = Article.objects.order_by('-pk')
+    ex_news = news().replace("<b>", "").replace("<\/b>", "").replace("&quot;", "'").replace("&apos;", "'")
+    print(type(ex_news))
+    temp_news = json.loads(ex_news)
+    print(type(temp_news))
     context = {
         "teams": teams,
         "articles":articles[:8],
+        "temp_news": temp_news,
     }
     return render(request, "articles/index.html", context)
 
