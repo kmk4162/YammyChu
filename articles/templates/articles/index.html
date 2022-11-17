@@ -32,8 +32,8 @@
 </div>
 <div class="container ">
   {% if user.is_authenticated and user.team %}
-  <div class="row py-4 my-5 d-flex justify-content-center bg-white" style="border-top: 1rem solid {{ user.team.color }}; border-bottom: 1rem solid {{ user.team.color }}">
-  {% else %}
+  <div class="row py-4 my-5 d-flex justify-content-center" style="backdrop-filter:blur(10px); border-top: 3px solid {{ user.team.color }}; border-bottom: 3px solid {{ user.team.color }}">
+    {% else %}
   <div class="row py-4 my-5 d-flex justify-content-center bg-light" style="border-top: 1rem solid grey; border-bottom: 1rem solid grey">
   {% endif %}
     <div class="d-flex flex-column align-items-center my-3">
@@ -43,15 +43,15 @@
     {% for team in teams %}
     <div class="team-card text-bg-white col-5 col-sm-3 col-lg-2 m-1 p-0">
       {% if team == user.team %}
-      <div class="front" style="background-color:{{ team.color }}55;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+      <div class="front" style="background-color:{{ team.color }}55;  border: 0.5rem outset {{ team.color }}; border-radius:3px;">
       {% else %}
-      <div class="front" style="background-color:white;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+      <div class="front" style="background-color:white;  border: 0.5rem outset {{ team.color }}; border-radius:3px;">
       {% endif %}
           <img src="{{ team.logo.url }}" class="card-img" alt="..."> <!--앞면-->
         
       </div>
       <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' team.pk %}">
-        <div class="back" style="background-color:{{ team.color }}; border: 1rem ridge {{ team.color }}; border-radius:5%;">
+        <div class="back" style="background-color:{{ team.color }}; border: 0.5rem outset {{ team.color }}; border-radius:3px;">
           <img src="{{ team.mascot.url }}" class="card-img" alt="..."> <!--뒷면-->
         </div>
       </a>
