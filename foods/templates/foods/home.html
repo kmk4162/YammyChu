@@ -6,13 +6,9 @@
 {% endblock css %}
 {% block content %}
 <div class="container" >
-    <div class="d-flex flex-column align-items-center mt-3">
-        <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
-        <p class="" style="color:gray; font-size:1.2rem;">{{ team.name }}의 매점 정보🍕</p>
-    </div>
-    <div style="border-top: 1rem ridge {{ team.color }};"></div>
+    <h1 class="food_title">{{ team.name }}</h1>
     <div class="symbol">
-        <img class="team_logo" src="{{ team.mascot.url }}" alt="">
+        <img class="team_logo" src="{{ team.logo.url }}" alt="">
         <div id="map" style="width:100%;height:400px;"></div>
     </div>
     <form class="d-flex" role="search" method='GET' action="{% url 'foods:search' team.pk %}">
@@ -25,13 +21,95 @@
     
         <button class="btn btn-dark me-2" type="submit" style="width: 7rem;">검색</button>
       </form>
-    <div class="container text-center py-3" style="border-top: 1rem groove {{ team.color }};">
-        <div class="d-flex flex-column align-items-center mt-3">
-            <h2 class="fw-bold" style="font-size:2.5rem;">구장 내 스낵바</h2>
-            <p class="" style="color:gray; font-size:1.2rem;">구장 내 스낵바 정보</p>
+    <div class="container text-center py-3" style="border-top: 1rem groove {{ team.color }}; border-bottom: 1rem groove {{ team.color }}">
+        <h1>구장 내 스낵바</h1>
+        <div class="row row-cols-1 row-cols-md-5 g-4 d-flex justify-content-around p-3">
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                </div>
+            </div>
         </div>
-
-    
+        <div class="col">
+            <div class="card">
+                <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>여기에 페이지</h1>
+</div>
+<div>
+    <div class="container text-center py-3" style="border-top: 1rem ridge {{ team.color }}; border-bottom: 1rem ridge {{ team.color }}">
+        <h1>주변 맛집</h1>
+        <div class="row row-cols-1 row-cols-md-5 g-4 d-flex justify-content-around">
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class='btn btn-primary' href='{% url "foods:restaurant_create" team.pk %}'>가게 추가하기</a>
+        <h1>여기에 페이지</h1>
+    </div>
+</div>
+</div>
+{% block script %}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -39,13 +117,9 @@
         center: new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }}), // 지도의 중심좌표
         level: 2 // 지도의 확대 레벨
     };
-
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
 var new_dicts = {};
 var positions = [];
-
-
 // 마커를 표시할 위치와 title 객체 배열입니다 
     {% for store in stores %}
         var name = "{{ store.name }}";
@@ -59,12 +133,10 @@ var positions = [];
         positions.push(new_dicts);
         var new_dicts = {};
     {% endfor %}
-
 // 마커 이미지의 이미지 주소입니다
 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 // 마커 이미지의 이미지 크기 입니다
 var imageSize = new kakao.maps.Size(24, 35); 
-
 // 마커 이미지를 생성합니다    
 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
     
@@ -84,7 +156,6 @@ positions.forEach(function (pos) {
     content_div.className = 'overlay_name';
     content_div.innerHTML = pos.name;
     content_middle.appendChild(content_div);
-
     var closeBtn = document.createElement("button");
     var quitBtn = document.createElement("p");
     quitBtn.innerHTML = "❌";
@@ -94,7 +165,6 @@ positions.forEach(function (pos) {
     }
     content_middle.appendChild(closeBtn);
     content.appendChild(content_middle);
-
     if ( {{ team.pk }} === 3) {
         content.insertAdjacentHTML('beforeend', `
         <div class="content_add">
@@ -119,7 +189,6 @@ positions.forEach(function (pos) {
     </div>
     `);
     }
-
     var overlay = new kakao.maps.CustomOverlay({
         {% comment %} clickable: true, {% endcomment %}
         content: content,
@@ -131,28 +200,22 @@ positions.forEach(function (pos) {
         overlay.setMap(map);
     });
 });
-
 var coords = new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }});
-
 var marker = new kakao.maps.Marker({
     map: map,
     position: coords
 });
-
 {% comment %} for (var i = 0; i < positions.length; i ++) {
-
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new kakao.maps.InfoWindow({
         content: positions[i].content // 인포윈도우에 표시할 내용
     });
-
     // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
     // 이벤트 리스너로는 클로저를 만들어 등록합니다 
     // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
     kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 } {% endcomment %}
-
 var customOverlay = new kakao.maps.CustomOverlay({
     map: map,
     clickable: true,
@@ -162,7 +225,6 @@ var customOverlay = new kakao.maps.CustomOverlay({
     yAnchor: 2,
     
 });
-
 customOverlay.setMap(null)
 // 마커에 마우스오버 이벤트를 등록합니다
 kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -175,7 +237,6 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
     customOverlay.setMap(null)
 });
-
 </script>
 {% endblock script %}
 {% endblock content %}
