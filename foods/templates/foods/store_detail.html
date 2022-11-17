@@ -256,7 +256,7 @@
     followBtn.addEventListener('click', function(event) {
         axios({       
             method: 'post',
-            url: `/foods/home/${event.target.dataset.teamId}/store/${event.target.dataset.storeId}/follow/`,
+            url: `/foods/${event.target.dataset.teamId}/store/${event.target.dataset.storeId}/follow/`,
             headers : {
                 'X-CSRFTOKEN' : '{{ csrf_token }}'
             },
