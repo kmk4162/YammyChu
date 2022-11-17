@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Article, Comment, Team
+from foods.models import Store, Review
 from .forms import ArticleForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
