@@ -98,7 +98,7 @@
           <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#snackbar">좋아요한 스낵바</p>
         </div>
         <div class="col-12 col-lg-3 m-1 text-center">
-          <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#review">좋아요한 리뷰</p>
+          <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#review">좋아요한 식당</p>
         </div>
         <div class="col-12 col-lg-3 m-1 text-center">
           <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#myreview">내가 작성한 리뷰</p>
@@ -112,12 +112,12 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-start">
-                  {% if not request_user.review_set.all %}
+                  {% if not request_user.following_stores.all %}
                   <p>좋아요한 스낵바가 없어요</p>
                   {% else %}
-                  {% for review in request_user.review_set.all %}
-                  <a href="" class="text-decoration-none">
-                    <p class="fw-bold text-dark">{{review.content}}</p>
+                  {% for store in request_user.following_stores.all %}
+                  <a href="{% url 'foods:store_detail' store.team.pk store.pk %}" class="text-decoration-none">
+                    <p class="fw-bold text-dark">{{ store.name }}({{ store.team.stadium.name }})</p>
                   </a>
                   {% endfor %}
                   {% endif %}
@@ -129,21 +129,21 @@
             </div>
           </div>
           <!-- Modalend -->
-          <!-- Modal 좋아요 리뷰-->
+          <!-- Modal 좋아요 식당-->
           <div class="modal fade" id="review" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="reviewModalLabel">좋아요 한 리뷰</h1>
+                  <h1 class="modal-title fs-5" id="reviewModalLabel">좋아요 한 식당</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-start">
-                  {% if not request_user.review_set.all %}
-                  <p>좋아요한 리뷰가 없어요</p>
+                  {% if not request_user.following_restaurants.all %}
+                  <p>좋아요한 식당이 없어요</p>
                   {% else %}
-                  {% for review in request_user.review_set.all %}
-                  <a href="" class="text-decoration-none">
-                    <p class="fw-bold text-dark">{{review.content}}</p>
+                  {% for restaurant in request_user.following_restaurants.all %}
+                  <a href="{% url 'foods:restaurant_detail' restaurant.team.pk restaurant.pk %}" class="text-decoration-none">
+                    <p class="fw-bold text-dark">{{ restaurant.name }}({{ restaurant.team.stadium.name }})</p>
                   </a>
                   {% endfor %}
                   {% endif %}
@@ -164,6 +164,21 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-start">
+                  {% if not request_user.user_reviews.all %}
+                  <p>작성한 리뷰가 없어요</p>
+                  {% else %}
+                  {% for review in request_user.user_reviews.all %}
+                  {% if review.store_name %}
+                  <a href="{% url 'foods:store_detail' review.store_name.team.pk review.store_name.pk %}" class="text-decoration-none">
+                    <p class="fw-bold text-dark">{{ review.content }}({{ review.store_name.name }}, {{ review.store_name.team.stadium.name }})</p>
+                  </a>
+                  {% else %}
+                  <a href="{% url 'foods:restaurant_detail' review.restaurant_name.team.pk review.restaurant_name.pk %}" class="text-decoration-none">
+                    <p class="fw-bold text-dark">{{ review.content }}({{ review.restaurant_name.name }}, {{ review.restaurant_name.team.stadium.name }})</p>
+                  </a>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -178,7 +193,7 @@
           <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#article">좋아요한 게시글</p>
         </div>
         <div class="col-12 col-lg-3 m-1 text-center">
-          <p class="mb-0" scol-12 col-lg-3"cursor : pointer;" data-bs-toggle="modal" data-bs-target="#myarticle">작성한 게시글</p>
+          <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#myarticle">작성한 게시글</p>
         </div>
         <div class="col-12 col-lg-3 m-1 text-center">
           <p class="mb-0" style="cursor : pointer;" data-bs-toggle="modal" data-bs-target="#comment">작성한 댓글</p>
