@@ -23,8 +23,10 @@
                           {% endfor %}
                       </div>
                     </div>
-                    <div class="d-grid">
-                        <button class="btn btn-outline-success mt-5 mb-2" type="submit">수정</button>
+                    <div class="text-center">
+                        <a href="{% url 'accounts:password' %}" class="btn btn-dark">비밀번호 변경</a>
+                        <button class="btn btn-outline-dark" type="submit">수정하기</button>
+                        <a href="{% url 'accounts:delete' %}" class="btn btn-danger">탈퇴하기</a>
                     </div>
                 </form>
             </div>
