@@ -24,7 +24,6 @@ def home(request, team_pk):
         "team": team,
         "stadium": stadium,
         "stores": stores,
-        'store_lst':store_lst,
         'restaurants': restaurants,
     }
     return render(request, "foods/home.html", context)
