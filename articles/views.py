@@ -16,9 +16,9 @@ def index(request):
     ex_news = news().replace("<b>", "").replace("<\/b>", "").replace("&quot;", "'").replace("&apos;", "'")
     temp_news = json.loads(ex_news)
     store = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews'))
-    store_review = store.order_by('cnt_reviews')[:5]
-    store_following = store.order_by('cnt_followings')[:5]
-    store_grade = store.order_by('avg_grade')[:5]
+    store_review = store.order_by('-cnt_reviews')[:5]
+    store_following = store.order_by('-cnt_followings')[:5]
+    store_grade = store.order_by('-avg_grade')[:5]
     context = {
         "teams": teams,
         "articles":articles[:8],

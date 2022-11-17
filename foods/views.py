@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator
-
+from django.db.models import Count, Avg
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
@@ -43,9 +43,9 @@ def store_all(request, team_pk):
     stadium = Stadium.objects.get(pk=team.stadium_id)
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
-        store = Store.objects.filter(team=middle[1]).order_by('detail')
+        store = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=middle[1]).order_by('detail')
     else:
-        store = Store.objects.filter(team=team).order_by('detail')
+        store = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=team).order_by('detail')
     paginator = Paginator(store, 8)
     page_obj = paginator.get_page(page)
     context = {
