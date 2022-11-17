@@ -260,6 +260,7 @@ footer {
 
 .train-card {
   width: 100%;
+  height: 380px;
   transition: transform 1s;
   border-radius: 10px;
   overflow: hidden;
@@ -295,21 +296,17 @@ footer {
 }
 
 /* 뉴스 캐러셀 만들기 */
-.rotate-carousel{
+.rotate-carousel {
   transform: rotate(-90deg);
 }
 
-.rotate-carousel-inner{
+.rotate-carousel-inner {
   writing-mode: vertical-rl;
-  text-orientation:sideways;
+  text-orientation: sideways;
 }
 
-.carousel-inner{
-  font-size:calc(10px + 2vw);
-  height:400%;
-  position:relative;
-  right:-110%;
-  top:100%;
+.carousel-inner {
+  height: 100%;
 }
 
 

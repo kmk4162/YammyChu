@@ -5,43 +5,88 @@
 {% bootstrap_css %}
 
 {% block content %}
-<div class='row'>
-    <div class='col-8'>
-        <div id="map" style="width:100%;height:350px;"></div>
-    </div>
-    <div class='col-4'>
-        {% if store.store_image.all %}
-            {% for image in store.store_image.all %}
-            {% if forloop.counter == 1 %}
-            <img src="{{ image.image.url }}" alt="{{ image.image }}" style='height:350px; width:auto;'>
+<style>
+    .baseball {
+      width: 2.5rem;
+      height: 2.5rem;
+      background-image: url('{% static 'css/baseball.png' %}');
+      background-size: contain;
+    }
+    .baseball-fill {
+      width: 2.5rem;
+      height: 2.5rem;
+      background-image: url('{% static 'css/baseball_fill.png' %}');
+      background-size: contain;
+    }
+    #review-btn {
+        border-color:{{ store.team.color }};
+        background-color:{{ store.team.color }};
+        color:white;
+        width:100px;
+        height:40px;
+        font-size:16px;
+        border-radius:5px;
+      }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+<div class='container'>
+    <div class='row d-flex justify-content-center'>
+        <div class='col-12 col-md-8' style="margin-top:2rem;">
+            <div id="map" style="width:100%;height:350px;"></div>
+        </div>
+        <div class='col-12 col-md-4' style="margin-top:2rem;">
+            {% if store.store_image.all %}
+                {% for image in store.store_image.all %}
+                {% if forloop.counter == 1 %}
+                <img src="{{ image.image.url }}" alt="{{ image.image }}" style='height:350px; width:100%;'>
+                {% endif %}
+                {% endfor %}
+            {% else %}
+                {% if team.pk == 1 %}
+                <img src="{% static 'images/ssg_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 2 %}
+                <img src="{% static 'images/키움_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 3 %}
+                <img src="{% static 'images/lg_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 4 %}
+                <img src="{% static 'images/kt_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 5 %}
+                <img src="{% static 'images/kia_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 6 %}
+                <img src="{% static 'images/nc_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 7 %}
+                <img src="{% static 'images/삼성_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 8 %}
+                <img src="{% static 'images/롯데_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 9 %}
+                <img src="{% static 'images/두산_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% elif team.pk == 10 %}
+                <img src="{% static 'images/한화_로고.jpg' %}" style='height:350px; width:100%;'>
+                {% endif %}
+
             {% endif %}
-            {% endfor %}
-        {% else %}
-        <img src="{% static 'images/슈렉.jpg' %}" style='height:350px; width:auto;'>
-        {% endif %}
+        </div>
     </div>
 </div>
 
 <div class='container'>
-    <div class='d-flex justify-content-between my-5'>
-        <span class='h1'>{{ store.name }}</span>
-        <div>
-            {% if request.user.is_authenticated %}
-                {% if request.user in store.following_users.all %}
-                <span id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='btn btn-outline-primary mb-2'>팔로우 취소</span>
-                {% else %}
-                <span id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='btn btn-primary mb-2'>팔로우</span>
-                {% endif %}
-            {% endif %}
-            <span class="mx-2">팔로워 <b id='followers'>{{ store.following_users.count }}</b></span>
-        </div>
+    <div class='d-flex justify-content-start align-items-center my-3'>
+        <span class='h1 me-3' style="margin-bottom:0; font-size: 3rem; font-weight:500;">{{ store.name }}</span>
         {% if store.store_reviews.all.count == 0 %}
-        <span class='h3'>★ 0</span>
+        <div style="font-size:2rem;">⭐ 0</div>
         {% else %}
-        <span class='h3'>★ {{ store.grade_avg|floatformat:"1" }}</span>
+        <div style="font-size:2rem;">⭐ {{ store.grade_avg|floatformat:"1" }}</div>
         {% endif %}
     </div>
-    <div class='d-flex justify-content-center'>
+    <div class="d-flex justify-content-start align-items-center">
+        {% if request.user in store.following_users.all %}
+        <div id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='baseball-fill' style="cursor:pointer"></div>
+        {% else %}
+        <div id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='baseball' style="cursor:pointer"></div>
+        {% endif %}
+        <div style="font-size:1.5rem; margin-left: 5px;">팔로워 <b id='followers'>{{ store.following_users.count }}</b></div>
+    </div>
+    <div class='d-flex justify-content-center' style="font-size:1rem;">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">홈</button>
@@ -58,9 +103,33 @@
     </div>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-            <p>가게 이름 : {{ store.name }}</p>
-            <p>판매 품목 : {{ store.items }}</p>
-            <p>상세 위치 : {{ store.detail }}</p>
+            <div class='my-4'>
+                <p style="font-size:1.5rem;">판매 품목: {{ store.items }}</p>
+                <p style="font-size:1.5rem;">상세 위치: {{ store.detail }}</p>
+            </div>
+            {% if store.store_image.all.count < 4 %}
+                <div class='row'>
+                    {% for image in store.store_image.all %}
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <img src="{{ image.image.url }}" alt="{{ image.image }}" style="width:100%; height:246px; margin-top:2rem;"  class='rounded-4'>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+            <div class="slide-container swiper">
+                <div class="slide-content">
+                    <div class="card-wrapper swiper-wrapper">
+                        {% for image in store.store_image.all %}
+                        <div class="card swiper-slide border border-0">
+                            <img src="{{ image.image.url }}" alt="{{ image.image }}" style="width:100%; height:246px;"  class='rounded-4'>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="swiper-button-next swiper-navBtn text-white fw-bold"></div>
+                <div class="swiper-button-prev swiper-navBtn text-white fw-bold"></div>
+            </div>
+            {% endif %}
         </div>
         <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
             <div class="accordion" id="accordionExample">
@@ -151,7 +220,7 @@
                 {% bootstrap_form review_form %}
                 {% bootstrap_form reviewimage_form %}
                 <div class="d-flex justify-content-end">
-                    <input type="submit" value="작성하기" class="btn btn-primary">
+                    <button id="review-btn" type="submit">작성하기</button>
                 </div>
             </form>
         </div>
@@ -185,24 +254,61 @@
 <script>
     const followBtn = document.querySelector('#follow')
     followBtn.addEventListener('click', function(event) {
-        axios({
-            method: 'get',
-            url: `/foods/home/${event.target.dataset.teamId}/store/${event.target.dataset.storeId}/follow/`,
+        axios({       
+            method: 'post',
+            url: `/foods/${event.target.dataset.teamId}/store/${event.target.dataset.storeId}/follow/`,
+            headers : {
+                'X-CSRFTOKEN' : '{{ csrf_token }}'
+            },
         })
         .then(response => {
             if (response.data.storeFollow === true) {
-                event.target.classList.remove('btn-primary')
-                event.target.classList.add('btn-outline-primary')
-                followBtn.innerText= '팔로우 취소'
+                event.target.classList.add('baseball-fill')
+                event.target.classList.remove('baseball')
+                {% comment %} followBtn.innerText= '팔로우 취소' {% endcomment %}
             } else {
-                event.target.classList.remove('btn-outline-primary')
-                event.target.classList.add('btn-primary')
-                followBtn.innerText='팔로우'
+                event.target.classList.add('baseball')
+                event.target.classList.remove('baseball-fill')
+                {% comment %} followBtn.innerText='팔로우' {% endcomment %}
             }  
             const followers = document.querySelector('#followers')
             followers.innerText = response.data.storeFollowCount
-
         })
     })
+</script>
+{% comment %} 인기 유저 슬라이더  {% endcomment %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script>
+     
+    var swiper = new Swiper(".slide-content", {
+    slidesPerView: 4,
+    spaceBetween: 10,
+    loop: true,
+    centerSlide: 'true',
+    fade: 'true',
+    grabCursor: 'true',
+    pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+    dynamicBullets: true,
+    },
+    navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+    },
+
+    breakpoints:{
+    0: {
+        slidesPerView: 1,
+    },
+    768: {
+        slidesPerView: 2,
+    },
+    992: {
+        slidesPerView: 4,
+    },
+    },
+    });
+
 </script>
 {% endblock %}

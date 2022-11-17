@@ -79,3 +79,52 @@
     padding: 10px;
     text-align: center;
 }
+
+div[class="overlay"] {
+    width: 20rem;
+    height: 7rem;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, .7);
+    display: flex;
+    flex-direction: column;
+}
+
+div[class="overlay_middle"] {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    position: relative;
+    background-color: gray;
+}
+
+div[class="overlay_middle"] button {
+    position: absolute;
+    right: 3%;
+    top: 15%;
+    border: 0;
+    padding: 0;
+    height: auto;
+}
+
+div[class="overlay_middle"] button p {
+    margin: 0;
+    background-color: rgba(255, 255, 255, 255, 1);
+}
+
+div[class="overlay_name"] {
+    padding-left: 1rem;
+    font-size: 30px;
+}
+
+div[class="content_add"] {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+
+div[class="content_text"] {
+    padding: 0 1rem;
+}
