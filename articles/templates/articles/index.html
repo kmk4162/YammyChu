@@ -56,209 +56,224 @@
         </div>
       </a>
     </div>
-    
-
-
     {% endfor %}
   </div>
   <div class="container">
     <section class="my-5 py-5">
       <div class="d-flex flex-column align-items-center mt-3">
-        <h2 class="fw-bold" style="font-size:2.5rem;">인기 리뷰<h2>
-        <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 리뷰를 찾아보세요💯</p>
+        <h2 class="fw-bold" style="font-size:2.5rem;">인기 매점<h2>
+        <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 매점을 찾아보세요💯</p>
       </div>
 
-      <!-- 카드 슬라이더 효과 -->
-      <div class='slider'>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">별점순</button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">팔로우순</button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">리뷰수순</button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+            <!-- 카드 슬라이더 효과 -->
+            <div class='slider'>
+              <div class='slide-track'>
+                {% for grade in store_grade %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-3">
+                    <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
+                    {% for image in grade.store_image.all %}
+                      {% if forloop.counter == 1 %}
+                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                          {% endif %}
+                    {% endfor %}
+                    <div class="card-body py-2 border-top">
+                      <h5 class="card-title text-center">{{grade.name}}</h5>
+                      <p class="card-text small">
+                        {{grade.items}}
+                      </p>
+                      <p class="small m-0">{{grade.team.stadium.name}}</p>
+                      {% if grade.store_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                        {% for i in ""|ljust:grade.avg_grade %}
+                          <span>⭐</span>
+                        {% endfor %}
+                      {% endif %}
+                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
+                    </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
 
-        <div class='slide-track'>
+                <!-- 한번 더 반복하기 -->
 
-          <div class='slide'>
-            <div class="train-card bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+                {% for grade in store_grade %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-3">
+                    <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
+                    {% for image in grade.store_image.all %}
+                      {% if forloop.counter == 1 %}
+                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                          {% endif %}
+                    {% endfor %}
+                    <div class="card-body py-2 border-top">
+                      <h5 class="card-title text-center">{{grade.name}}</h5>
+                      <p class="card-text small">
+                        {{grade.items}}
+                      </p>
+                      <p class="small m-0">{{grade.team.stadium.name}}</p>
+                      {% if grade.store_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                        {% for i in ""|ljust:grade.avg_grade %}
+                          <span>⭐</span>
+                        {% endfor %}
+                      {% endif %}
+                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
+                    </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+            <!-- 카드 슬라이더 효과 -->
+            <div class='slider'>
+              <div class='slide-track'>
+                {% for follow in store_following %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-3">
+                    <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
+                    {% for image in follow.store_image.all %}
+                      {% if forloop.counter == 1 %}
+                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                          {% endif %}
+                    {% endfor %}
+                    <div class="card-body py-2 border-top">
+                      <h5 class="card-title text-center">{{follow.name}}</h5>
+                      <p class="card-text small">
+                        {{follow.items}}
+                      </p>
+                      <p class="small m-0">{{follow.team.stadium.name}}</p>
+                      {% if follow.store_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                        {% for i in ""|ljust:follow.avg_grade %}
+                          <span>⭐</span>
+                        {% endfor %}
+                      {% endif %}
+                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
+                    </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
 
-          <!-- 한번 더 반복하기 -->
+                <!-- 한번 더 반복하기 -->
 
-          
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+                {% for follow in store_following %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-3">
+                    <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
+                    {% for image in follow.store_image.all %}
+                      {% if forloop.counter == 1 %}
+                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                          {% endif %}
+                    {% endfor %}
+                    <div class="card-body py-2 border-top">
+                      <h5 class="card-title text-center">{{follow.name}}</h5>
+                      <p class="card-text small">
+                        {{follow.items}}
+                      </p>
+                      <p class="small m-0">{{follow.team.stadium.name}}</p>
+                      {% if follow.store_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                        {% for i in ""|ljust:follow.avg_grade %}
+                          <span>⭐</span>
+                        {% endfor %}
+                      {% endif %}
+                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
+                    </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
-              </div>
-            </div>
-          </div>
-          <div class='slide'>
-            <div class="train-card border border-1 bg-white p-3">
-              <a href="">
-                <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
-              </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">"리뷰제목"</h5>
-                <p class="card-text small">
-                  리뷰 내용 리뷰 내용 리뷰 내용 리뷰 내용...
-                </p>
-                <p class="small m-0">잠실야구장</p>
-                <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+            <!-- 카드 슬라이더 효과 -->
+            <div class='slider'>
+              <div class='slide-track'>
+                {% for review in store_review %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-3">
+                    <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
+                    {% for image in review.store_image.all %}
+                      {% if forloop.counter == 1 %}
+                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                          {% endif %}
+                    {% endfor %}
+                    <div class="card-body py-2 border-top">
+                      <h5 class="card-title text-center">{{review.name}}</h5>
+                      <p class="card-text small">
+                        {{review.items}}
+                      </p>
+                      <p class="small m-0">{{review.team.stadium.name}}</p>
+                      {% if review.store_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                        {% for i in ""|ljust:review.avg_grade %}
+                          <span>⭐</span>
+                        {% endfor %}
+                      {% endif %}
+                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
+                    </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
+
+                <!-- 한번 더 반복하기 -->
+
+                {% for review in store_review %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-3">
+                    <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
+                    {% for image in review.store_image.all %}
+                      {% if forloop.counter == 1 %}
+                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                          {% endif %}
+                    {% endfor %}
+                    <div class="card-body py-2 border-top">
+                      <h5 class="card-title text-center">{{review.name}}</h5>
+                      <p class="card-text small">
+                        {{review.items}}
+                      </p>
+                      <p class="small m-0">{{review.team.stadium.name}}</p>
+                      {% if review.store_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                        {% for i in ""|ljust:review.avg_grade %}
+                          <span>⭐</span>
+                        {% endfor %}
+                      {% endif %}
+                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
+                    </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
         </div>
-      </div>
+
+      
 
     </section>
     <section class="row d-flex justify-content-center mt-5">
