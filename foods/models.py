@@ -15,7 +15,7 @@ class Store(models.Model):
     items = models.TextField()
     # 상세 위치
     detail = models.TextField()
-    following_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='following_stores')
+    following_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='following_stores', blank=True)
 
 def user_directory_path(instance, filename):
     return f'images/{instance.store.team.name}/{instance.store.detail}/{instance.store.name}/{filename}'
