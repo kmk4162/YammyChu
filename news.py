@@ -17,10 +17,10 @@ def news():
     rescode = response.getcode()
     if(rescode==200):
         response_body = response.read()
-        print(response_body.decode('utf-8'))
+        # print(response_body.decode('utf-8'))
     else:
         print("Error Code:" + rescode)
     return(response_body.decode('utf-8'))
 
-if __name__ == '__main__':
-    print(news())
+# if __name__ == '__main__':
+#     print(news())
