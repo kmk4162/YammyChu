@@ -287,6 +287,7 @@ footer {
   top: 0;
 }
 
+
 .slider::after {
   right: 0;
   top: 0;
@@ -304,7 +305,11 @@ footer {
 }
 
 .carousel-inner{
-  height:100%;
+  font-size:calc(10px + 2vw);
+  height:400%;
+  position:relative;
+  right:-110%;
+  top:100%;
 }
 
 
