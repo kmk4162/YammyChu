@@ -256,7 +256,7 @@
     followBtn.addEventListener('click', function(event) {
         axios({
             method: 'get',
-            url: `/foods/home/${event.target.dataset.teamId}/restaurant/${event.target.dataset.restaurantId}/follow/`,
+            url: `/foods/${event.target.dataset.teamId}/restaurant/${event.target.dataset.restaurantId}/follow/`,
         })
         .then(response => {
             if (response.data.restaurantFollow === true) {

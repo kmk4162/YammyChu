@@ -12,5 +12,5 @@ def tag_check(review):
         team = Team.objects.get(pk=review.store_name.team.pk)
     tags = review.tags.all()
     for tag in tags:
-        content = content.replace(tag.content, '<a class="text-decoration-none" href="/foods/home/{}/{}/tag">{}</a>'.format(team.pk, tag.pk, tag.content))
+        content = content.replace(tag.content, '<a class="text-decoration-none" href="/foods/{}/{}/tag">{}</a>'.format(team.pk, tag.pk, tag.content))
     return content
