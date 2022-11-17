@@ -6,6 +6,7 @@ app_name = "foods"
 urlpatterns = [
     path("home/<int:team_pk>/", views.home, name="home"),
     path('home/<int:team_pk>/store/<int:store_pk>/', views.store_detail, name='store_detail'),
+    path('home/<int:team_pk>/store/all/', views.store_all, name='store_all'),
     path('home/<int:team_pk>/store/<int:store_pk>/follow/', views.store_follow, name='store_follow'),
     path('home/<int:team_pk>/store/<int:store_pk>/create/', views.store_review_create, name='store_review_create'),
     path('home/<int:team_pk>/store/<int:store_pk>/<int:review_pk>/delete/', views.store_review_delete, name='store_review_delete'),

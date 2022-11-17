@@ -8,7 +8,7 @@ from django.db.models import Avg
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
-
+from django.core.paginator import Paginator
 
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
@@ -36,6 +36,25 @@ def store_detail(request, team_pk, store_pk):
     reviewimage_form = ReviewImageForm()
     context = {'team': team, 'store': store, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/store_detail.html', context)
+
+def store_all(request, team_pk):
+    page = request.GET.get("page", "1")
+    team = Team.objects.get(pk=team_pk)
+    stadium = Stadium.objects.get(pk=team.stadium_id)
+    if team.pk == 3:
+        middle = Team.objects.filter(stadium_id=team.stadium_id)
+        store = Store.objects.filter(team=middle[1]).order_by('detail')
+    else:
+        store = Store.objects.filter(team=team).order_by('detail')
+    paginator = Paginator(store, 8)
+    page_obj = paginator.get_page(page)
+    context = {
+        "team":team,
+        "stores":page_obj,
+        "stadium":stadium,
+    }
+    return render(request, "foods/store_all.html", context)
+
 
 @login_required
 def store_follow(request, team_pk, store_pk):
