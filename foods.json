@@ -9,9 +9,7 @@
             "team": 8,
             "items": "햄버거, 치킨, 감튀, 음료",
             "detail": "1층(STAFF GATE)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -24,9 +22,7 @@
             "team": 8,
             "items": "과자, 도시락, 음료수, 주류",
             "detail": "1층(STAFF GATE)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -39,9 +35,7 @@
             "team": 8,
             "items": "과자,음료수, 주류",
             "detail": "2층(122)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -54,9 +48,7 @@
             "team": 8,
             "items": "치킨",
             "detail": "2층(122)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -69,9 +61,7 @@
             "team": 8,
             "items": "튀김쥐포, 치즈스틱, 감자튀김, 빠삭태, 생맥주",
             "detail": "2층(123)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -84,9 +74,7 @@
             "team": 8,
             "items": "떡볶이, 어묵, 오다리, 꼬마김밥, 치킨콜팝, 닭강정",
             "detail": "2층(123)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -99,9 +87,7 @@
             "team": 8,
             "items": "불오뎅, 빅바이트, 닭껍질튀김, 군고구마, 커피",
             "detail": "2층(124)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -114,9 +100,7 @@
             "team": 8,
             "items": "과자, 음료수, 주류",
             "detail": "2층(124)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -129,9 +113,7 @@
             "team": 8,
             "items": "삼겹살, 족발, 순대, 만두, 충무김밥, 생맥주",
             "detail": "2층(125)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -144,9 +126,7 @@
             "team": 8,
             "items": "아이스크림, 츄러스, 팝콘, 와플",
             "detail": "2층(125)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -159,9 +139,7 @@
             "team": 8,
             "items": "불오뎅, 빅바이트, 닭껍질튀김, 군고구마, 커피",
             "detail": "2층(126)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -174,9 +152,7 @@
             "team": 8,
             "items": "과자, 음료수, 주류",
             "detail": "2층(외야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -189,9 +165,7 @@
             "team": 8,
             "items": "삼겹살, 족발, 순대, 만두, 충무김밥, 꼼장어, 생맥주",
             "detail": "2층(외야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -204,9 +178,7 @@
             "team": 8,
             "items": "과자, 음료수, 주류",
             "detail": "2층(외야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -219,9 +191,7 @@
             "team": 8,
             "items": "튀김쥐포, 아이스황도, 빠삭태, 생맥주",
             "detail": "2층(327)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -234,9 +204,7 @@
             "team": 8,
             "items": "삼겹살, 족발, 순대, 만두, 충무김밥, 생맥주",
             "detail": "2층(324)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -249,9 +217,7 @@
             "team": 8,
             "items": "떡볶이, 어묵, 오다리, 꼬마김밥, 치킨콜팝, 닭강정",
             "detail": "2층(323)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -264,9 +230,7 @@
             "team": 8,
             "items": "과자, 음료수, 주류",
             "detail": "2층(321)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -279,9 +243,7 @@
             "team": 8,
             "items": "과자, 도시락, 음료수, 주류",
             "detail": "3층(031A)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -294,9 +256,7 @@
             "team": 8,
             "items": "삼겹살, 족발, 순대, 만두, 충무김밥, 생맥주",
             "detail": "3층(032A)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -309,9 +269,7 @@
             "team": 8,
             "items": "치킨(순살, 윙봉, 치즈링)",
             "detail": "3층(033A)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -324,9 +282,7 @@
             "team": 8,
             "items": "떡볶이, 꼬마김밥, 치킨콜팝, 오다리, 팥빙수",
             "detail": "3층(132)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -339,9 +295,7 @@
             "team": 8,
             "items": "닭강정(양념/후라이드), 닭똥집, 감자튀김",
             "detail": "3층(132)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -354,9 +308,7 @@
             "team": 8,
             "items": "햄버거, 치킨, 음료수",
             "detail": "3층(132)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -369,9 +321,7 @@
             "team": 8,
             "items": "과자, 도시락, 음료수, 주류",
             "detail": "3층(332)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -384,9 +334,7 @@
             "team": 8,
             "items": "치킨, 피쉬앤칩스(새우/오징어), 돼지고기튀김",
             "detail": "3층(332)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -399,9 +347,7 @@
             "team": 8,
             "items": "과자, 음료수, 주류",
             "detail": "4층(053)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -414,9 +360,7 @@
             "team": 8,
             "items": "삼겹살, 족발, 순대, 만두, 충무김밥",
             "detail": "4층(053)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -429,9 +373,7 @@
             "team": 7,
             "items": "CU",
             "detail": "1층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -444,9 +386,7 @@
             "team": 7,
             "items": "자에미카 소떡만나, 크런치 버터치킨, 황금 올리브 치킨, 올리브 핫윙",
             "detail": "1층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -459,9 +399,7 @@
             "team": 7,
             "items": "통새우와퍼세트, 와퍼세트, 콰트로치즈와퍼, 어니언링",
             "detail": "1층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -474,9 +412,7 @@
             "team": 7,
             "items": "버섯 크림 파스타, 쉬림프 로제 파스타, 김치 베이컨 필라프, 레몬 에이드, 수제 생맥주",
             "detail": "1층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -489,9 +425,7 @@
             "team": 7,
             "items": "에스프레소, 아메리카노, 카푸치노, 초코 라떼, 생과일 주스",
             "detail": "1층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -504,9 +438,7 @@
             "team": 7,
             "items": "누룩솔트 후라이드, 양념갈비 후라이드, 깐풍갈릭 후라이드, 로드락브리또, 돼지갈비컵밥",
             "detail": "2층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -519,9 +451,7 @@
             "team": 7,
             "items": "땅땅불갈비, 시카고피자, 마늘오븐치킨, 불닭후라이드",
             "detail": "2층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -534,9 +464,7 @@
             "team": 7,
             "items": "꼰대라떼, 오리엔탈 라떼, 아메리카노, 카페라떼, 아포가토",
             "detail": "2층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -549,9 +477,7 @@
             "team": 7,
             "items": "새우닭강정, 간장닭강정, 문어버터구이, 핫바, 왕만두, 물, 음료수",
             "detail": "2층(외야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -564,9 +490,7 @@
             "team": 7,
             "items": "직화곱창구이, 순살 족발, 소떡소떡, 감자튀김, 수제 어묵, 생수",
             "detail": "2층(외야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -579,9 +503,7 @@
             "team": 7,
             "items": "편의점",
             "detail": "2층(푸드스트리트)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -594,9 +516,7 @@
             "team": 7,
             "items": "새우닭강정, 간장닭강정, 문어버터구이, 핫바, 왕만두, 물, 음료수",
             "detail": "2층(푸드스트리트)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -609,9 +529,7 @@
             "team": 7,
             "items": "떡볶이, 만두튀김, 에이드 음료, 생맥주",
             "detail": "2층(푸드스트리트)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -624,9 +542,7 @@
             "team": 7,
             "items": "맥친 세트, 파파스 파스타, 단짠 세트, 치킨 스트립, 스프라이트",
             "detail": "2층(푸드스트리트)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -639,9 +555,7 @@
             "team": 7,
             "items": "대프리카 덮밥, 사자 덮밥, 우동, 오징어, 쥐포, 콜라, 생수",
             "detail": "2층(푸드스트리트)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -654,9 +568,7 @@
             "team": 7,
             "items": "편의점",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -669,9 +581,7 @@
             "team": 7,
             "items": "순살 크래커, 순살 치즐링, 올리브 핫윙, 맥주",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -684,9 +594,7 @@
             "team": 7,
             "items": "새우닭강정, 간장닭강정, 문어버터구이, 핫바, 왕만두, 물, 음료수",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -699,9 +607,7 @@
             "team": 7,
             "items": "통새우와퍼세트, 와퍼세트, 콰트로치즈와퍼, 어니언링",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -714,9 +620,7 @@
             "team": 7,
             "items": "떡볶이, 만두튀김, 에이드 음료, 생맥주",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -729,9 +633,7 @@
             "team": 7,
             "items": "허브순살 치킨, 매콤찹스, 허니치즈후라이드, 후왕, 콜라, 생맥주",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -744,9 +646,7 @@
             "team": 7,
             "items": "아메리카노, 카페라떼, 바닐라라떼, 콜드브루, 헤이즐넛라떼, 유자차",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -759,9 +659,7 @@
             "team": 7,
             "items": "만루홈런 세트, 오재일 세트, 로제 세트, 납작 만두, 로라 주먹밥, 물",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -774,9 +672,7 @@
             "team": 7,
             "items": "돼지후라이드 3종세트, 수제 어묵, 진미버터 오징어, 튀김 쥐포, 콜라, 생수",
             "detail": "3층(내야석)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -789,9 +685,7 @@
             "team": 7,
             "items": "돼지후라이드 3종세트, 수제 어묵, 진미버터 오징어, 튀김 쥐포, 콜라, 생수",
             "detail": "4층(스윗박스)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -804,9 +698,7 @@
             "team": 7,
             "items": "편의점",
             "detail": "5층(스카이프리)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -819,9 +711,7 @@
             "team": 7,
             "items": "순살 크래커, 순살 치즐링, 올리브 핫윙, 맥주",
             "detail": "5층(스카이프리)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -834,9 +724,7 @@
             "team": 7,
             "items": "새우닭강정, 간장닭강정, 문어버터구이, 핫바, 왕만두, 물, 음료수",
             "detail": "5층(스카이프리)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -849,9 +737,7 @@
             "team": 7,
             "items": "누룩솔트, 양념갈비, 양념강정",
             "detail": "5층(스카이프리)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -864,9 +750,7 @@
             "team": 7,
             "items": "해피당볶이 세트, 떡볶이, 모듬튀김, 당면튀김, 치즈토핑",
             "detail": "5층(스카이프리)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -879,9 +763,7 @@
             "team": 7,
             "items": "만루홈런 세트, 오재일 세트, 로제 세트, 납작 만두, 생맥주, 물",
             "detail": "5층(스카이프리)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -894,9 +776,7 @@
             "team": 7,
             "items": "자몽 맥주, 1리터 맥주",
             "detail": "5층(스카이프리)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -909,9 +789,7 @@
             "team": 7,
             "items": "꼰대라떼, 오리엔탈 라떼, 아메리카노, 카페라떼, 아포가토",
             "detail": "2층(외부 매장)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -924,9 +802,7 @@
             "team": 5,
             "items": "편의점",
             "detail": "외야석",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -939,9 +815,7 @@
             "team": 5,
             "items": "목살스테이크 / 통삼겹",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -954,9 +828,7 @@
             "team": 5,
             "items": "제일버거 단품,버거 세트, 제일뽁규핫도그 단품",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -969,9 +841,7 @@
             "team": 5,
             "items": "뿌링클순살,뿌링클HOT순살,바삭클순살,맛초킹순살,치즈볼",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -984,9 +854,7 @@
             "team": 5,
             "items": "편의점",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -999,9 +867,7 @@
             "team": 5,
             "items": "3구 삼진어묵바,마성떡볶이,빨간어묵,소떡소떡",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1014,9 +880,7 @@
             "team": 5,
             "items": "뿌링클순살,뿌링클HOT순살,바삭클순살,맛초킹순살",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1029,9 +893,7 @@
             "team": 5,
             "items": "3구 삼진어묵바,마성떡볶이,빨간어묵,소떡소떡",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1044,9 +906,7 @@
             "team": 5,
             "items": "편의점",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1059,9 +919,7 @@
             "team": 5,
             "items": "목살스테이크 / 통삼겹",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1074,9 +932,7 @@
             "team": 5,
             "items": "뿌링클순살,뿌링클HOT순살,바삭클순살,맛초킹순살",
             "detail": "3층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1089,9 +945,7 @@
             "team": 5,
             "items": "제일버거 단품,버거 세트, 제일뽁규핫도그 단품",
             "detail": "4층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1104,9 +958,7 @@
             "team": 5,
             "items": "3구 삼진어묵바,마성떡볶이,빨간어묵,소떡소떡",
             "detail": "5층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1119,9 +971,7 @@
             "team": 5,
             "items": "편의점",
             "detail": "5층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1134,9 +984,7 @@
             "team": 5,
             "items": "뿌링클순살,뿌링클HOT순살,바삭클순살,맛초킹순살",
             "detail": "5층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1149,9 +997,7 @@
             "team": 10,
             "items": "수리 마카롱, 쥐포, 아이스티, 물, 생맥주",
             "detail": "1루 121블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1164,9 +1010,7 @@
             "team": 10,
             "items": "치킨 위주",
             "detail": "1루 121블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1179,9 +1023,7 @@
             "team": 10,
             "items": "떡볶이, 김밥, 라면, 어묵, 순대, 음료수",
             "detail": "1루 121블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1194,9 +1036,7 @@
             "team": 10,
             "items": "족발set, 보쌈set, 화끈한 불닭발, 풀드포크나초, 음료수, 생맥주",
             "detail": "1루 118블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1209,9 +1049,7 @@
             "team": 10,
             "items": "편의점",
             "detail": "1루 116블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1224,9 +1062,7 @@
             "team": 10,
             "items": "강정 위주",
             "detail": "1루 112블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1239,9 +1075,7 @@
             "team": 10,
             "items": "불곱창, 먹태, 소시지, 해물어묵바, 마른안주, 음료수, 에이드",
             "detail": "1루 105블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1254,9 +1088,7 @@
             "team": 10,
             "items": "떡볶이, 모듬튀김, 참치마요 컵밥, 고구마치즈볼, 순대",
             "detail": "1루 105블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1269,9 +1101,7 @@
             "team": 10,
             "items": "생맥주, 팝콘, 오징어땅콩 외",
             "detail": "중앙출입구",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1284,9 +1114,7 @@
             "team": 10,
             "items": "스태프 핫도그, 카사바칩, 구슬 아이스크림 외",
             "detail": "중앙출입구(좌)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1299,9 +1127,7 @@
             "team": 10,
             "items": "아메리카노, 에스프레소, 브루잉커피, 파운드케이크, 쿠키, 마들렌, 착즙주스",
             "detail": "중앙출입구(좌)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1314,9 +1140,7 @@
             "team": 10,
             "items": "편의점",
             "detail": "중앙출입구",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1329,9 +1153,7 @@
             "team": 10,
             "items": "후라이드, 양념, 뿌리고치킨, 멕시감자, 새우링, 수작미니핫도그, 콜라",
             "detail": "중앙출입구(우)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1344,9 +1166,7 @@
             "team": 10,
             "items": "이글스 box, 독수리 홈런팩, 아메리칸 치즈버거 외",
             "detail": "중앙출입구(우)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1359,9 +1179,7 @@
             "team": 10,
             "items": "홈런(한마리), 도루(다리), 소떡소떡 외",
             "detail": "중앙출입구(우)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1374,9 +1192,7 @@
             "team": 10,
             "items": "큐브 스테이크, 오징어다리, 레몬크림 새우 외",
             "detail": "3루 304블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1389,9 +1205,7 @@
             "team": 10,
             "items": "야채 김밥, 순대볶음, 맥반석 오징어, 쥐포, 통감자, 순대, 소떡소떡",
             "detail": "3루 314호",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1404,9 +1218,7 @@
             "team": 10,
             "items": "편의점",
             "detail": "3루 315블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1419,9 +1231,7 @@
             "team": 10,
             "items": "치킨 위주",
             "detail": "3루 316블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1434,9 +1244,7 @@
             "team": 10,
             "items": "츄러스, 아이스크림 츄러스, 쇼콜라떼 외",
             "detail": "3루 317블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1449,9 +1257,7 @@
             "team": 10,
             "items": "아메리카노, 카페라떼, 바릴라라떼, 카페모카, 팥빙수",
             "detail": "3루 317블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1464,9 +1270,7 @@
             "team": 10,
             "items": "가락 어묵우동, 쌀떡볶이, 농심 떡라면 외",
             "detail": "3루 318블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1479,9 +1283,7 @@
             "team": 10,
             "items": "생맥주, 팝콘, 오징어 외",
             "detail": "3루 318블록",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1494,9 +1296,7 @@
             "team": 10,
             "items": "편의점",
             "detail": "3루 외야",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1509,9 +1309,7 @@
             "team": 4,
             "items": "편의점",
             "detail": "블루존(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1524,9 +1322,7 @@
             "team": 4,
             "items": "감자,소세지,햄버거,스무디, 큐브 스테이크",
             "detail": "블루존(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1539,9 +1335,7 @@
             "team": 4,
             "items": "순살 뿌링클,",
             "detail": "블루존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1554,9 +1348,7 @@
             "team": 4,
             "items": "닭꼬치,튀김, 팥빙수,스무디,분식,중식",
             "detail": "블루존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1569,9 +1361,7 @@
             "team": 4,
             "items": "곱창순대볶음, 불막창, 순살 불족발, 무뼈닭발",
             "detail": "화이트존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1584,9 +1374,7 @@
             "team": 4,
             "items": "돈가스, 롤밥",
             "detail": "화이트존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1599,9 +1387,7 @@
             "team": 4,
             "items": "모둠 소시지, 핫도그, 생맥주, 에이드",
             "detail": "화이트존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1614,9 +1400,7 @@
             "team": 4,
             "items": "후라이드 통닭",
             "detail": "화이트존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1629,9 +1413,7 @@
             "team": 4,
             "items": "군만두, 쫄면, 맥주",
             "detail": "화이트존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1644,9 +1426,7 @@
             "team": 4,
             "items": "짜장면, 우동, 탕수육, 아이스크림, 세트메뉴",
             "detail": "화이트존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1659,9 +1439,7 @@
             "team": 4,
             "items": "편의점",
             "detail": "레드존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1674,9 +1452,7 @@
             "team": 4,
             "items": "석봉 토스트, 불닭 토스틱, 석봉 세트, 커피세트, 슬러시",
             "detail": "레드존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1689,9 +1465,7 @@
             "team": 4,
             "items": "통삼겹, 삼겹살 정식, 피시앤칩스, 생맥주",
             "detail": "레드존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1704,9 +1478,7 @@
             "team": 4,
             "items": "순살 바삭클, 순살 뿌링클, 치킨무, 음료",
             "detail": "그린존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1719,9 +1491,7 @@
             "team": 4,
             "items": "kt박스, wiz박스, 김치볶음밥, 치킨마요 도시락",
             "detail": "그린존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1734,9 +1504,7 @@
             "team": 4,
             "items": "브리또,수제버거,타코, 퀘사디아, 미니소시지",
             "detail": "그린존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1749,9 +1517,7 @@
             "team": 4,
             "items": "팝콘,군밤,버터구이, 쥐포, 츄러스",
             "detail": "그린존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1764,9 +1530,7 @@
             "team": 4,
             "items": "불고기버거, 새우버거, 핫크리스피버거, 모짜크림치즈볼, 통오징어링, 콜라",
             "detail": "그린존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1779,9 +1543,7 @@
             "team": 4,
             "items": "수퍼 파파스, 페퍼로니 피자, 존스 페이버릿 피자",
             "detail": "그린존(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1794,9 +1556,7 @@
             "team": 4,
             "items": "치즈스틱커플세트, 오징어링커플세트, 치즈스틱, 오징어링, 콜라",
             "detail": "5층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1809,9 +1569,7 @@
             "team": 4,
             "items": "편의점",
             "detail": "5층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1824,9 +1582,7 @@
             "team": 4,
             "items": "편의점",
             "detail": "5층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1839,9 +1595,7 @@
             "team": 4,
             "items": "편의점",
             "detail": "5층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1854,9 +1608,7 @@
             "team": 4,
             "items": "수퍼 파파스, 페퍼로니 피자, 존스 페이버릿 피자",
             "detail": "5층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1869,9 +1621,7 @@
             "team": 6,
             "items": "과자, 음료, 캔맥주, 아이스크림, 잡화",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1884,9 +1634,7 @@
             "team": 6,
             "items": "떡볶이, 튀김, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1899,9 +1647,7 @@
             "team": 6,
             "items": "커피, 음료, 프레즐",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1914,9 +1660,7 @@
             "team": 6,
             "items": "치킨, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1929,9 +1673,7 @@
             "team": 6,
             "items": "커피, 음료",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1944,9 +1686,7 @@
             "team": 6,
             "items": "피자, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1959,9 +1699,7 @@
             "team": 6,
             "items": "햄버거, 음료",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1974,9 +1712,7 @@
             "team": 6,
             "items": "꼬치류, 닭강정, 닭발, 우동",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -1989,9 +1725,7 @@
             "team": 6,
             "items": "핫도그, 감자튀김, 커피",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2004,9 +1738,7 @@
             "team": 6,
             "items": "커피, 음료, 프레즐",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2019,9 +1751,7 @@
             "team": 6,
             "items": "치킨, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2034,9 +1764,7 @@
             "team": 6,
             "items": "닭강정, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2049,9 +1777,7 @@
             "team": 6,
             "items": "과자, 음료, 캔맥주, 아이스크림, 잡화",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2064,9 +1790,7 @@
             "team": 6,
             "items": "커피, 음료, 프레즐",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2079,9 +1803,7 @@
             "team": 6,
             "items": "떡볶이, 튀김, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2094,9 +1816,7 @@
             "team": 6,
             "items": "닭강정, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2109,9 +1829,7 @@
             "team": 6,
             "items": "치킨, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2124,9 +1842,7 @@
             "team": 6,
             "items": "족발, 보쌈, 막국수, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2139,9 +1855,7 @@
             "team": 6,
             "items": "스테이크, 감자튀김, 생맥주",
             "detail": "1층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2154,9 +1868,7 @@
             "team": 6,
             "items": "커피, 음료",
             "detail": "2층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2169,9 +1881,7 @@
             "team": 6,
             "items": "떡볶이, 튀김, 생맥주",
             "detail": "2층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2184,9 +1894,7 @@
             "team": 6,
             "items": "과자, 음료, 캔맥주, 아이스크림, 잡화",
             "detail": "2층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2199,9 +1907,7 @@
             "team": 6,
             "items": "치킨, 생맥주",
             "detail": "2층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2214,9 +1920,7 @@
             "team": 2,
             "items": "스테프 핫도그, 플레인 핫도그, 아메리카노, 자몽 에이드, 생맥주",
             "detail": "1루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2229,9 +1933,7 @@
             "team": 2,
             "items": "아메리카노, 카페라떼, 카페모카, 바닐라라떼, 핫초코",
             "detail": "1루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2244,9 +1946,7 @@
             "team": 2,
             "items": "치킨버거, 통새우멘보샤, 케이준감자, 핫윙, 감자튀김",
             "detail": "1루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2259,9 +1959,7 @@
             "team": 2,
             "items": "떡볶이, 순대, 오뎅, 튀김, 닭강정, 생맥주",
             "detail": "1루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2274,9 +1972,7 @@
             "team": 2,
             "items": "페퍼로니피자, 불고기피자, 토마토스파게티, 생맥주, 음료",
             "detail": "1루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2289,9 +1985,7 @@
             "team": 2,
             "items": "빅소시지, 닭강정, 닭살꼬치, 먹태, 물, 생맥주",
             "detail": "3루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2304,9 +1998,7 @@
             "team": 2,
             "items": "아메리카노, 카페라떼, 카페모카, 바닐라라떼, 핫초코",
             "detail": "3루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2319,9 +2011,7 @@
             "team": 2,
             "items": "순살뿌링클, 순살바삭클, 콜팝치킨, 달콤바삭치즈볼",
             "detail": "3루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2334,9 +2024,7 @@
             "team": 2,
             "items": "마왕통구이 레드, 마왕통구이 블랙, 파인애플 샤베트, 매콤족발만두",
             "detail": "3루",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2349,9 +2037,7 @@
             "team": 1,
             "items": "소떡소떡, 석봉토스트, 팥빙수, 어묵, 카페, 핫도그",
             "detail": "외야",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2364,9 +2050,7 @@
             "team": 1,
             "items": "더치커피, 페페로니피자, 바닐라라떼, 쿠키밀크쉐이크, 망고주스 등",
             "detail": "외야",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2379,9 +2063,7 @@
             "team": 1,
             "items": "아라비아따 핫도그, 우스트 핫도그, 크리미어니언 핫도그, 아메리카노, 소떡소떡",
             "detail": "외야",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2394,9 +2076,7 @@
             "team": 1,
             "items": "제육컵밥, 소불고기컵밥, 치킨마요컵밥, 닭볶음컵밥, 불판 대여",
             "detail": "외야",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2409,9 +2089,7 @@
             "team": 1,
             "items": "랜더스 팩, SSG 팩, 치킨너겟, 크런치 윙, 탄산음료",
             "detail": "외야",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2424,9 +2102,7 @@
             "team": 1,
             "items": "편의점",
             "detail": "1층(101B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2439,9 +2115,7 @@
             "team": 1,
             "items": "오리지널 치즈 푸틴, 불고기 버거, 88스테이크 버거(힐만 버거), 치킨 브레스트",
             "detail": "1층(102B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2454,9 +2128,7 @@
             "team": 1,
             "items": "선수명 와인들(추신수, 최정, 최주환, 박종훈, 한유섬, 김강민 등)",
             "detail": "1층(103B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2469,9 +2141,7 @@
             "team": 1,
             "items": "아메리카노, 카페 라떼, 스타벅스 돌체 라떼, 카라멜 마끼야또, 자몽 허니 블랙 티",
             "detail": "1층(104B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2484,9 +2154,7 @@
             "team": 1,
             "items": "아메리카노, 카페라떼, 바닐라라떼, 고구마라떼",
             "detail": "1층(104B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2499,9 +2167,7 @@
             "team": 1,
             "items": "떡볶이, 치즈떡볶이, 튀김세트, 컵밥, 우동, 순대",
             "detail": "1층(105B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2514,9 +2180,7 @@
             "team": 1,
             "items": "허니순살, 살살치킨, 웨지감자, 레드 순살",
             "detail": "1층(108B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2529,9 +2193,7 @@
             "team": 1,
             "items": "떡볶이, 오사카야끼, 닭강정, 오징어, 쥐포",
             "detail": "1층(109B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2544,9 +2206,7 @@
             "team": 1,
             "items": "떡볶이, 왕군만두, 핫도그, 쥐포, 아메리카노, 우산, 우비, 홈런볼",
             "detail": "1층(109B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2559,9 +2219,7 @@
             "team": 1,
             "items": "오레오 아츄, 생맥주, 소떡소떡, 김치우동, 생수",
             "detail": "1층(109B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2574,9 +2232,7 @@
             "team": 1,
             "items": "아메리카노, 카페 라떼, 스타벅스 돌체 라떼, 카라멜 마끼야또, 자몽 허니 블랙 티",
             "detail": "2층(201B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2589,9 +2245,7 @@
             "team": 1,
             "items": "아메리카노, 카페라떼, 초코라떼, 딸기몽땅빙수, 눈꽃팥빙수",
             "detail": "2층(201B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2604,9 +2258,7 @@
             "team": 1,
             "items": "후라이드 치킨, 양념 치킨, 마늘 치킨, 생맥주, 콜라",
             "detail": "2층(202B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2619,9 +2271,7 @@
             "team": 1,
             "items": "떡볶이, 라면, 철판삼겹살 정식, 생맥주, 음료, 아이스크림",
             "detail": "2층(202B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2634,9 +2284,7 @@
             "team": 1,
             "items": "허브매콤닭강정, 바비큐닭강정, 갈릭닭강정, 숯불무뼈닭발, 캔맥주, 탄산음료",
             "detail": "2층(202B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2649,9 +2297,7 @@
             "team": 1,
             "items": "신포찬누리닭강정, 모듬튀김, 순대, 떡볶이",
             "detail": "2층(203B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2664,9 +2310,7 @@
             "team": 1,
             "items": "냄비라면, 김밥, 즉석비빔면, 컵라면, 맥주, 쥐포",
             "detail": "2층(204B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2679,9 +2323,7 @@
             "team": 1,
             "items": "떡볶이, 우동, 찰떡순대, 튀김, 소떡소떡, 핫도그, 생맥주",
             "detail": "2층(205B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2694,9 +2336,7 @@
             "team": 1,
             "items": "순살치킨, 매콤강정, 옛날강정, 떡볶이",
             "detail": "2층(205B)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2709,9 +2349,7 @@
             "team": 9,
             "items": "홍차우유,제주 유기농 말차우유,생딸기우유,생초코우유",
             "detail": "A01(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2724,9 +2362,7 @@
             "team": 9,
             "items": "순살핫뿌링클팩, 순살뿌링클팩, 홈런팩",
             "detail": "A02(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2739,9 +2375,7 @@
             "team": 9,
             "items": "마약커리,어니언탱지,핫로제눈꽃,쉬림프골드,포테이토골드",
             "detail": "A03(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2754,9 +2388,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "A04(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2769,9 +2401,7 @@
             "team": 9,
             "items": "김밥,라면,냉면,만두,우동",
             "detail": "A05(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2784,9 +2414,7 @@
             "team": 9,
             "items": "트리플딥치즈싸이버거,텍사스바베큐치킨버거,싸이플렉스버거",
             "detail": "A06(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2799,9 +2427,7 @@
             "team": 9,
             "items": "자메이카소떡만나치킨,크런치버터치킨, 황금올리브치킨",
             "detail": "A07(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2814,9 +2440,7 @@
             "team": 9,
             "items": "콰트로치즈샌드,치즈케익샌드,갈릭스테이크,올라스페인",
             "detail": "A09(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2829,9 +2453,7 @@
             "team": 9,
             "items": "비빔밥,순두부백반,된장찌개,김치찌개",
             "detail": "A10(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2844,9 +2466,7 @@
             "team": 9,
             "items": "치킨팩, 치킨버거팩,버거팩",
             "detail": "A11(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2859,9 +2479,7 @@
             "team": 9,
             "items": "순살후라이드, 순살닭강정, 순살파닭, 뼈후라이드",
             "detail": "A12(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2874,9 +2492,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "A13(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2889,9 +2505,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "A16(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2904,9 +2518,7 @@
             "team": 1,
             "items": "떡닭꼬치,파닭꼬치,불땡꼬치,매콤닭꼬치,델리닭꼬치",
             "detail": "A17(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2919,9 +2531,7 @@
             "team": 9,
             "items": "모듬만두 A세트, B세트, C세트, 오만떡 A세트/ 김치,고기,갈비",
             "detail": "A19(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2934,9 +2544,7 @@
             "team": 9,
             "items": "닭강정트리오,새우불고기버거, 싸이버거, 인크레더블버거",
             "detail": "A20(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2949,9 +2557,7 @@
             "team": 9,
             "items": "자메이카소떡만나치킨,크런치버터치킨, 황금올리브치킨",
             "detail": "A21(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2964,9 +2570,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "A22(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2979,9 +2583,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "A26(1층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -2994,9 +2596,7 @@
             "team": 9,
             "items": "해바라기후라이드, 뿌링클순살, 바삭클순살, 핫윙",
             "detail": "B01(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3009,9 +2609,7 @@
             "team": 9,
             "items": "아메리카노, 달고나라떼, 바닐라라떼, 아이스티",
             "detail": "B02(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3024,9 +2622,7 @@
             "team": 9,
             "items": "퍼펙트세트, 어메이징세트, 홈런세트, 윙팩",
             "detail": "B03(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3039,9 +2635,7 @@
             "team": 9,
             "items": "모듬만두 세트, 국수, 우동, 냉면 세트, 튀김만두 세트",
             "detail": "B04(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3054,9 +2648,7 @@
             "team": 9,
             "items": "죠스안타세트, 죠스2루타세트, 죠스홈런세트, 슬러쉬, 어묵",
             "detail": "B05(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3069,9 +2661,7 @@
             "team": 9,
             "items": "삼겹살 정식,삼겹살세트,통통만두,순대볶음,열무국수",
             "detail": "B06(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3084,9 +2674,7 @@
             "team": 9,
             "items": "아메리카노_시그니쳐,허니몽,키위주스, 토마토주스",
             "detail": "B07(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3099,9 +2687,7 @@
             "team": 9,
             "items": "커피,에이드,스무디,크로플,아이스팡",
             "detail": "B08(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3114,9 +2700,7 @@
             "team": 9,
             "items": "치킨팩, 치킨버거팩,버거팩",
             "detail": "B11(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3129,9 +2713,7 @@
             "team": 9,
             "items": "자메이카소떡만나치킨,크런치버터치킨, 황금올리브치킨",
             "detail": "B12(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3144,9 +2726,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "B13(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3159,9 +2739,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "B19(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3174,9 +2752,7 @@
             "team": 9,
             "items": "자메이카소떡만나치킨,크런치버터치킨, 황금올리브치킨",
             "detail": "B20(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3189,9 +2765,7 @@
             "team": 9,
             "items": "트리플딥치즈싸이버거,텍사스바베큐치킨버거,싸이플렉스버거",
             "detail": "B21(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3204,9 +2778,7 @@
             "team": 9,
             "items": "순살후라이드, 순살닭강정, 순살파닭, 뼈후라이드",
             "detail": "B24(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3219,9 +2791,7 @@
             "team": 9,
             "items": "참치김치 주먹밥,닭갈비 주먹밥,꼬치어묵,떡볶이",
             "detail": "B26(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3234,9 +2804,7 @@
             "team": 9,
             "items": "플레인덕,치즈덕,칠리덕,빅포테이토",
             "detail": "B27(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3249,9 +2817,7 @@
             "team": 9,
             "items": "아메리카노_시그니쳐,허니몽,키위주스, 토마토주스",
             "detail": "B28(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3264,9 +2830,7 @@
             "team": 9,
             "items": "야채곱창,순대곱창, 막창구이",
             "detail": "B29(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3279,9 +2843,7 @@
             "team": 9,
             "items": "모듬만두 A세트, B세트, C세트, 오만떡 A세트/ 김치,고기,갈비",
             "detail": "B30(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3294,9 +2856,7 @@
             "team": 9,
             "items": "요거트와 우유 아이스크림, 아이스아메리카노",
             "detail": "B31(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3309,9 +2869,7 @@
             "team": 9,
             "items": "죠스안타세트, 죠스2루타세트, 죠스홈런세트, 슬러쉬, 어묵",
             "detail": "B33(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3324,9 +2882,7 @@
             "team": 9,
             "items": "오리지널 프레즐, 아몬드 프레즐, 시나몬 슈가 프레즐",
             "detail": "B34(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3339,9 +2895,7 @@
             "team": 9,
             "items": "퍼펙트세트, 어메이징세트, 홈런세트, 윙팩",
             "detail": "B35(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3354,9 +2908,7 @@
             "team": 9,
             "items": "순살핫뿌링클팩, 순살뿌링클팩, 홈런팩",
             "detail": "B36(2층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3369,9 +2921,7 @@
             "team": 9,
             "items": "커피,에이드,스무디,크로플,아이스팡",
             "detail": "C04(2.5층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3384,9 +2934,7 @@
             "team": 9,
             "items": "삼겹살 정식,삼겹살세트,통통만두,순대볶음,열무국수",
             "detail": "C05(2.5층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3399,9 +2947,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "D01(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3414,9 +2960,7 @@
             "team": 9,
             "items": "플레인 핫도그, 칠리덕, 스테프 핫도그, 스위트덕, 치즈덕",
             "detail": "D02(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3429,9 +2973,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "D03(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3444,9 +2986,7 @@
             "team": 9,
             "items": "치킨팩, 치킨버거팩,버거팩",
             "detail": "D04(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3459,9 +2999,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "D05(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3474,9 +3012,7 @@
             "team": 9,
             "items": "커피,에이드,스무디,크로플,아이스팡",
             "detail": "D06(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3489,9 +3025,7 @@
             "team": 9,
             "items": "자메이카소떡만나치킨,크런치버터치킨, 황금올리브치킨",
             "detail": "D07(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3504,9 +3038,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "D08(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3519,9 +3051,7 @@
             "team": 9,
             "items": "트리플딥치즈싸이버거,텍사스바베큐치킨버거,싸이플렉스버거",
             "detail": "D09(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3534,9 +3064,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "D10(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3549,9 +3077,7 @@
             "team": 9,
             "items": "플레인 핫도그, 칠리덕, 스테프 핫도그, 스위트덕, 치즈덕",
             "detail": "D11(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3564,9 +3090,7 @@
             "team": 9,
             "items": "편의점",
             "detail": "D12(3층)",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
@@ -3579,9 +3103,7 @@
             "team": 9,
             "items": "각종 다양한 튀김류",
             "detail": "4층",
-            "following_users": [
-                1
-            ]
+            "following_users": []
         }
     },
     {
