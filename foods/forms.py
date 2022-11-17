@@ -1,6 +1,7 @@
 from .models import Review, Restaurant, ReviewImage, RestaurantImage
 from django import forms
 from django.forms import ClearableFileInput
+from .widgets import starWidget
 
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -8,9 +9,11 @@ class ReviewForm(forms.ModelForm):
         fields = ("content", "grade")
         labels = {
             "content": "내용",
-            "grade": "평점",
+            "grade": "별점",
         }
-
+        widgets = {
+            "grade": starWidget,
+        }
 
 class ReviewImageForm(forms.ModelForm):
     class Meta:
