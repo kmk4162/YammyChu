@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
 
-
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
