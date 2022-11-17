@@ -17,7 +17,6 @@ def home(request, team_pk):
         middle = Team.objects.filter(stadium_id=team.stadium_id)
         stores = Store.objects.filter(team=middle[1])
     else:
-        print(team)
         stores = Store.objects.filter(team=team)
     restaurants = Restaurant.objects.filter(team=team)
     context = {
