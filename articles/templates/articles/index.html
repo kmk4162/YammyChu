@@ -79,28 +79,39 @@
               <div class='slide-track'>
                 {% for grade in store_grade %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3">
+                  <div class="train-card bg-white p-3 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
                     {% for image in grade.store_image.all %}
                       {% if forloop.counter == 1 %}
-                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                          {% endif %}
+                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                      {% endif %}
                     {% endfor %}
-                    <div class="card-body py-2 border-top">
+                    <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center">{{grade.name}}</h5>
                       <p class="card-text small">
                         {{grade.items}}
                       </p>
-                      <p class="small m-0">{{grade.team.stadium.name}}</p>
-                      {% if grade.store_reviews.all.count == 0 %}
-                        <span class='small m-0'>평가가 없습니다</span>
-                      {% else %}
-                        {% for i in ""|ljust:grade.avg_grade %}
-                          <span>⭐</span>
-                        {% endfor %}
-                      {% endif %}
-                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
                     </div>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                      <p class="small m-0 text-center">{{ grade.team.stadium.name }}</p>
+                      <p class="small m-0 text-center">
+                        {% if grade.cnt_followings %}
+                        <span class='small m-0'>팔로우 {{ grade.cnt_followings }}</span>
+                        {% else %}
+                        <span class='small m-0'>팔로우가 없습니다</span>
+                        {% endif %}
+                      </p>
+                      <p class="small m-0 text-center">
+                        {% if grade.store_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                        {% else %}
+                        {% for i in ""|ljust:grade.avg_grade %}
+                        <span>⭐</span>
+                        {% endfor %}
+                        <span>{{ grade.avg_grade }}({{ grade.cnt_reviews }}명 평가)</span>
+                        {% endif %}
+                      </p>
+                  </div>
                   </a>
                   </div>
                 </div>
@@ -110,28 +121,39 @@
 
                 {% for grade in store_grade %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3">
+                  <div class="train-card bg-white p-3 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
                     {% for image in grade.store_image.all %}
                       {% if forloop.counter == 1 %}
-                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                          {% endif %}
+                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                      {% endif %}
                     {% endfor %}
-                    <div class="card-body py-2 border-top">
+                    <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center">{{grade.name}}</h5>
                       <p class="card-text small">
                         {{grade.items}}
                       </p>
-                      <p class="small m-0">{{grade.team.stadium.name}}</p>
-                      {% if grade.store_reviews.all.count == 0 %}
-                        <span class='small m-0'>평가가 없습니다</span>
-                      {% else %}
-                        {% for i in ""|ljust:grade.avg_grade %}
-                          <span>⭐</span>
-                        {% endfor %}
-                      {% endif %}
-                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
                     </div>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                      <p class="small m-0 text-center">{{ grade.team.stadium.name }}</p>
+                      <p class="small m-0 text-center">
+                        {% if grade.cnt_followings %}
+                        <span class='small m-0'>팔로우 {{ grade.cnt_followings }}</span>
+                        {% else %}
+                        <span class='small m-0'>팔로우가 없습니다</span>
+                        {% endif %}
+                      </p>
+                      <p class="small m-0 text-center">
+                      {% if grade.store_reviews.all.count == 0 %}
+                      <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                      {% for i in ""|ljust:grade.avg_grade %}
+                      <span>⭐</span>
+                      {% endfor %}
+                      <span>{{ grade.avg_grade }}({{ grade.cnt_reviews }}명 평가)</span>
+                      {% endif %}
+                      </p>
+                  </div>
                   </a>
                   </div>
                 </div>
@@ -145,28 +167,39 @@
               <div class='slide-track'>
                 {% for follow in store_following %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3">
+                  <div class="train-card bg-white p-3 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
                     {% for image in follow.store_image.all %}
-                      {% if forloop.counter == 1 %}
-                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                          {% endif %}
+                    {% if forloop.counter == 1 %}
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                    {% endif %}
                     {% endfor %}
-                    <div class="card-body py-2 border-top">
+                    <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center">{{follow.name}}</h5>
                       <p class="card-text small">
                         {{follow.items}}
                       </p>
-                      <p class="small m-0">{{follow.team.stadium.name}}</p>
-                      {% if follow.store_reviews.all.count == 0 %}
-                        <span class='small m-0'>평가가 없습니다</span>
-                      {% else %}
-                        {% for i in ""|ljust:follow.avg_grade %}
-                          <span>⭐</span>
-                        {% endfor %}
-                      {% endif %}
-                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
                     </div>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                      <p class="small m-0 text-center">{{ follow.team.stadium.name }}</p>
+                      <p class="small m-0 text-center">
+                        {% if follow.cnt_followings %}
+                        <span class='small m-0'>팔로우 {{ follow.cnt_followings }}</span>
+                        {% else %}
+                        <span class='small m-0'>팔로우가 없습니다</span>
+                        {% endif %}
+                      </p>
+                      <p class="small m-0 text-center">
+                      {% if follow.store_reviews.all.count == 0 %}
+                      <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                      {% for i in ""|ljust:follow.avg_grade %}
+                      <span>⭐</span>
+                      {% endfor %}
+                      <span>{{ follow.avg_grade }}({{ follow.cnt_reviews }}명 평가)</span>
+                      {% endif %}
+                      </p>
+                  </div>
                   </a>
                   </div>
                 </div>
@@ -176,28 +209,39 @@
 
                 {% for follow in store_following %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3">
+                  <div class="train-card bg-white p-3 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
                     {% for image in follow.store_image.all %}
-                      {% if forloop.counter == 1 %}
-                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                          {% endif %}
+                    {% if forloop.counter == 1 %}
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                    {% endif %}
                     {% endfor %}
-                    <div class="card-body py-2 border-top">
+                    <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center">{{follow.name}}</h5>
                       <p class="card-text small">
                         {{follow.items}}
                       </p>
-                      <p class="small m-0">{{follow.team.stadium.name}}</p>
-                      {% if follow.store_reviews.all.count == 0 %}
-                        <span class='small m-0'>평가가 없습니다</span>
-                      {% else %}
-                        {% for i in ""|ljust:follow.avg_grade %}
-                          <span>⭐</span>
-                        {% endfor %}
-                      {% endif %}
-                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
                     </div>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                      <p class="small m-0 text-center">{{ follow.team.stadium.name }}</p>
+                      <p class="small m-0 text-center">
+                        {% if follow.cnt_followings %}
+                        <span class='small m-0'>팔로우 {{ follow.cnt_followings }}</span>
+                        {% else %}
+                        <span class='small m-0'>팔로우가 없습니다</span>
+                        {% endif %}
+                      </p>
+                      <p class="small m-0 text-center">
+                      {% if follow.store_reviews.all.count == 0 %}
+                      <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                      {% for i in ""|ljust:follow.avg_grade %}
+                      <span>⭐</span>
+                      {% endfor %}
+                      <span>{{ follow.avg_grade }}({{ follow.cnt_reviews }}명 평가)</span>
+                      {% endif %}
+                      </p>
+                  </div>
                   </a>
                   </div>
                 </div>
@@ -211,7 +255,7 @@
               <div class='slide-track'>
                 {% for review in store_review %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3">
+                  <div class="train-card bg-white p-3 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
                     {% for image in review.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -223,15 +267,26 @@
                       <p class="card-text small">
                         {{review.items}}
                       </p>
-                      <p class="small m-0">{{review.team.stadium.name}}</p>
-                      {% if review.store_reviews.all.count == 0 %}
+                      <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                        <p class="small m-0 text-center">{{ review.team.stadium.name }}</p>
+                        <p class="small m-0 text-center">
+                          {% if review.cnt_followings %}
+                          <span class='small m-0'>팔로우 {{ review.cnt_followings }}</span>
+                          {% else %}
+                          <span class='small m-0'>팔로우가 없습니다</span>
+                          {% endif %}
+                        </p>
+                        <p class="small m-0 text-center">
+                        {% if review.store_reviews.all.count == 0 %}
                         <span class='small m-0'>평가가 없습니다</span>
-                      {% else %}
+                        {% else %}
                         {% for i in ""|ljust:review.avg_grade %}
-                          <span>⭐</span>
+                        <span>⭐</span>
                         {% endfor %}
-                      {% endif %}
-                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
+                        <span>{{ review.avg_grade }}({{ review.cnt_reviews }}명 평가)</span>
+                        {% endif %}
+                        </p>
+                    </div>
                     </div>
                   </a>
                   </div>
@@ -242,7 +297,7 @@
 
                 {% for review in store_review %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3">
+                  <div class="train-card bg-white p-3 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
                     {% for image in review.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -254,15 +309,26 @@
                       <p class="card-text small">
                         {{review.items}}
                       </p>
-                      <p class="small m-0">{{review.team.stadium.name}}</p>
-                      {% if review.store_reviews.all.count == 0 %}
+                      <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                        <p class="small m-0 text-center">{{ review.team.stadium.name }}</p>
+                        <p class="small m-0 text-center">
+                          {% if review.cnt_followings %}
+                          <span class='small m-0'>팔로우 {{ review.cnt_followings }}</span>
+                          {% else %}
+                          <span class='small m-0'>팔로우가 없습니다</span>
+                          {% endif %}
+                        </p>
+                        <p class="small m-0 text-center">
+                        {% if review.store_reviews.all.count == 0 %}
                         <span class='small m-0'>평가가 없습니다</span>
-                      {% else %}
+                        {% else %}
                         {% for i in ""|ljust:review.avg_grade %}
-                          <span>⭐</span>
+                        <span>⭐</span>
                         {% endfor %}
-                      {% endif %}
-                      {% comment %} <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p> {% endcomment %}
+                        <span>{{ review.avg_grade }}({{ review.cnt_reviews }}명 평가)</span>
+                        {% endif %}
+                        </p>
+                    </div>
                     </div>
                   </a>
                   </div>

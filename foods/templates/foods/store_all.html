@@ -38,9 +38,13 @@
             <div class="d-flex justify-content-center p-1">
                 <div class="border border-1 rounded-1 bg-white p-3 h-100 position-relative">
                     <a href="{% url 'foods:store_detail' team.pk store.pk %}">
-                        <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+                    {% for image in store.store_image.all %}
+                    {% if forloop.counter == 1 %}
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                    {% endif %}
+                    {% endfor %}
                     </a>
-                    <div class="card-body py-2 border-top mb-5 pb-3">
+                    <div class="card-body py-2 border-top mb-5">
                         <h5 class="card-title text-center">{{ store.name }}</h5>
                         <p class="card-text small">
                         {{ store.items }}
@@ -48,7 +52,23 @@
                     </div>
                     <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
                         <p class="small m-0">{{ store.team.stadium.name}}</p>
-                        <p class="small m-0">⭐⭐⭐⭐⭐(27명 평가)</p>
+                        <p class="small m-0 text-center">
+                            {% if store.cnt_followings %}
+                            <span class='small m-0'>팔로우 {{ store.cnt_followings }}</span>
+                            {% else %}
+                            <span class='small m-0'>팔로우가 없습니다</span>
+                            {% endif %}
+                          </p>
+                        <p class="small m-0">
+                        {% if store.store_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                        {% else %}
+                        {% for i in ""|ljust:store.avg_grade %}
+                        <span>⭐</span>
+                        {% endfor %}
+                        <span>{{ store.avg_grade }}({{ store.cnt_reviews }}명 평가)</span>
+                        {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
