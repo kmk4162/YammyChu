@@ -55,7 +55,7 @@
   <div class="tab-content" id="myTabContent">
     {% comment %} 전체 {% endcomment %}
     <div class="tab-pane active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-      <table class="table community-box">
+      <table class="table community-box my-0">
         <thead class="community-table-head" style="background-color:black; color:white;">
           <tr>
             <th scope="col" class="col col-lg-1">카테고리</th>
@@ -69,7 +69,7 @@
           {% for article in articles_all %}
           <tr>
             <th scope="row">{{ article.category }}</th>
-            <td class="text-start"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
+            <td class="text-center"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
             <td>{{ article.created_at|date:'Y-m-d H:i' }}</td>
             <td>{{ article.hits }}</td>
             <td>{{ article.user.nickname }}</td>
