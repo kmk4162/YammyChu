@@ -3,34 +3,64 @@
 {% load static %}
 {% block content %}
 {% load django_bootstrap5 %}
-<div class="container d-flex justify-content-center py-5">
-    <div class="col-10 col-lg-8">
-        <div class="rounded-4 shadow-lg p-4 mb-4 bg-white">
-            <h1 class="text-center mt-5 fs-3 fw-bold text-black">회원정보 수정</h1>
-            <div class="card-body">
-                <form action="{% url 'accounts:update' %}" method="POST">
+<section class="">
+    <div class="container py-5 h-100 mt-1">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-md-9 col-lg-12 col-xl-10 col-xxl-9">
+          <div class="border rounded-3" style="background-image: url({% static 'images/hotdog.jpg' %});background-size: cover;background-repeat:no-repeat">
+            <div class="row g-0">
+              <div class="col col-lg-6 d-none d-lg-block">
+              </div>
+              <div class="col col-lg-6 d-flex align-items-center" style="background:#FFFFFF50">
+                <div class="card-body p-4 p-lg-5 text-black">
+                  <form action="{% url 'accounts:update' %}" method="POST">
+                    <div class="d-flex align-items-center mb-3 pb-1">
+                      <h1 class="mb-0" style="letter-spacing: 3px;font-size:3.5rem; font-weight:900; font-family: 'Anton', sans-serif;">YAMMYCHU</h1>
+                    </div>
+                    <h5 class="fw-normal mb-3 pb-3 fw-bold" style="letter-spacing: 1px;">회원정보수정</h5>
                     {% csrf_token %}
-                    {% bootstrap_field form.email %}
-                    {% bootstrap_field form.last_name %}
-                    {% bootstrap_field form.nickname %}
-                    <div class="p-3 mb-3 d-flex flex-column justify-content">
-                      <label class="mb-2">팀 선택</label>
-                      <div class="d-flex justify-content-between row">
-                          {% for team in teams %}
-                          <div class="form_check col-2 m-1 m-lg-0 col-lg-1">
-                              <input class="form-check-input border border-1 border-black" type="radio" name="team" value="{{ team.pk }}" id="team" style="width:50px; height:50px; background-image:url('{{ team.logo.url }}')" required>
-                          </div>
-                          {% endfor %}
+                    <div class="mb-3">
+                        <input type="text" name="last_name" class="form-control rounded-1" placeholder="이름" required="" id="id_last_name" style="opacity:0.8;">
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control rounded-1" placeholder="이메일 주소" required="" id="id_email" style="opacity:0.8;">
+                    </div>    
+                    <div class="mb-3">
+                        <input type="text" name="nickname" class="form-control rounded-1" placeholder="닉네임" required="" id="id_nickname" style="opacity:0.8;">
+                    </div>
+                    <div class="bg-white rounded-1 p-2 mb-2 text-center" style="opacity:0.8;">
+                        <label class="mb-2">팀 선택</label>
+                        <div class="d-flex justify-content-between row row-cols-5">
+                            {% for team in teams %}
+                            <div class="form_check col">
+                                <input class="form-check-input border border-1 border-black" type="radio" name="team" value="{{ team.pk }}" id="team" style="width:50px; height:50px; background-image:url('{{ team.logo.url }}')" required>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="pt-1 mb-4">
+                        <button class="btn btn-dark btn-block" type="submit" style="min-width:100%; opacity:0.8;">수정완료</button>
                       </div>
+                  </form>
+                  <div class="text-center">
+
                     </div>
-                    <div class="text-center">
-                        <a href="{% url 'accounts:password' %}" class="btn btn-dark">비밀번호 변경</a>
-                        <button class="btn btn-outline-dark" type="submit">수정하기</button>
-                        <a href="{% url 'accounts:delete' %}" class="btn btn-danger">탈퇴하기</a>
+
+                  <div class="pt-1 mb-4 d-flex justify-content-around">
+                    <div class="col pe-1">
+                        <a href="{% url 'accounts:password' %}" class="btn btn-dark text-white" style="min-width:100%; opacity:0.8;">비밀번호 변경</a>
                     </div>
-                </form>
+                    <div class="col ps-1">
+                        <a href="{% url 'accounts:delete' %}" class="btn btn-danger text-white" style="min-width:100%; opacity:0.8;">탈퇴하기</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+</section>
+
 {% endblock content %}

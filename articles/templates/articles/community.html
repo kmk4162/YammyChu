@@ -14,20 +14,23 @@
     border-radius:5px;
     padding:5px 15px;
   }
-  {% comment %} 로그인 안돼있을 때 버튼 {% endcomment %}
-  #create-btn-none {
-    border-color:black;
-    background-color:black;
-    color:white;
-    width:100px;
-    height:40px;
-    font-size:16px;
-    border-radius:5px;
-  }
   li#page-now > a.page-link {
-    background-color: black !important;
+    background-color: gray;
     border-color:black;
-   }
+    color:white;
+  }
+  li#page-notnow > a.page-link {
+      border-color:black;
+      color:black;
+  }
+  li#page-pre > a.page-link {
+      color:black;
+      border-color:black;
+  }
+  li#page-next > a.page-link {
+      color:black;
+      border-color:black;
+  }
 </style>
 
 <div class='container'>
@@ -93,11 +96,11 @@
         {% if page_number >= articles_all.number|add:-3 and page_number <= articles_all.number|add:3 %}
         {% if page_number == articles_all.number %}
         <li class="page-item active mx-0" aria-current="page" id="page-now">
-            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            <a class="page-link text-light" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
         {% else %}
         <li class="page-item mx-0" id="page-now">
-            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            <a class="page-link text-light" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
         {% endif %}
         {% endif %}

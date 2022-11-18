@@ -30,12 +30,9 @@
   * {
     font-family: 'SUIT-Medium';
   }
-
-
   body {
     background-color:#f6f4f2;
   }
-  
   #footer {
     background-color:black;
     color:white;
@@ -46,68 +43,113 @@
     position:fixed;
     bottom:0px;
   }
-
   #logo-img {
     width:50px;
     height:50px; 
   }
+  {% comment %} 업버튼 {% endcomment %}
+  #go-top {
+    display: none;
+    position: fixed;
+    right: 30px;
+    bottom: 50px;
+    outline: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 9999;
+    color: {{ user.team.color }};
+  }
   </style>
-  {% block css %}
-  {% endblock css %}
+{% block css %}
+{% endblock css %}
 
-  {% block script %}
-  {% endblock script %}
-  <!-- fontawesome -->
-  <script src="https://kit.fontawesome.com/3ef4088aa9.js" crossorigin="anonymous"></script>
-  {% comment %} lordicon 임포트 {% endcomment %}
-  <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+{% block script %}
+{% endblock script %}
+<!-- fontawesome -->
+<script src="https://kit.fontawesome.com/3ef4088aa9.js" crossorigin="anonymous"></script>
+{% comment %} lordicon 임포트 {% endcomment %}
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
 </head>
 <body>
 {% if user.is_authenticated and user.team %}
-<nav class="navbar nav-large nav-sticky sticky-top navbar-expand-xl navbar-dark py-0" style="background-color:white; border-bottom: 0.5rem solid {{ user.team.color }}">
+<nav class="navbar nav-large nav-sticky sticky-top navbar-expand-xl navbar-dark py-0" style="background-color:white; color:black; border-bottom: 0.5rem solid {{ user.team.color }}">
 {% else %}
-<nav class="navbar nav-large nav-sticky sticky-top navbar-expand-xl navbar-dark bg-dark py-0">
+<nav class="navbar nav-large nav-sticky sticky-top navbar-expand-xl navbar-dark bg-dark py-0" style="color:white;">
 {% endif %}
   <div class="container-fluid nav-custom row">
     <div class="col-1 col-xl-1 col-xxl-2">
     </div>
     <a class="navbar-brand col-sm-6 col-lg-4 col-xl-3 col-xxl-2 ms-3 d-flex justify-content-center" href="{% url 'articles:index' %}">
       {% comment %} <img class="logo-img nav-img" src="{% static 'images/brand.png' %}" alt="" > {% endcomment %}
-      <h1 style="color:red; font-weight:bold; font-family: 'Anton', sans-serif;">YAMMYCHU</h1>
+      <h1 style="margin-bottom:0px; color:red; font-weight:bold; font-family: 'Anton', sans-serif;">YAMMYCHU</h1>
     </a>
     <button class="col-sm-2 col-md-1 navbar-toggler" style="margin:0.7rem 0 0.7rem 0.7rem;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    {% if user.is_authenticated and user.team %}
     <div class="collapse navbar-collapse" id="navbarNav">
       <div class="col-xl-7 col-xxl-6 row d-flex justify-content-center">
         <ul class="navbar-nav col-xl-8 d-flex justify-content-center align-items-center">
           <li class="nav-item menu">
-            <a class="nav-main-menu" href="{% url 'articles:index' %}">팀별 먹거리</a>
+            <a class="nav-main-menu" style='color:black;' href="{% url 'articles:index' %}">팀별 먹거리</a>
           </li>
           <li class="nav-item menu">
-            <a class="nav-main-menu" href="{% url 'articles:community' %}">커뮤니티</a>
+            <a class="nav-main-menu" style='color:black;' href="{% url 'articles:community' %}">커뮤니티</a>
           </li>
         </ul>
         <ul class="navbar-nav col-xl-4 my-3 d-flex justify-content-end align-items-center">
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link ms-2" href="{% url 'accounts:profile' request.user.pk %}">
+            <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:profile' request.user.pk %}">
               <span id="user-nickname" data-user-id="{{ request.user.pk }}">{{ request.user.nickname }}</span>님의 프로필
             </a>
           </li>
-          <a class="nav-link ms-2" href="{% url 'accounts:logout' %}">로그아웃</a>
+          <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:logout' %}">로그아웃</a>
           <!-- guest -->
           {% else %}
           <li>
-            <a class="nav-link ms-2" href="{% url 'accounts:login' %}">로그인</a>
+            <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:login' %}">로그인</a>
           </li>
           <li>
-            <a class="nav-link ms-2" href="{% url 'accounts:signup' %}">회원가입</a>
+            <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:signup' %}">회원가입</a>
           </li>
           {% endif %}
         </ul>
       </div>
     </div>
+    {% else %}
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="col-xl-7 col-xxl-6 row d-flex justify-content-center">
+        <ul class="navbar-nav col-xl-8 d-flex justify-content-center align-items-center">
+          <li class="nav-item menu">
+            <a class="nav-main-menu" style='color:white;' href="{% url 'articles:index' %}">팀별 먹거리</a>
+          </li>
+          <li class="nav-item menu">
+            <a class="nav-main-menu" style='color:white;' href="{% url 'articles:community' %}">커뮤니티</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav col-xl-4 my-3 d-flex justify-content-end align-items-center">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-sub-menu ms-2" style='color:white;' href="{% url 'accounts:profile' request.user.pk %}">
+              <span id="user-nickname" data-user-id="{{ request.user.pk }}">{{ request.user.nickname }}</span>님의 프로필
+            </a>
+          </li>
+          <a class="nav-sub-menu ms-2" style='color:white;' href="{% url 'accounts:logout' %}">로그아웃</a>
+          <!-- guest -->
+          {% else %}
+          <li>
+            <a class="nav-sub-menu ms-2" style='color:white;' href="{% url 'accounts:login' %}">로그인</a>
+          </li>
+          <li>
+            <a class="nav-sub-menu ms-2" style='color:white;' href="{% url 'accounts:signup' %}">회원가입</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
     <div class="col-xl-1 col-xxl-2">
     </div>
   </div>
@@ -115,10 +157,36 @@
 
 {% block content %}
 {% endblock content %}
+{% comment %} 위로가기 버튼 {% endcomment %}
+<button id="go-top"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+  class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd"
+    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+</svg></button>
 <footer>
   <p>made by 김광표 김다겸 김문경 김준환 이주용 최근영</p>
   <p>ⓒ Y.M.C Corp.</p>
 </footer>
 <script src="{% static 'JS/movie.js' %}" type="text/javascript"></script>
+<script>
+  var backToTop = () => {
+    window.addEventListener('scroll', () => {
+      if (document.querySelector('html').scrollTop > 500) {
+        document.getElementById('go-top').style.display = "block";
+      } else {
+        document.getElementById('go-top').style.display = "none";
+      }
+    });
+    // back to top
+    document.getElementById('go-top').addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    })
+  };
+  backToTop();
+</script>
 </body>
 </html>

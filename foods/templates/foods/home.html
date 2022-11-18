@@ -101,9 +101,9 @@
         {% for store, store_img in store_lst %}
           <div class='slide'>
             <div class="train-card bg-white" style="width:350px;>
-              <a href="">
-                <img src="{{store_img.image.url}}" class="card-img-top" alt="...">
-              </a>
+                <a href="">
+                  <img src="{{store_img.image.url}}" class="card-img-top" alt="...">
+                </a>
               <div class="card-body py-2 border-top">
                 <h5 class="card-title text-center">{{ store.name }}</h5>
                 <p class="small m-0 ms-3">매장 위치 : {{ store.detail }}</p>
@@ -114,8 +114,6 @@
             </div>
           </div>
         {% endfor %}
-
-
         </div>
       </div>
     </div>

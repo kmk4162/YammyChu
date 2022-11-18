@@ -191,7 +191,9 @@
             "team": 8,
             "items": "튀김쥐포, 아이스황도, 빠삭태, 생맥주",
             "detail": "2층(327)",
-            "following_users": []
+            "following_users": [
+                1
+            ]
         }
     },
     {
@@ -2037,7 +2039,9 @@
             "team": 1,
             "items": "소떡소떡, 석봉토스트, 팥빙수, 어묵, 카페, 핫도그",
             "detail": "외야",
-            "following_users": []
+            "following_users": [
+                1
+            ]
         }
     },
     {
@@ -2076,7 +2080,9 @@
             "team": 1,
             "items": "제육컵밥, 소불고기컵밥, 치킨마요컵밥, 닭볶음컵밥, 불판 대여",
             "detail": "외야",
-            "following_users": []
+            "following_users": [
+                1
+            ]
         }
     },
     {
@@ -5759,7 +5765,7 @@
         "pk": 358,
         "fields": {
             "store": 152,
-            "image": ""
+            "image": "images/KT 위즈/5층/파파존스/20220814_183133.jpg"
         }
     },
     {
@@ -9080,6 +9086,14 @@
         "fields": {
             "store": 267,
             "image": "images/두산 베어스/4층/제발시켜주세요/5.jpg"
+        }
+    },
+    {
+        "model": "foods.storeimage",
+        "pk": 776,
+        "fields": {
+            "store": 152,
+            "image": "images/KT 위즈/5층/파파존스/다운로드.jpg"
         }
     }
 ]
