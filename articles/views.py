@@ -12,7 +12,10 @@ from django.db.models import Count, Avg
 
 def index(request):
     teams = Team.objects.all()
-    articles = Article.objects.order_by('-pk')
+    if request.user.is_authenticated and request.user.team :
+        articles = Article.objects.filter(user__team=request.user.team).order_by('-pk')
+    else :
+        articles = Article.objects.order_by('-pk')
     ex_news = news().replace("<b>", "").replace("<\/b>", "").replace("&quot;", "'").replace("&apos;", "'")
     temp_news = json.loads(ex_news)
     store = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews'))
