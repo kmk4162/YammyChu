@@ -3,6 +3,12 @@
 {% load static %}
 
 {% block content %}
+<style>
+  #rolling_box a {
+    text-decoration:none;
+    color:black;
+  }
+</style>
 {% if not user.is_authenticated %}
 <div class="intro-bg" id="box">
   <div class="intro-box" id="box">
@@ -32,13 +38,13 @@
 </div>
 <div class="container ">
   {% if user.is_authenticated and user.team %}
-  <div class="row py-4 my-5 d-flex justify-content-center" style="backdrop-filter:blur(10px); border-top: 3px solid {{ user.team.color }}; border-bottom: 3px solid {{ user.team.color }}">
+  <div class="row py-5 d-flex justify-content-center bg-light" style="backdrop-filter:blur(10px); border-top: 3px solid {{ user.team.color }}; border-bottom: 3px solid {{ user.team.color }}">
     {% else %}
-  <div class="row py-4 my-5 d-flex justify-content-center bg-light" style="border-top: 1rem solid grey; border-bottom: 1rem solid grey">
+  <div class="row py-5 d-flex justify-content-center bg-light" style="border-top: 3px solid grey; border-bottom: 3px solid grey">
   {% endif %}
-    <div class="d-flex flex-column align-items-center my-3">
-      <h2 class="fw-bold" style="font-size:2.5rem;">팀별 먹거리 보러가기<h2>
-      <p class="" style="color:gray; font-size:1.2rem;">구장별 맛집 정보를 찾아보세요😀</p>
+    <div class="d-flex flex-column align-items-center my-2">
+      <h2 class="fw-bold" style="font-size:3rem;">팀별 먹거리 보러가기<h2>
+      <p class="" style="color:gray; font-size:1.5rem;">구장별 맛집 정보를 찾아보세요😀</p>
     </div>
     {% for team in teams %}
     <div class="team-card text-bg-white col-5 col-sm-3 col-lg-2 m-1 p-0">
@@ -59,10 +65,10 @@
     {% endfor %}
   </div>
   <div class="container">
-    <section class="my-5 py-3">
+    <section class="my-3 py-3">
       <div class="d-flex flex-column align-items-center mt-3">
-        <h2 class="fw-bold" style="font-size:2.5rem;">인기 매점<h2>
-        <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 매점을 찾아보세요💯</p>
+        <h2 class="fw-bold" style="font-size:3rem;">인기 매점<h2>
+        <p class="" style="color:gray; font-size:1.5rem;">가장 인기있는 매점을 찾아보세요💯</p>
       </div>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -340,7 +346,7 @@
     </section>
     <section class="row d-flex justify-content-center mt-2">
       <div class="col-12 col-md-12 col-xl-12 col-xxl-12 px-4 mt-4">
-        <div class="row pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden; height:100%;">
+        <div class="row pt-4" style="background-color:white; border-radius:10px; overflow:hidden; height:100%;">
           <div class="col-12 col-md-12 mb-3" style="text-align:center; display:flex; flex-direction:row; align-items:center;">
             <h2 class="fw-bold" style="margin-bottom:0;">뉴스 기사</h2>
             <p class="ms-3" style="color:gray; font-size:1rem; margin-bottom:0;">최신 뉴스를 확인해보세요📰</p>
@@ -356,7 +362,7 @@
       </div>
       <div class="col-12 col-md-6 col-xl-5 mt-4">
         <div class="py-4 px-3" style="background-color:white; border-radius:10px; height:550px;">
-          <h2 class="fw-bold">팀 순위</h2>
+          <h2 class="fw-bold" style="">팀 순위</h2>
           <p class="" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
           <table class="table table-borderless rounded-1 bg-white text-center" style="font-size:1rem;">
             <tbody>
@@ -381,10 +387,10 @@
       <div class="col-12 col-md-6 col-xl-7 mt-4">
         <div class="py-4 px-3" style="background-color:white; border-radius:10px; overflow:hidden; height:550px;">
           {% if user.is_authenticated and user.team %}
-          <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 게시판</h2>
-          <p class="" style="color:gray; font-size:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
+          <h2 class="fw-bold"><span style="border-bottom : 3px solid {{user.team.color}};">{{ user.team.name }}</span> 게시판</h2>
+          <p class="" style="color:gray; font-size:1rem; margin-top:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
           {% else %}
-          <h2 class="fw-bold">통합 게시판의 최신 글<h2>
+          <h2 class="fw-bold" style="">통합 게시판의 최신 글<h2>
           <p class="" style="color:gray; font-size:1rem;">최신 게시글을 확인하세요🔥</p>
           {% endif %}
             <table class="mt-4">
