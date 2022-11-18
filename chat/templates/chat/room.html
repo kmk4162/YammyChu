@@ -79,8 +79,8 @@
             else {
               chatLog.insertAdjacentHTML(`beforeend`, `
                 <div>
-                  <a href="/accounts/${ new_msg[2] }"><span> ${new_msg[0]}</span></a>
-                  :
+                  <a href="/accounts/${ new_msg[2] }" class="text-decoration-none text-dark"><span class="fw-bold"> ${new_msg[0]}</span>님</a>
+                  |
                   <span>${new_msg[1]}</span>
                 </div>
               `)
