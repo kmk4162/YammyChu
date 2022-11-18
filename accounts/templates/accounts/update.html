@@ -20,13 +20,13 @@
                     <h5 class="fw-normal mb-3 pb-3 fw-bold" style="letter-spacing: 1px;">회원정보수정</h5>
                     {% csrf_token %}
                     <div class="mb-3">
-                        <input type="text" name="last_name" class="form-control rounded-1" placeholder="이름" required="" id="id_last_name" style="opacity:0.8;">
+                        <input type="text" name="last_name" class="form-control rounded-1" placeholder="이름" required="" id="id_last_name" value="{{ user.last_name }}" style="opacity:0.8;">
                     </div>
                     <div class="mb-3">
-                        <input type="email" name="email" class="form-control rounded-1" placeholder="이메일 주소" required="" id="id_email" style="opacity:0.8;">
+                        <input type="email" name="email" class="form-control rounded-1" placeholder="이메일 주소" required="" id="id_email" value="{{ user.email }}" style="opacity:0.8;">
                     </div>    
                     <div class="mb-3">
-                        <input type="text" name="nickname" class="form-control rounded-1" placeholder="닉네임" required="" id="id_nickname" style="opacity:0.8;">
+                        <input type="text" name="nickname" class="form-control rounded-1" placeholder="닉네임" required="" id="id_nickname" value="{{ user.nickname }}" style="opacity:0.8;">
                     </div>
                     <div class="bg-white rounded-1 p-2 mb-2 text-center" style="opacity:0.8;">
                         <label class="mb-2">팀 선택</label>

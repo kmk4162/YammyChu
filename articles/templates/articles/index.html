@@ -389,7 +389,7 @@
       </div>
 
       <div class="col-12 col-md-6 col-xl-7 mt-4">
-        <div class="py-4 px-3" style="background-color:white; border-radius:10px; overflow:hidden; height:550px;">
+        <div class="py-4 px-3 position-relative" style="background-color:white; border-radius:10px; overflow:hidden; height:550px;">
           {% if user.is_authenticated and user.team %}
           <h2 class="fw-bold"><span style="border-bottom : 3px solid {{user.team.color}};">{{ user.team.name }}</span> 게시판</h2>
           <p class="" style="color:gray; font-size:1rem; margin-top:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
@@ -397,19 +397,18 @@
           <h2 class="fw-bold" style="">통합 게시판의 최신 글<h2>
           <p class="" style="color:gray; font-size:1rem;">최신 게시글을 확인하세요🔥</p>
           {% endif %}
-            <table class="mt-4">
-              <tbody class="text-center">
-                {% for article in articles %}
-                {% if article.user.team == user.team %}
-                <tr class="mt-4" style="font-size:1.2rem; margin:2rem 0 2rem 0; height:2.8rem;">
-                  <th scope="row" style="font-size:1.2rem; font-weight:500; color:gray;">{{ article.category }}</th>
-                  <td class="text-start" style="font-size:1.2rem;"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-              </tbody>
-            </table>
-            <div class="small text-end me-5"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a></div>
+          <div class="container mt-4 col-12">
+            <div class="text-center">
+              {% for article in articles %}
+              <div class="my-1 row" style="font-size:1.2rem; height:2.8rem; max-width:100%">
+                <div class="col-3 col-md-5 col-xl-2 text-start" scope="row" style="font-size:1.2rem; font-weight:500; color:gray;">{{ article.category }}</div>
+                <div class="col-9 col-md-7 col-xl-10 text-start" style="font-size:1.2rem; white-space: nowrap; overflow:hidden; text-overflow:ellipsis;"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="small text-end me-2 mb-4 position-absolute bottom-0 end-0">
+            <a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a>
           </div>
         </div>
       </div>
