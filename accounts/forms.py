@@ -9,7 +9,7 @@ from articles.models import Team
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(
-        label=_("아이디"),
+        label="",
         required=True,
         widget=forms.TextInput(
             attrs={
@@ -21,7 +21,7 @@ class CustomUserCreationForm(UserCreationForm):
     )
 
     email = forms.EmailField(
-    label=_("Email"),
+    label="",
     required=True,
     widget=forms.EmailInput(
         attrs={
@@ -32,7 +32,7 @@ class CustomUserCreationForm(UserCreationForm):
         ),
     )
     nickname = forms.CharField(
-        label=_("닉네임"),
+        label="",
         required=True,
         widget=forms.TextInput(
             attrs={
@@ -43,7 +43,7 @@ class CustomUserCreationForm(UserCreationForm):
         ),
     )
     last_name = forms.CharField(
-        label=_("이름"),
+        label="",
         required=True,
         widget=forms.TextInput(
             attrs={
@@ -64,7 +64,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomUserChangeForm(UserChangeForm):
     email = forms.EmailField(
-    label=_("Email"),
+
     required=True,
     widget=forms.EmailInput(
         attrs={
@@ -75,7 +75,7 @@ class CustomUserChangeForm(UserChangeForm):
         ),
     )
     nickname = forms.CharField(
-        label=_("닉네임"),
+
         required=True,
         widget=forms.TextInput(
             attrs={
@@ -86,7 +86,7 @@ class CustomUserChangeForm(UserChangeForm):
         ),
     )
     last_name = forms.CharField(
-        label=_("이름"),
+
         required=True,
         widget=forms.TextInput(
             attrs={
