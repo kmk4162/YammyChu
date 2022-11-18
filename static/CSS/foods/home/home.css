@@ -7,17 +7,19 @@
     display: flex;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    overflow: hidden;
+    border-radius: 15px;
 }
 
 .symbol img[class="team_logo"] {
     width: 30%;
     height: auto;
-    border-radius: 100%;
+    /* border-radius: 100%; */
 }
 
 .symbol div[id="map"] {
     width: 70%;
-    margin-left: 2rem;
+    margin-left: 0;
 }
 
 .symbol div img {

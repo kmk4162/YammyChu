@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Store, Review, ReviewImage, Tag, RestaurantImage, Restaurant
+from .models import Store, StoreImage, Review, ReviewImage, Tag, RestaurantImage, Restaurant
 from .forms import ReviewForm, ReviewImageForm, RestaurantForm, RestaurantImageForm
 from django.contrib.auth.decorators import login_required
 from articles.models import Stadium, Team
