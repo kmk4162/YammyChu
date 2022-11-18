@@ -333,3 +333,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,django,python
+
+# 레디스 관련
+.rdb
