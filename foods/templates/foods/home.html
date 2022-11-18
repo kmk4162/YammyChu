@@ -3,32 +3,73 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'CSS/foods/home/home.css' %}">
+<style>
+    .search {
+        position: relative;
+        width: 300px;
+      }
+      
+      .search_input {
+        width: 100%;
+        height: 3rem;
+        border: 0;
+        border-radius: 15px;
+        padding: 10px 12px;
+        font-size: 14px;
+        outline: none;
+        padding-left: 10px;
+        background-color: rgb(233, 233, 233);
+      }
+      
+      .search_img {
+        position : absolute;
+        width: 30px;
+        top: 8px;
+        right: 10px;
+        margin: 0;
+        border: 0;
+        border-radius: 10px;
+        margin: auto;
+      }
+
+      .search_select {
+        border: 0;
+        border-radius: 15px;
+        padding: 10px 12px;
+        font-size: 14px;
+        padding-left: 10px;
+        background-color: rgb(233, 233, 233);
+      }
+</style>
 {% endblock css %}
 {% block content %}
 <div class="container" >
-    <div class="d-flex flex-column align-items-center mt-3">
-        <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
-        <p class="" style="color:gray; font-size:1.2rem;">{{ team.name }}의 매점 정보🍕</p>
+    <div class="justify-content-center d-flex align-items-center">
+        <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
+        <div class="d-flex flex-column mt-3">
+            <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
+            <p class="" style="color:gray; font-size:1.2rem;">{{ team.name }}의 매점 정보🍕</p>
+        </div>
     </div>
-    <div class="symbol">
-        <img class="team_logo" src="{{ team.mascot.url }}" alt="">
+    <div class="symbol mb-3">
         <div id="map" style="width:100%;height:400px;"></div>
     </div>
-    <form class="d-flex" role="search" method='GET' action="{% url 'foods:search' team.pk %}">
-        <select class="select border rounded me-2" aria-label="Default select example" name='field'>
-          <option value="1">내부 매장</option>
-          <option value="2">외부 매장</option>
-          <option value="3">리뷰</option>
+    <form class="d-flex mx-auto mt-5 justify-content-center" style="width: 50%;" role="search" method='GET' action="{% url 'foods:search' team.pk %}">
+        <select class="select search_select me-2" style="width: 30%;" aria-label="Default select example" name='field'>
+            <option value="1">내부 매장</option>
+            <option value="2">외부 매장</option>
+            <option value="3">리뷰</option>
         </select>
-        <input class="form-control me-2" type="search" placeholder="게시글 검색" name='searched'>
-    
-        <button class="btn btn-dark me-2" type="submit" style="width: 7rem;">검색</button>
+        <div class="search">
+            <input class="search_input form-control me-2" type="search" placeholder="검색어 입력" name='searched'>
+            <input type="image" class="search_img" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+        </div>
       </form>
-    <div class="container text-center py-3" style="border-top: 1rem groove {{ team.color }}; border-bottom: 1rem groove {{ team.color }}">
-        <div class="d-flex flex-column align-items-center mt-3">
+    <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }}; border-bottom: 3px solid {{ team.color }}">
+        <div class="d-flex position-relative flex-column align-items-center mt-3">
             <h2 class="fw-bold" style="font-size:2.5rem;">구장 내 스낵바</h2>
             <p class="" style="color:gray; font-size:1.2rem;">구장 내 스낵바 정보</p>
-            <div class="badge rounded-pill text-bg-dark fw-bold" style="width:100px; height:30px;font-size:17px;">전체 보기</div>
+            <a href="{% url 'foods:store_all' team.pk %}" class="position-absolute top-50 end-0"><div style="color:gray; font-size:1.2rem;"><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" style="width:1rem; height: 1rem;"><path d="M69.844 43.388 33.842 13.386a6.003 6.003 0 0 0-7.688 9.223L56.624 48l-30.47 25.39a6.003 6.003 0 0 0 7.688 9.223l36.002-30.001a6.01 6.01 0 0 0 0-9.223Z" fill="#808080" class="fill-000000"></path></svg>전체 보기</div></a>
         </div>
 
     <!-- 카드 슬라이더 효과 -->
@@ -38,15 +79,17 @@
         {% for store, store_img in store_lst %}
           <div class='slide'>
             <div class="train-card bg-white" style="width:350px;">
-              <a href="">
+              <a href="{% url 'foods:store_detail' team_pk=team.pk store_pk=store.pk %}">
                 <img src="{{store_img.image.url}}" class="card-img-top" alt="...">
               </a>
-              <div class="card-body py-2 border-top">
-                <h5 class="card-title text-center">{{ store.name }}</h5>
-                <p class="small m-0 ms-3">매장 위치 : {{ store.detail }}</p>
-                <p class="card-text small ms-3">
-                  메뉴 : {{ store.items }}
-                </p>
+              <div class="card-body py-2 border-top" style="height:40%;">
+                <div class="d-flex flex-column justify-content-center align-items-center" style="height:100%;">
+                    <h5 class="card-title text-center">{{ store.name }}</h5>
+                    <p class="small m-0 ms-3">매장 위치 : {{ store.detail }}</p>
+                    <p class="card-text small ms-3">
+                    메뉴 : {{ store.items }}
+                    </p>
+                </div>
               </div>
             </div>
           </div>
@@ -76,54 +119,56 @@
         </div>
       </div>
     </div>
-    <h1>여기에 페이지</h1>
 </div>
 <div>
-    <div class="container text-center py-3" style="border-top: 1rem ridge {{ team.color }}; border-bottom: 1rem ridge {{ team.color }}">
+    <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }}; border-bottom: 3px solid {{ team.color }}">
         <div class="d-flex flex-column align-items-center mt-3">
             <h2 class="fw-bold" style="font-size:2.5rem;">주변 맛집</h2>
             <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 리뷰를 찾아보세요💯</p>
         </div>
-        <div class="row row-cols-1 row-cols-md-5 g-4 d-flex justify-content-around">
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class='slider'>
+
+            <div class='slide-track'>
+            {% for restaurant, restaurant_img in restaurant_lst %}
+              <div class='slide'>
+                <div class="train-card bg-white" style="width:350px;">
+                  <a href="{% url 'foods:restaurant_detail' team_pk=team.pk restaurant_pk=restaurant.pk %}">
+                    <img src="{{restaurant_img.image.url}}" class="card-img-top" alt="...">
+                  </a>
+                  <div class="card-body py-2 border-top" style="height:40%;">
+                    <div class="d-flex flex-column justify-content-center align-items-center" style="height:100%;">
+                        <h5 class="card-title text-center">{{ restaurant.name }}</h5>
+                        <p class="small m-0 ms-3">매장 위치 : {{ restaurant.detail }}</p>
+                        <p class="card-text small ms-3">
+                        메뉴 : {{ restaurant.items }}
+                        </p>
                     </div>
+                  </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
+              </div>
+            {% endfor %}
+    
+              <!-- 한번 더 반복하기 -->
+    
+              
+            {% for restaurant, restaurant_img in restaurant_lst %}
+              <div class='slide'>
+                <div class="train-card bg-white" style="width:350px;>
+                  <a href="{% url 'foods:restaurant_detail' team_pk=team.pk restaurant_pk=restaurant.pk %}">
+                    <img src="{{restaurant_img.image.url}}" class="card-img-top" alt="...">
+                  </a>
+                  <div class="card-body py-2 border-top">
+                    <h5 class="card-title text-center">{{ restaurant.name }}</h5>
+                    <p class="small m-0 ms-3">매장 위치 : {{ restaurant.detail }}</p>
+                    <p class="card-text small ms-3">
+                      메뉴 : {{ restaurant.items }}
+                    </p>
+                  </div>
                 </div>
+              </div>
+            {% endfor %}
             </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <a class='btn btn-primary' href='{% url "foods:restaurant_create" team.pk %}'>가게 추가하기</a>
-        <h1>여기에 페이지</h1>
         
     </div>
 </div>

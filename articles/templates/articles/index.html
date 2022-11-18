@@ -50,7 +50,11 @@
           <img src="{{ team.logo.url }}" class="card-img" alt="..."> <!--앞면-->
         
       </div>
+      {% if team.pk == 3 %}
+      <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' 9 %}">
+      {% else %}
       <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' team.pk %}">
+      {% endif %}
         <div class="back" style="background-color:{{ team.color }}; border: 0.5rem outset {{ team.color }}; border-radius:3px;">
           <img src="{{ team.mascot.url }}" class="card-img" alt="..."> <!--뒷면-->
         </div>

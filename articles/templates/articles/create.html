@@ -13,9 +13,12 @@
     border-radius:5px;
     border-color:{{ user.team.color }};
   }
+  #container-create {
+    background-color: rgba(255,255,255,.7);
+  }
 </style>
 <div class="container my-5">
-  <div class="container col-10 border border-1 rounded-1 p-5">
+  <div class="container col-10 border border-1 shadow-sm rounded-1 p-5" id="container-create">
     <h2 class="text-center">글 작성</h2>
     <form action="" method="POST">
       {% csrf_token %}
