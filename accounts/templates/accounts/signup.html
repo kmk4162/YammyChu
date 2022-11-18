@@ -3,30 +3,67 @@
 {% load static %}
 {% block content %}
 {% load django_bootstrap5 %}
-<div class="container d-flex justify-content-center py-5">
-    <div class="col-10 col-lg-8">
-        <div class="rounded-4 shadow-lg p-4 mb-4 bg-white">
-            <h1 class="text-center mt-5 fs-3 fw-bold text-black">회원가입</h1>
-            <div class="card-body">
-                <form action="{% url 'accounts:signup' %}" method="POST">
-                    {% csrf_token %}
-                    {% bootstrap_form form %}
-                    <div class="p-3 mb-3 d-flex flex-column justify-content">
-                        <label class="mb-2">팀 선택</label>
-                        <div class="d-flex justify-content-between row">
-                            {% for team in teams %}
-                            <div class="form_check col-2 m-1 m-lg-0 col-lg-1">
-                                <input class="form-check-input border border-1 border-black" type="radio" name="team" value="{{ team.pk }}" id="team" style="width:50px; height:50px; background-image:url('{{ team.logo.url }}')" required>
+<section class="">
+    <div class="container py-5 h-100 mt-1">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="border rounded-4 shadow" style="background-image: url({% static 'images/hotdog.jpg' %});background-size: cover;background-repeat:no-repeat">
+              <div class=" d-flex align-items-cente rounded-4" style="background:#FFFFFF50">
+                <div class="card-body p-4 p-lg-5 text-black">
+                    <div class="mb-3 pb-1 text-center">
+                        <span class="h1 mb-0r" style="font-weight:500">YAMMYCHU</span>
+                    </div>
+                    <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">Sign up</h5>
+                    <form class="row d-flex justify-content-center" action="{% url 'accounts:signup' %}" method="POST">
+                        <div class="col-12 col-md-6 d-flex row">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <input type="text" name="username" class="form-control rounded-1" placeholder="아이디" required="" autofocus="" id="id_username" style="opacity:0.8;">
                             </div>
-                            {% endfor %}
+                            <div class="mb-3">
+                                <input type="text" name="last_name" class="form-control rounded-1" placeholder="이름" required="" id="id_last_name" style="opacity:0.8;">
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" name="email" class="form-control rounded-1" placeholder="이메일 주소" required="" id="id_email" style="opacity:0.8;">
+                            </div>    
+                            <div class="mb-3">
+                                <input type="text" name="nickname" class="form-control rounded-1" placeholder="닉네임" required="" id="id_nickname" style="opacity:0.8;">
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-grid">
-                        <button class="btn btn-outline-dark mt-5 mb-2" type="submit">회원가입</button>
-                    </div>
-                </form>
-            </div>
+                        <div class="col-12 col-md-6 d-flex row">
+                            <div class="mb-3">
+                                <input type="password" name="password1" autocomplete="new-password" class="form-control mb-2 rounded-1" placeholder="비밀번호" required="" id="id_password1" style="opacity:0.8;">
+                                <div class="form-text rounded-1 p-2 mb-3" style="background-color:#ffffff80;">
+                                    비밀번호는 최소 8자 이상이어야 합니다.
+                                    <br>
+                                    숫자로만 이루어진 비밀번호는 사용할 수 없습니다.
+
+                                </div>
+                                <input type="password" name="password2" autocomplete="new-password" class="form-control mb-2 rounded-1" placeholder="비밀번호 확인" required="" id="id_password2" style="opacity:0.8;">
+                                <div class="form-text rounded-1 p-2" style="background-color:#ffffff80;">
+                                    확인을 위해 이전과 동일한 비밀번호를 입력하세요.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-1 py-1 mb-2 text-center col-11" style="opacity:0.8;">
+                            <label class="mb-2">팀 선택</label>
+                            <div class="d-flex justify-content-between row">
+                                {% for team in teams %}
+                                <div class="form_check col-2 col-md-1 m-1">
+                                    <input class="form-check-input border border-1 border-black" type="radio" name="team" value="{{ team.pk }}" id="team" style="width:50px; height:50px; background-image:url('{{ team.logo.url }}')" required>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="pt-1 my-4 col-4">
+                            <button class="btn btn-dark btn-block" type="submit" style="min-width:100%;opacity:0.8;">회원가입</button>
+                        </div>
+                    </form>
+                </div>
+              </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+</section>
 {% endblock content %}
