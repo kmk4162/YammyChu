@@ -10,8 +10,8 @@
                     {% csrf_token %}
                     {% bootstrap_form form %}
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary mt-5 mb-2" type="submit">로그인</button>
-                        <a class="btn btn-outline-primary text-black" href="{% url 'accounts:signup' %}"
+                        <button class="btn btn-dark mt-5 mb-2" type="submit">로그인</button>
+                        <a class="btn btn-outline-dark text-black" href="{% url 'accounts:signup' %}"
                             role="button">회원가입 하기</a>
                     </div>
                 </form>

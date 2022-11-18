@@ -32,8 +32,8 @@
 </div>
 <div class="container ">
   {% if user.is_authenticated and user.team %}
-  <div class="row py-4 my-5 d-flex justify-content-center bg-white" style="border-top: 1rem solid {{ user.team.color }}; border-bottom: 1rem solid {{ user.team.color }}">
-  {% else %}
+  <div class="row py-4 my-5 d-flex justify-content-center" style="backdrop-filter:blur(10px); border-top: 3px solid {{ user.team.color }}; border-bottom: 3px solid {{ user.team.color }}">
+    {% else %}
   <div class="row py-4 my-5 d-flex justify-content-center bg-light" style="border-top: 1rem solid grey; border-bottom: 1rem solid grey">
   {% endif %}
     <div class="d-flex flex-column align-items-center my-3">
@@ -43,15 +43,15 @@
     {% for team in teams %}
     <div class="team-card text-bg-white col-5 col-sm-3 col-lg-2 m-1 p-0">
       {% if team == user.team %}
-      <div class="front" style="background-color:{{ team.color }}55;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+      <div class="front" style="background-color:{{ team.color }}55;  border: 0.5rem outset {{ team.color }}; border-radius:3px;">
       {% else %}
-      <div class="front" style="background-color:white;  border: 1rem ridge {{ team.color }}; border-radius:5%;">
+      <div class="front" style="background-color:white;  border: 0.5rem outset {{ team.color }}; border-radius:3px;">
       {% endif %}
           <img src="{{ team.logo.url }}" class="card-img" alt="..."> <!--앞면-->
         
       </div>
       <a class="text-decoration-none text-center text-wrap" href="{% url 'foods:home' team.pk %}">
-        <div class="back" style="background-color:{{ team.color }}; border: 1rem ridge {{ team.color }}; border-radius:5%;">
+        <div class="back" style="background-color:{{ team.color }}; border: 0.5rem outset {{ team.color }}; border-radius:3px;">
           <img src="{{ team.mascot.url }}" class="card-img" alt="..."> <!--뒷면-->
         </div>
       </a>
@@ -67,9 +67,9 @@
 
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">별점순</button>
-            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">팔로우순</button>
-            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">리뷰수순</button>
+            <button class="nav-link text-dark active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">별점순</button>
+            <button class="nav-link text-dark" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">팔로우순</button>
+            <button class="nav-link text-dark" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">리뷰수순</button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -400,25 +400,16 @@
             <h2 class=" fw-bold">뉴스 기사</h2>
             <p class="" style="color:gray; font-size:1rem;">최신 뉴스를 확인해보세요📰</p>
           </div>
-          <div style="width:100px; top:0;" id="carouselExampleControls" class="col-12 col-md-6 carousel slide rotate-carousel" data-bs-ride="carousel">
-              <div class="carousel-inner">
-                  <div class="carousel-item active rotate-carousel-inner">
-                    <p>YammyChu</p>
-                  </div>
-                {% for news in temp_news.items %}
-                  <div class="carousel-item rotate-carousel-inner">
-                  <!-- 네이버 뉴스 API -->
-                    <a href="{{ news.link }}"><p>{{ news.title }}</p></a>
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
+
+          <div class="rolling_box mb-3">
+            <ul id ="rolling_box">
+              <li class="card_sliding" id ="first"><p></p></li>
+              <li class="" id ="second"><p></p></li>
+              <li class="" id ="third"><p></p></li>
+            </ul>
+          </div>
         </div>
       </div>
-
-      
-
-      
     </section>
   </div>
 </div>
@@ -435,4 +426,86 @@
   observer.observer(h2[1])
 
 </script> {% endcomment %}
+<script>
+
+  let rollingData = [
+                      {% for news in temp_news.items %}
+                        {
+                          title: "{{ news.title }}",
+                          link: "{{ news.link }}",
+                        },
+                      {% endfor %}
+                    ]    // 롤링할 데이터를 넣으면 됩니다 갯수 제한 없어요
+  console.log(rollingData)
+  let timer = 2000 // 롤링되는 주기 입니다 (1000 => 1초)
+
+  let first = document.getElementById('first')
+  let second = document.getElementById('second')
+  let third = document.getElementById('third')
+  let move = 2
+  let dataCnt = 1
+  let listCnt = 1
+
+  //위 선언은 따로 완전히 수정하지 않는 한 조정할 필요는 없습니다.
+
+  first.children[0].insertAdjacentHTML(`beforeend`, `<a href="${rollingData[0].link}">${rollingData[0].title}</a>`)
+
+  setInterval(() => {
+      if(move == 2){
+          first.classList.remove('card_sliding')
+          first.classList.add('card_sliding_after')
+
+          second.classList.remove('card_sliding_after')
+          second.classList.add('card_sliding')
+
+          third.classList.remove('card_sliding_after')
+          third.classList.remove('card_sliding')
+
+          move = 0
+      } else if (move == 1){
+          first.classList.remove('card_sliding_after')
+          first.classList.add('card_sliding')
+
+          second.classList.remove('card_sliding_after')
+          second.classList.remove('card_sliding')
+
+          third.classList.remove('card_sliding')
+          third.classList.add('card_sliding_after')
+
+          move = 2
+      } else if (move == 0) {
+          first.classList.remove('card_sliding_after')
+          first.classList.remove('card_sliding')
+
+          second.classList.remove('card_sliding')
+          second.classList.add('card_sliding_after')
+
+          third.classList.remove('card_sliding_after')
+          third.classList.add('card_sliding')
+
+          move = 1
+      }
+      
+      if(dataCnt < (rollingData.length - 1)) {
+          document.getElementById('rolling_box').children[listCnt].children[0].innerText = ""
+          document.getElementById('rolling_box').children[listCnt].children[0].insertAdjacentHTML(`beforeend`, `<a href="${rollingData[dataCnt].link}">${rollingData[dataCnt].title}</a>`)
+              dataCnt++
+              console.log("이거"+dataCnt)
+      } else if(dataCnt == rollingData.length - 1) {
+          document.getElementById('rolling_box').children[listCnt].children[0].innerText = ""
+          document.getElementById('rolling_box').children[listCnt].children[0].insertAdjacentHTML(`beforeend`, `<a href="${rollingData[dataCnt].link}">${rollingData[dataCnt].title}</a>`)
+          dataCnt = 0
+      }
+
+      if(listCnt < 2) {
+          listCnt++
+      } else if (listCnt == 2) {
+          listCnt = 0
+      }
+
+      console.log(listCnt)
+  }, timer);
+
+
+</script>
 {% endblock %}
