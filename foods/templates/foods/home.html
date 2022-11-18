@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'CSS/foods/home/home.css' %}">
 {% endblock css %}
 {% block content %}
-<div class="container" >
+<div class="container slide-in" id="page1">
     <div class="d-flex flex-column align-items-center mt-3">
         <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
         <p class="" style="color:gray; font-size:1.2rem;">{{ team.name }}의 매점 정보🍕</p>
@@ -28,7 +28,7 @@
         <div class="d-flex flex-column align-items-center mt-3">
             <h2 class="fw-bold" style="font-size:2.5rem;">구장 내 스낵바</h2>
             <p class="" style="color:gray; font-size:1.2rem;">구장 내 스낵바 정보</p>
-            <div class="badge rounded-pill text-bg-dark fw-bold" style="width:100px; height:30px;font-size:17px;">전체 보기</div>
+            <a class="badge rounded-pill text-bg-dark fw-bold" style="width:100px; height:30px;font-size:17px; text-decoration: none;" href="{% url 'foods:store_all' team.pk %}">전체 보기</a>
         </div>
 
     <!-- 카드 슬라이더 효과 -->
@@ -58,9 +58,9 @@
         {% for store, store_img in store_lst %}
           <div class='slide'>
             <div class="train-card bg-white" style="width:350px;>
-              <a href="">
-                <img src="{{store_img.image.url}}" class="card-img-top" alt="...">
-              </a>
+                <a href="">
+                  <img src="{{store_img.image.url}}" class="card-img-top" alt="...">
+                </a>
               <div class="card-body py-2 border-top">
                 <h5 class="card-title text-center">{{ store.name }}</h5>
                 <p class="small m-0 ms-3">매장 위치 : {{ store.detail }}</p>
@@ -71,12 +71,9 @@
             </div>
           </div>
         {% endfor %}
-
-
         </div>
       </div>
     </div>
-    <h1>여기에 페이지</h1>
 </div>
 <div>
     <div class="container text-center py-3" style="border-top: 1rem ridge {{ team.color }}; border-bottom: 1rem ridge {{ team.color }}">

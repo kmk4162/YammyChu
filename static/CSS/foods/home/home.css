@@ -128,3 +128,18 @@ div[class="content_add"] {
 div[class="content_text"] {
     padding: 0 1rem;
 }
+
+
+.slide-in {
+    animation: change 1s ease forwards;
+}
+
+@keyframes change {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
