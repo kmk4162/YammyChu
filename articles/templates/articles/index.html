@@ -59,7 +59,7 @@
     {% endfor %}
   </div>
   <div class="container">
-    <section class="my-5 py-5">
+    <section class="my-5 py-3">
       <div class="d-flex flex-column align-items-center mt-3">
         <h2 class="fw-bold" style="font-size:2.5rem;">인기 매점<h2>
         <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 매점을 찾아보세요💯</p>
@@ -338,11 +338,25 @@
           </div>
         </div>
     </section>
-    <section class="row d-flex justify-content-center mt-5">
-
+    <section class="row d-flex justify-content-center mt-2">
+      <div class="col-12 col-md-12 col-xl-12 col-xxl-12 px-4 mt-4">
+        <div class="row pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden; height:100%;">
+          <div class="col-12 col-md-12 mb-3" style="text-align:center; display:flex; flex-direction:row; align-items:center;">
+            <h2 class="fw-bold" style="margin-bottom:0;">뉴스 기사</h2>
+            <p class="ms-3" style="color:gray; font-size:1rem; margin-bottom:0;">최신 뉴스를 확인해보세요📰</p>
+          </div>
+          <div class="rolling_box mb-3" style="padding-left:0;">
+            <ul id ="rolling_box" style="padding-left:0;">
+              <li class="card_sliding" id ="first"><p></p></li>
+              <li class="" id ="second"><p></p></li>
+              <li class="" id ="third"><p></p></li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <div class="col-12 col-md-6 col-xl-5 mt-4">
-        <div class="pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
-          <h2 class=" fw-bold">팀 순위</h2>
+        <div class="py-4 px-3" style="background-color:white; border-radius:10px; height:550px;">
+          <h2 class="fw-bold">팀 순위</h2>
           <p class="" style="color:gray; font-size:1rem;">우리 팀 순위를 확인하세요🎖️</p>
           <table class="table table-borderless rounded-1 bg-white text-center" style="font-size:1rem;">
             <tbody>
@@ -365,7 +379,7 @@
       </div>
 
       <div class="col-12 col-md-6 col-xl-7 mt-4">
-        <div class="pt-4 ps-5" style="background-color:white; border-radius:10px; overflow:hidden; height:522px;">
+        <div class="py-4 px-3" style="background-color:white; border-radius:10px; overflow:hidden; height:550px;">
           {% if user.is_authenticated and user.team %}
           <h2 class="fw-bold"><span style="border-bottom : 3px double {{user.team.color}};">{{ user.team.name }}</span> 게시판</h2>
           <p class="" style="color:gray; font-size:1rem;">우리 팀 최신 게시글을 확인하세요🔥</p>
@@ -386,23 +400,6 @@
               </tbody>
             </table>
             <div class="small text-end me-5"><a class="text-decoration-none text-black fs-6" href="{% url 'articles:community' %}">전체글 보기></a></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-12 col-xl-12 col-xxl-12 px-4 mt-4">
-        <div class="row pt-4 px-5" style="background-color:white; border-radius:10px; overflow:hidden; height:100%;">
-          <div class="col-12 col-md-4">
-            <h2 class=" fw-bold">뉴스 기사</h2>
-            <p class="" style="color:gray; font-size:1rem;">최신 뉴스를 확인해보세요📰</p>
-          </div>
-
-          <div class="rolling_box mb-3">
-            <ul id ="rolling_box">
-              <li class="card_sliding" id ="first"><p></p></li>
-              <li class="" id ="second"><p></p></li>
-              <li class="" id ="third"><p></p></li>
-            </ul>
           </div>
         </div>
       </div>
@@ -486,7 +483,6 @@
           document.getElementById('rolling_box').children[listCnt].children[0].innerText = ""
           document.getElementById('rolling_box').children[listCnt].children[0].insertAdjacentHTML(`beforeend`, `<a href="${rollingData[dataCnt].link}">${rollingData[dataCnt].title}</a>`)
               dataCnt++
-              console.log("이거"+dataCnt)
       } else if(dataCnt == rollingData.length - 1) {
           document.getElementById('rolling_box').children[listCnt].children[0].innerText = ""
           document.getElementById('rolling_box').children[listCnt].children[0].insertAdjacentHTML(`beforeend`, `<a href="${rollingData[dataCnt].link}">${rollingData[dataCnt].title}</a>`)
