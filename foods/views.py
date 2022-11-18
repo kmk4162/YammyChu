@@ -19,11 +19,20 @@ def home(request, team_pk):
         stores = Store.objects.filter(team=middle[1])
     else:
         stores = Store.objects.filter(team=team)
+
+    # 구장별 매점별 사진 넘기기 기능
+    store_lst = []
+    stores = Store.objects.filter(team=team)
+    for store in stores:
+        store_imgs = StoreImage.objects.filter(store_id=store.pk)
+        store_img = store_imgs[0]
+        store_lst.append((store, store_img))
     restaurants = Restaurant.objects.filter(team=team)
     context = {
         "team": team,
         "stadium": stadium,
         "stores": stores,
+        'store_lst':store_lst,
         'restaurants': restaurants,
     }
     return render(request, "foods/home.html", context)

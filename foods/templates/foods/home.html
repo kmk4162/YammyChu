@@ -6,9 +6,12 @@
 {% endblock css %}
 {% block content %}
 <div class="container" >
-    <h1 class="food_title">{{ team.name }}</h1>
+    <div class="d-flex flex-column align-items-center mt-3">
+        <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
+        <p class="" style="color:gray; font-size:1.2rem;">{{ team.name }}의 매점 정보🍕</p>
+    </div>
     <div class="symbol">
-        <img class="team_logo" src="{{ team.logo.url }}" alt="">
+        <img class="team_logo" src="{{ team.mascot.url }}" alt="">
         <div id="map" style="width:100%;height:400px;"></div>
     </div>
     <form class="d-flex" role="search" method='GET' action="{% url 'foods:search' team.pk %}">
@@ -21,51 +24,66 @@
     
         <button class="btn btn-dark me-2" type="submit" style="width: 7rem;">검색</button>
       </form>
-    <div class="container text-center py-3" style="border-top: 0.5rem solid {{ team.color }}; border-bottom: 0.5rem solid {{ team.color }}">
-        <h1>구장 내 스낵바</h1>
-        <div class="row row-cols-1 row-cols-md-5 g-4 d-flex justify-content-around p-3">
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                </div>
-            </div>
+    <div class="container text-center py-3" style="border-top: 1rem groove {{ team.color }}; border-bottom: 1rem groove {{ team.color }}">
+        <div class="d-flex flex-column align-items-center mt-3">
+            <h2 class="fw-bold" style="font-size:2.5rem;">구장 내 스낵바</h2>
+            <p class="" style="color:gray; font-size:1.2rem;">구장 내 스낵바 정보</p>
+            <div class="badge rounded-pill text-bg-dark fw-bold" style="width:100px; height:30px;font-size:17px;">전체 보기</div>
         </div>
-        <div class="col">
-            <div class="card">
-                <img src="{% static 'images/home/Eagle/symbol.jpg' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
+
+    <!-- 카드 슬라이더 효과 -->
+      <div class='slider'>
+
+        <div class='slide-track'>
+        {% for store, store_img in store_lst %}
+          <div class='slide'>
+            <div class="train-card bg-white" style="width:350px;">
+              <a href="">
+                <img src="{{store_img.image.url}}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">{{ store.name }}</h5>
+                <p class="small m-0 ms-3">매장 위치 : {{ store.detail }}</p>
+                <p class="card-text small ms-3">
+                  메뉴 : {{ store.items }}
+                </p>
+              </div>
             </div>
+          </div>
+        {% endfor %}
+
+          <!-- 한번 더 반복하기 -->
+
+          
+        {% for store, store_img in store_lst %}
+          <div class='slide'>
+            <div class="train-card bg-white" style="width:350px;>
+              <a href="">
+                <img src="{{store_img.image.url}}" class="card-img-top" alt="...">
+              </a>
+              <div class="card-body py-2 border-top">
+                <h5 class="card-title text-center">{{ store.name }}</h5>
+                <p class="small m-0 ms-3">매장 위치 : {{ store.detail }}</p>
+                <p class="card-text small ms-3">
+                  메뉴 : {{ store.items }}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+
         </div>
+      </div>
     </div>
     <h1>여기에 페이지</h1>
 </div>
 <div>
-    <div class="container text-center py-3" style="border-top: 0.5rem solid {{ team.color }}; border-bottom: 0.5rem solid {{ team.color }}">
-        <h1>주변 맛집</h1>
+    <div class="container text-center py-3" style="border-top: 1rem ridge {{ team.color }}; border-bottom: 1rem ridge {{ team.color }}">
+        <div class="d-flex flex-column align-items-center mt-3">
+            <h2 class="fw-bold" style="font-size:2.5rem;">주변 맛집</h2>
+            <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 리뷰를 찾아보세요💯</p>
+        </div>
         <div class="row row-cols-1 row-cols-md-5 g-4 d-flex justify-content-around">
             <div class="col">
                 <div class="card">
@@ -106,6 +124,7 @@
         </div>
         <a class='btn btn-primary' href='{% url "foods:restaurant_create" team.pk %}'>가게 추가하기</a>
         <h1>여기에 페이지</h1>
+        
     </div>
 </div>
 </div>
