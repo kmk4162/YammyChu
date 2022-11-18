@@ -30,12 +30,9 @@
   * {
     font-family: 'SUIT-Medium';
   }
-
-
   body {
     background-color:#f6f4f2;
   }
-  
   #footer {
     background-color:black;
     color:white;
@@ -46,21 +43,33 @@
     position:fixed;
     bottom:0px;
   }
-
   #logo-img {
     width:50px;
     height:50px; 
   }
+  {% comment %} 업버튼 {% endcomment %}
+  #go-top {
+    display: none;
+    position: fixed;
+    right: 30px;
+    bottom: 50px;
+    outline: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 9999;
+    color: {{ user.team.color }};
+  }
   </style>
-  {% block css %}
-  {% endblock css %}
+{% block css %}
+{% endblock css %}
 
-  {% block script %}
-  {% endblock script %}
-  <!-- fontawesome -->
-  <script src="https://kit.fontawesome.com/3ef4088aa9.js" crossorigin="anonymous"></script>
-  {% comment %} lordicon 임포트 {% endcomment %}
-  <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+{% block script %}
+{% endblock script %}
+<!-- fontawesome -->
+<script src="https://kit.fontawesome.com/3ef4088aa9.js" crossorigin="anonymous"></script>
+{% comment %} lordicon 임포트 {% endcomment %}
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
 </head>
 <body>
 {% if user.is_authenticated and user.team %}
@@ -115,10 +124,36 @@
 
 {% block content %}
 {% endblock content %}
+{% comment %} 위로가기 버튼 {% endcomment %}
+<button id="go-top"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+  class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd"
+    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+</svg></button>
 <footer>
   <p>made by 김광표 김다겸 김문경 김준환 이주용 최근영</p>
   <p>ⓒ Y.M.C Corp.</p>
 </footer>
 <script src="{% static 'JS/movie.js' %}" type="text/javascript"></script>
+<script>
+  var backToTop = () => {
+    window.addEventListener('scroll', () => {
+      if (document.querySelector('html').scrollTop > 500) {
+        document.getElementById('go-top').style.display = "block";
+      } else {
+        document.getElementById('go-top').style.display = "none";
+      }
+    });
+    // back to top
+    document.getElementById('go-top').addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    })
+  };
+  backToTop();
+</script>
 </body>
 </html>
