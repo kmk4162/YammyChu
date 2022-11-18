@@ -91,11 +91,29 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <div class="col-xl-7 col-xxl-6 row d-flex justify-content-center">
         <ul class="navbar-nav col-xl-8 d-flex justify-content-center align-items-center">
-          <li class="nav-item menu">
-            <a class="nav-main-menu" style='color:black;' href="{% url 'articles:index' %}">팀별 먹거리</a>
+          <li class="nav-item dropdown">
+            <a class="nav-main-menu dropdown-toggle" style='color:black; font-size: 1.2rem;' href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              구장별 스낵바
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'foods:home' 1 %}">SSG 랜더스</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 2 %}">키움 히어로즈</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 3 %}">LG 트윈스</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 4 %}">SSG 랜더스</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 5 %}">KIA 타이거즈</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 6 %}">NC 다이노스</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 7 %}">삼성 라이온즈</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 8 %}">롯데 자이언츠</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 9 %}">두산 베어스</a></li>
+              <li><a class="dropdown-item" href="{% url 'foods:home' 10 %}">한화 이글스</a></li>
+            </ul>
           </li>
           <li class="nav-item menu">
-            <a class="nav-main-menu" style='color:black;' href="{% url 'articles:community' %}">커뮤니티</a>
+            <a class="nav-main-menu" style='color:black; font-size:med' href="{% url 'articles:community' %}">커뮤니티</a>
+          </li>
+          <li class="nav-item menu">
+            <a class="nav-main-menu" style='color:black;' href="{% url 'chat:room' user.team.ename %}">{{ user.team.name }}팀 채팅방</a>
+            {% comment %} <a href="{% url 'chat:room' user.team.ename %}"><button id="create-btn">{{ user.team.name }}팀 채팅방</button></a> {% endcomment %}
           </li>
         </ul>
         <ul class="navbar-nav col-xl-4 my-3 d-flex justify-content-end align-items-center">
@@ -123,7 +141,7 @@
       <div class="col-xl-7 col-xxl-6 row d-flex justify-content-center">
         <ul class="navbar-nav col-xl-8 d-flex justify-content-center align-items-center">
           <li class="nav-item menu">
-            <a class="nav-main-menu" style='color:white;' href="{% url 'articles:index' %}">팀별 먹거리</a>
+            <a class="nav-main-menu" style='color:white;' href="{% url 'articles:index' %}">구장별 스낵바</a>
           </li>
           <li class="nav-item menu">
             <a class="nav-main-menu" style='color:white;' href="{% url 'articles:community' %}">커뮤니티</a>
