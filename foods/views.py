@@ -14,6 +14,7 @@ from django.db.models import Count, Avg
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
+    
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
         stores = Store.objects.filter(team=middle[1])
@@ -27,24 +28,34 @@ def home(request, team_pk):
         store_imgs = StoreImage.objects.filter(store_id=store.pk)
         store_img = store_imgs[0]
         store_lst.append((store, store_img))
+
     restaurants = Restaurant.objects.filter(team=team)
+    restaurant_lst = []
+    for restaurant in restaurants:
+        restaurant_imgs = RestaurantImage.objects.filter(restaurant_id=restaurant.pk)
+        restaurant_img = restaurant_imgs[0]
+        restaurant_lst.append((restaurant, restaurant_img))
+    print(restaurant_lst)
     context = {
         "team": team,
         "stadium": stadium,
         "stores": stores,
         'store_lst':store_lst,
         'restaurants': restaurants,
+        "restaurant_lst": restaurant_lst,
     }
     return render(request, "foods/home.html", context)
 
 def store_detail(request, team_pk, store_pk):
     team = Team.objects.get(pk=team_pk)
     store = Store.objects.annotate(grade_avg=Avg('store_reviews__grade')).get(pk=store_pk, team=team)
+    store.items.replace("등", "")
+    items = store.items.split(",")
     lat = float(store.lat)
     lon = float(store.lon)
     review_form = ReviewForm()
     reviewimage_form = ReviewImageForm()
-    context = {'team': team, 'store': store, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
+    context = {'team': team, 'store': store, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon, 'items': items,}
     return render(request, 'foods/store_detail.html', context)
 
 def store_all(request, team_pk):

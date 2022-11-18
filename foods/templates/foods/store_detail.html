@@ -3,8 +3,6 @@
 {% load tag_check %}
 {% load static %}
 {% bootstrap_css %}
-
-{% block content %}
 <style>
     .baseball {
       width: 2.5rem;
@@ -27,44 +25,66 @@
         font-size:16px;
         border-radius:5px;
       }
+    .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+    }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
-<div class='container'>
-    <div class='row d-flex justify-content-center'>
-        <div class='col-12 col-md-8' style="margin-top:2rem;">
-            <div id="map" style="width:100%;height:350px;"></div>
-        </div>
-        <div class='col-12 col-md-4' style="margin-top:2rem;">
-            {% if store.store_image.all %}
-                {% for image in store.store_image.all %}
-                {% if forloop.counter == 1 %}
-                <img src="{{ image.image.url }}" alt="{{ image.image }}" style='height:350px; width:100%;'>
-                {% endif %}
-                {% endfor %}
-            {% else %}
-                {% if team.pk == 1 %}
-                <img src="{% static 'images/ssg_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 2 %}
-                <img src="{% static 'images/키움_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 3 %}
-                <img src="{% static 'images/lg_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 4 %}
-                <img src="{% static 'images/kt_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 5 %}
-                <img src="{% static 'images/kia_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 6 %}
-                <img src="{% static 'images/nc_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 7 %}
-                <img src="{% static 'images/삼성_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 8 %}
-                <img src="{% static 'images/롯데_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 9 %}
-                <img src="{% static 'images/두산_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% elif team.pk == 10 %}
-                <img src="{% static 'images/한화_로고.jpg' %}" style='height:350px; width:100%;'>
-                {% endif %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
-            {% endif %}
+{% block content %}
+<div class='container'>
+    <div class='d-flex  flex-column align-items-center'>
+        <div class='store-detail-box' style="width:760px; margin:1rem 0 1rem 0;padding:0 0 2rem 0;background-color:white;">
+            <div class="" id="map" style="width:100%;height:350px;"></div>
+            <div class="title-box d-flex justify-content-center align-items-center">
+                <div class='d-flex flex-column justify-content-center align-items-center fw-bold shadow-sm' style="position:relative; top:-40px; z-index:10; width:700px; height:200px; background-color:white; font-size: 3rem; font-weight:500;">
+                    {{ store.name }}
+                    <div class="d-flex justify-content-center">
+                        <div style="font-size:1.5rem; margin-left: 5px;">후기 {{ store.store_reviews.all.count }}•</div>
+                        <div style="font-size:1.5rem; margin-left: 5px;">팔로워 <b id='followers'>{{ store.following_users.count }}</b></div>
+                    </div>
+                </div>
+            </div>
+            <div class="px-5">
+                <p class="fw-bold" style="font-size:30px;">상세 위치 정보</p>
+                <div>
+                    {% comment %} <span class="material-symbols-outlined">아이콘</span> {% endcomment %}
+                    <p style="font-size:20px;">위치 • {{ store.detail }}</p>
+                </div>
+            </div>
+        </div>
+        <div class='store-detail-box' style="width:760px; margin:1rem 0 1rem 0;padding:2rem 0 2rem 0;background-color:white;">
+            <div class="px-5">
+                <p class="fw-bold" style="font-size:30px;">메뉴</p>
+                <div class='my-4'>
+                    {% for item in items %}
+                        <p>{{ item }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class='store-detail-box' style="width:760px; margin:1rem 0 1rem 0;padding:2rem 0 2rem 0;background-color:white;">
+            <div class="px-5">
+                <p class="fw-bold" style="font-size:30px;">사진</p>
+                    <div class="row">
+                    {% for image in store.store_image.all %}
+                        <img class="col-12 col-sm-6" src="{{ image.image.url }}" alt="{{ image.image }}" style="padding:2px; width:340px; height:340px; margin-top:2rem;">
+                    {% endfor %}
+                    </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
         </div>
     </div>
 </div>
@@ -105,6 +125,9 @@
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
             <div class='my-4'>
                 <p style="font-size:1.5rem;">판매 품목: {{ store.items }}</p>
+                {% for item in items %}
+                    <p>{{ item }}</p>
+                {% endfor %}
                 <p style="font-size:1.5rem;">상세 위치: {{ store.detail }}</p>
             </div>
             {% if store.store_image.all.count < 4 %}
