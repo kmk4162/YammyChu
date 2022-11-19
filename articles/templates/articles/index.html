@@ -117,7 +117,7 @@
                         {% for i in ""|ljust:grade.avg_grade %}
                         <span>⭐</span>
                         {% endfor %}
-                        <span>{{ grade.avg_grade }}({{ grade.cnt_reviews }}명 평가)</span>
+                        <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
                         {% endif %}
                       </p>
                   </div>
@@ -159,7 +159,7 @@
                       {% for i in ""|ljust:grade.avg_grade %}
                       <span>⭐</span>
                       {% endfor %}
-                      <span>{{ grade.avg_grade }}({{ grade.cnt_reviews }}명 평가)</span>
+                      <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
                       {% endif %}
                       </p>
                   </div>
@@ -205,7 +205,7 @@
                       {% for i in ""|ljust:follow.avg_grade %}
                       <span>⭐</span>
                       {% endfor %}
-                      <span>{{ follow.avg_grade }}({{ follow.cnt_reviews }}명 평가)</span>
+                      <span>{{ follow.avg_grade|floatformat:"1" }}({{ follow.cnt_reviews }}명 평가)</span>
                       {% endif %}
                       </p>
                   </div>
@@ -247,7 +247,7 @@
                       {% for i in ""|ljust:follow.avg_grade %}
                       <span>⭐</span>
                       {% endfor %}
-                      <span>{{ follow.avg_grade }}({{ follow.cnt_reviews }}명 평가)</span>
+                      <span>{{ follow.avg_grade|floatformat:"1" }}({{ follow.cnt_reviews }}명 평가)</span>
                       {% endif %}
                       </p>
                   </div>
@@ -292,7 +292,7 @@
                         {% for i in ""|ljust:review.avg_grade %}
                         <span>⭐</span>
                         {% endfor %}
-                        <span>{{ review.avg_grade }}({{ review.cnt_reviews }}명 평가)</span>
+                        <span>{{ review.avg_grade|floatformat:"1" }}({{ review.cnt_reviews }}명 평가)</span>
                         {% endif %}
                         </p>
                     </div>
@@ -334,7 +334,7 @@
                         {% for i in ""|ljust:review.avg_grade %}
                         <span>⭐</span>
                         {% endfor %}
-                        <span>{{ review.avg_grade }}({{ review.cnt_reviews }}명 평가)</span>
+                        <span>{{ review.avg_grade|floatformat:"1" }}({{ review.cnt_reviews }}명 평가)</span>
                         {% endif %}
                         </p>
                     </div>
