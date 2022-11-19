@@ -1,5 +1,6 @@
 name: EB_Deploy
 
+
 on:
   push:
     branches: master
@@ -16,7 +17,7 @@ jobs:
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
-      
+
       - name: Get timestamp
         uses: gerred/actions/current-time@master
         id: current-time
