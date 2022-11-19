@@ -3,19 +3,27 @@
 {% load tag_check %}
 {% load static %}
 {% bootstrap_css %}
+{% block css %}
+
 <style>
     .baseball {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.1rem;
+      height: 2.1rem;
       background-image: url('{% static 'css/baseball.png' %}');
       background-size: contain;
     }
     .baseball-fill {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.1rem;
+      height: 2.1rem;
       background-image: url('{% static 'css/baseball_fill.png' %}');
       background-size: contain;
     }
+
+    .baseball-fill:hover {
+        transform:rotateY(720deg);
+        transition:2s;
+    }
+
     #review-btn {
         border-color:{{ store.team.color }};
         background-color:{{ store.team.color }};
@@ -34,33 +42,53 @@
     }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endblock css %}
 
 {% block content %}
 <div class='container'>
     <div class='d-flex  flex-column align-items-center'>
-        <div class='store-detail-box' style="width:760px; margin:1rem 0 1rem 0;padding:0 0 2rem 0;background-color:white;">
+        <div class='store-detail-box' style="width:760px; margin:0.6rem 0 0.6rem 0;padding:0 0 2rem 0;background-color:white;">
             <div class="" id="map" style="width:100%;height:350px;"></div>
             <div class="title-box d-flex justify-content-center align-items-center">
                 <div class='d-flex flex-column justify-content-center align-items-center fw-bold shadow-sm' style="position:relative; top:-40px; z-index:10; width:700px; height:200px; background-color:white; font-size: 3rem; font-weight:500;">
                     {{ store.name }}
+                     <div class='d-flex justify-content-start align-items-center my-1'>
+                        {% if store.store_reviews.all.count == 0 %}
+                        <div style="font-size:1.4rem;">⭐ 0</div>
+                        {% else %}
+                        <div style="font-size:1.4rem;">⭐ {{ store.grade_avg|floatformat:"1" }}</div>
+                        {% endif %}
+                    </div>
                     <div class="d-flex justify-content-center">
                         <div style="font-size:1.5rem; margin-left: 5px;">후기 {{ store.store_reviews.all.count }}•</div>
-                        <div style="font-size:1.5rem; margin-left: 5px;">팔로워 <b id='followers'>{{ store.following_users.count }}</b></div>
+                        <div style="font-size:1.5rem; margin-left: 5px;">팔로워 <b id='followers'>{{ store.following_users.count }}</b>•</div>
+                        <div style="font-size:1.5rem; margin-left: 5px;">팔로우 :</div>
+                        <div class="d-flex justify-content-start align-items-center">
+                            {% if request.user in store.following_users.all %}
+                            <div id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='baseball-fill' style="cursor:pointer"></div>
+                            {% else %}
+                            <div id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='baseball' style="cursor:pointer"></div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="px-5">
-                <p class="fw-bold" style="font-size:30px;">상세 위치 정보</p>
-                <div>
-                    {% comment %} <span class="material-symbols-outlined">아이콘</span> {% endcomment %}
-                    <p style="font-size:20px;">위치 • {{ store.detail }}</p>
+                <div class="fw-bold py-1" style="font-size:23px;"><span class="material-symbols-outlined">
+                    location_on
+                    </span>위치 정보</div>
+                <div class="d-flex align-itmes-center">
+                    <p style="font-size:20px;">
+                    위치 • {{ store.detail }}</p>
                 </div>
             </div>
         </div>
-        <div class='store-detail-box' style="width:760px; margin:1rem 0 1rem 0;padding:2rem 0 2rem 0;background-color:white;">
+        <div class='store-detail-box' style="width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">
             <div class="px-5">
-                <p class="fw-bold" style="font-size:30px;">메뉴</p>
+                <p class="fw-bold" style="font-size:25px;"><span class="material-symbols-outlined">
+                restaurant
+                </span>메뉴</p>
                 <div class='my-4'>
                     {% for item in items %}
                         <p>{{ item }}</p>
@@ -68,28 +96,192 @@
                 </div>
             </div>
         </div>
-        <div class='store-detail-box' style="width:760px; margin:1rem 0 1rem 0;padding:2rem 0 2rem 0;background-color:white;">
+        <div class='store-detail-box' style="width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">
             <div class="px-5">
-                <p class="fw-bold" style="font-size:30px;">사진</p>
-                    <div class="row">
-                    {% for image in store.store_image.all %}
-                        <img class="col-12 col-sm-6" src="{{ image.image.url }}" alt="{{ image.image }}" style="padding:2px; width:340px; height:340px; margin-top:2rem;">
-                    {% endfor %}
+                <p class="fw-bold" style="font-size:20px;">사진</p>
+                <div class="row">
+                {% for image in store.store_image.all %}
+                    <img class="col-12 col-sm-6" src="{{ image.image.url }}" alt="{{ image.image }}" style="padding:2px; width:342px; height:342px;">
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class='store-detail-box' style="width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">
+            <div class="px-5">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fw-bold" style="font-size:20px;">리뷰</p>
+                        <p class="my-1">{{user.username}}님 후기를 남겨주세요.</p>
                     </div>
+                    <!-- Button trigger modal -->
+                    <form action="{% url 'foods:store_review_create' store.team_id store.pk %}" id="myform" class="me-3 pe-5">
+                        <fieldset class="my-1">
+                            <input class="open-Star" type="button" name="star" value="5" id="rate1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate1">⭐</label>
+                            <input class="open-Star" type="button" name="star" value="4" id="rate2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate2">⭐</label>
+                            <input class="open-Star" type="button" name="star" value="3" id="rate3" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate3">⭐</label>
+                            <input class="open-Star" type="button" name="star" value="2" id="rate4" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate4">⭐</label>
+                            <input class="open-Star" type="button" name="star" value="1" id="rate5" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate5">⭐</label>
+                        </fieldset>
+                    </form>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                <form action="{% url 'foods:store_review_create' store.team_id store.pk %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <a type="a" class="secondary" data-bs-dismiss="modal" style="text-decoration:none; color:black;">취소</a>
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{store.name}}</h1>
+                                        <button id="review-btn" style="text-decoration:none; background-color:#00000000; border:0; color:rgb(57,125,246);" type="submit">등록</button>
+                                    </div>
+                                    <hr>
+                                    {% bootstrap_form review_form %}
+                                    {% bootstrap_form reviewimage_form %}
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <div class='store-detail-box' style="width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">                    
+            <div class="px-5">
+                <p class="fw-bold" style="font-size:20px;">전체•<span style="color:skyblue; font-size:20px;">{{store.store_reviews.all.count}}<span></p>
+                <div class="d-flex">
+                    {% if store.store_reviews.all.count == 0 %}
+                    <div style="font-size:1.4rem; margin-right:10px;">⭐ 0</div>
+                    {% else %}
 
+                    
+                    <div style="transform:scale(1.5);" class="ms-4 mt-1">
+                        {% if store.grade_avg >= 5 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {% elif store.grade_avg >= 4 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif store.grade_avg >= 3 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif store.grade_avg >= 2 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif store.grade_avg >= 1 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% endif %}
+                        
+                    </div>
+                    
+                </div>
+                {% endif %}
+                {% for review in store.store_reviews.all reversed %}
+                <hr>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <div style="font-size:16px; font-weight:bold;">{{ review.user.username }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span></div>
+                        <div class="btn" style="position:relative; right:0;" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <span class="material-symbols-outlined">
+                            more_vert
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        {% if store.grade_avg >= 5 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {% elif store.grade_avg >= 4 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif store.grade_avg >= 3 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif store.grade_avg >= 2 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif store.grade_avg >= 1 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% endif %}
+                    </div>
 
+                    
 
-
-
+                    
+                </div>
+                {{ review|tag_check|safe }}
+                <div class='row'>
+                    {% for image in review.review_image.all %}
+                    <div class='col-3'>
+                        <img class='my-2' src="{{ image.image.url }}" style='width:100%'>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if request.user == review.user%}
+                <div class='d-flex justify-content-end'>
+                    <button style="text-decoration:none;" class="badge rounded-pill text-bg-dark" data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</button>
+                    <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            리뷰를 삭제하시겠습니까?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+                            <a class="btn btn-danger" href="{% url 'foods:store_review_delete' store.team_id store.pk review.pk %}">삭제</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                             
+                {% endfor %}
+            </div>
+        </div>
 
         </div>
     </div>
 </div>
 
-<div class='container'>
+{% comment %} <div class='container'>
     <div class='d-flex justify-content-start align-items-center my-3'>
         <span class='h1 me-3' style="margin-bottom:0; font-size: 3rem; font-weight:500;">{{ store.name }}</span>
         {% if store.store_reviews.all.count == 0 %}
@@ -250,10 +442,25 @@
             </form>
         </div>
     </div>  
-</div>
+</div> {% endcomment %}
 
 <!-- JavaScript Bundle with Popper -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
+
+<!-- 스토어 디테일 스크립트-->
+<script>
+$(document).on("click", ".open-Star", function () {
+     var star_rate = $(this).data('value');
+     $("review_form.grade").val( star_rate );
+     // As pointed out in comments, 
+     // it is superfluous to have to manually call the modal.
+     // $('#addBookDialog').modal('show');
+});
+</script>
+
+
+
+<!-- 지도 자바 스크립트-->
 <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
