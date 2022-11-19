@@ -171,8 +171,10 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 AUTH_USER_MODEL = "accounts.User"
+
 # MEDIA_ROOT = BASE_DIR / 'media'
 # MEDIA_URL = '/media/'
+
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
