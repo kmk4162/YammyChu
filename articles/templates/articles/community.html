@@ -38,7 +38,6 @@
   {% if user.is_authenticated and user.team %}
   <div class="d-flex justify-content-between">
     <a href="{% url 'articles:create' %}"><button id="create-btn">글 작성하기</button></a>
-    <a href="{% url 'chat:room' user.team.ename %}"><button id="create-btn">{{ user.team.name }}팀 채팅방</button></a>
   </div>
   {% endif %}
   <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">

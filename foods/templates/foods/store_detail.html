@@ -291,10 +291,12 @@
         {% endif %}
     </div>
     <div class="d-flex justify-content-start align-items-center">
-        {% if request.user in store.following_users.all %}
-        <div id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='baseball-fill' style="cursor:pointer"></div>
-        {% else %}
-        <div id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='baseball' style="cursor:pointer"></div>
+        {% if request.user.is_authenticated%}
+            {% if request.user in store.following_users.all %}
+            <div id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='baseball-fill' style="cursor:pointer"></div>
+            {% else %}
+            <div id='follow' data-store-id='{{ store.pk }}' data-team-id='{{ store.team.pk }}' class='baseball' style="cursor:pointer"></div>
+            {% endif %}
         {% endif %}
         <div style="font-size:1.5rem; margin-left: 5px;">팔로워 <b id='followers'>{{ store.following_users.count }}</b></div>
     </div>
