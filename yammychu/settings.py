@@ -63,13 +63,14 @@ INSTALLED_APPS = [
 # Channels
 ASGI_APPLICATION = 'yammychu.asgi.application'
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            # "hosts": [("127.0.0.1", 6379)],
+            "hosts": [os.getenv("CHANNEL_LAYERS_HOST")]
         },
     },
-}
+} 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -187,3 +188,4 @@ AWS_S3_CUSTOM_DOMAIN = "%s.s3.%s.amazonaws.com" % (
     AWS_STORAGE_BUCKET_NAME,
     AWS_REGION,
 )
+
