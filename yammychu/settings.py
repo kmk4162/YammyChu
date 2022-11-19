@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-d_!6d&z)+4h++=_!#@)la9+qh-5b*10*dz6p&(ezh*_gs(m4y-
 
 ALLOWED_HOSTS = [
     # "Elastic Beanstalk URL",
-    "Yammychu-env.eba-tnectwfa.ap-northeast-2.elasticbeanstalk.com",
+    "Yammychu3-env.eba-qj4ecu99.ap-northeast-2.elasticbeanstalk.com",
     "127.0.0.1",
     "localhost",
 ]
