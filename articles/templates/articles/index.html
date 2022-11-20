@@ -24,6 +24,7 @@
 </div>
 {% endif %}
 
+
 <div class="movie-box">
   <div class="jb-box d-flex align-items-center">
     <video class="banner-mv" muted autoplay>
@@ -43,7 +44,7 @@
   <div class="row py-5 d-flex justify-content-center bg-light" style="border-top: 3px solid grey; border-bottom: 3px solid grey">
   {% endif %}
     <div class="d-flex flex-column align-items-center my-2">
-      <h2 class="fw-bold" style="font-size:3rem;">팀별 먹거리 보러가기<h2>
+      <h2 class="fw-bold" style="font-size:calc(1vw + 2rem);">팀별 먹거리 보러가기<h2>
       <p class="" style="color:gray; font-size:1.5rem;">구장별 맛집 정보를 찾아보세요😀</p>
     </div>
     {% for team in teams %}
@@ -71,14 +72,14 @@
   <div class="container">
     <section class="my-3 py-3">
       <div class="d-flex flex-column align-items-center mt-3">
-        <h2 class="fw-bold" style="font-size:3rem;">인기 매점<h2>
+        <h2 class="fw-bold" style="font-size:calc(1vw + 2rem);">인기 매점<h2>
         <p class="" style="color:gray; font-size:1.5rem;">가장 인기있는 매점을 찾아보세요💯</p>
       </div>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <button class="nav-link text-dark active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">별점순</button>
             <button class="nav-link text-dark" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">팔로우순</button>
-            <button class="nav-link text-dark" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">리뷰수순</button>
+            <button class="nav-link text-dark" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">리뷰순</button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -88,7 +89,7 @@
               <div class='slide-track'>
                 {% for grade in store_grade %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
                     {% for image in grade.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -96,8 +97,8 @@
                       {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center">{{grade.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{grade.items}}
                       </p>
                     </div>
@@ -130,7 +131,7 @@
 
                 {% for grade in store_grade %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
                     {% for image in grade.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -138,8 +139,8 @@
                       {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center">{{grade.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{grade.items}}
                       </p>
                     </div>
@@ -176,7 +177,7 @@
               <div class='slide-track'>
                 {% for follow in store_following %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
                     {% for image in follow.store_image.all %}
                     {% if forloop.counter == 1 %}
@@ -184,8 +185,8 @@
                     {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center">{{follow.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{follow.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{follow.items}}
                       </p>
                     </div>
@@ -218,7 +219,7 @@
 
                 {% for follow in store_following %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
                     {% for image in follow.store_image.all %}
                     {% if forloop.counter == 1 %}
@@ -226,8 +227,8 @@
                     {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center">{{follow.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{follow.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{follow.items}}
                       </p>
                     </div>
@@ -264,7 +265,7 @@
               <div class='slide-track'>
                 {% for review in store_review %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
                     {% for image in review.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -272,8 +273,8 @@
                           {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top">
-                      <h5 class="card-title text-center">{{review.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{review.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{review.items}}
                       </p>
                       <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
@@ -306,7 +307,7 @@
 
                 {% for review in store_review %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
                     {% for image in review.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -314,8 +315,8 @@
                           {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top">
-                      <h5 class="card-title text-center">{{review.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{review.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{review.items}}
                       </p>
                       <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
