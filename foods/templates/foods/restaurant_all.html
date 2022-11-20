@@ -26,10 +26,19 @@
     }
 </style>
 <div class="container slide-in" id="page2" >
-    <h1 class="food_title">{{ team.name }}</h1>
-    <div class="symbol">
-        <img class="team_logo" src="{{ team.logo.url }}" alt="">
-        <div id="map" style="width:100%;height:400px;"></div>
+    <div class="container">
+        <div class="justify-content-center d-flex align-items-center">
+          <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
+          <div class="d-flex flex-column mt-3">
+            <a class="text-decoration-none text-black" href="{% url 'foods:home' team.pk %}">
+                <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
+            </a>
+            <p class="" style="color:gray; font-size:1.2rem;">{{ team.name }}근처의 식당 정보🍕</p>
+          </div>
+        </div>
+        <div class="symbol mb-3">
+          <div id="map" style="width:100%;height:400px;"></div>
+        </div>
     </div>
     <div class="container text-center py-3" style="border-top: 0.5rem solid {{ team.color }}; border-bottom: 0.5rem solid {{ team.color }}">
         <h1>구장 밖 음식점</h1>
