@@ -152,6 +152,25 @@ def restaurant_detail(request, team_pk, restaurant_pk):
     context = {'team': team, 'restaurant': restaurant, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/restaurant_detail.html', context)
 
+def restaurant_all(request, team_pk):
+    page = request.GET.get("page", "1")
+    team = Team.objects.get(pk=team_pk)
+    stadium = Stadium.objects.get(pk=team.stadium_id)
+    if team.pk == 3:
+        middle = Team.objects.filter(stadium_id=team.stadium_id)
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=middle[1])
+    else:
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=team)
+    paginator = Paginator(restaurant, 8)
+    page_obj = paginator.get_page(page)
+    context = {
+        "team":team,
+        "restaurants":page_obj,
+        "stadium":stadium,
+    }
+    return render(request, "foods/restaurant_all.html", context)
+
+
 @login_required
 def restaurant_follow(request, team_pk, restaurant_pk):
     restaurant = Restaurant.objects.get(pk=restaurant_pk)
