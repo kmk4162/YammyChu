@@ -97,8 +97,8 @@
                       {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center">{{grade.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{grade.items}}
                       </p>
                     </div>
@@ -140,7 +140,7 @@
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center my-3">{{grade.name}}</h5>
-                      <p class="card-text small">
+                      <p class="card-text small mx-3">
                         {{grade.items}}
                       </p>
                     </div>
@@ -177,7 +177,7 @@
               <div class='slide-track'>
                 {% for follow in store_following %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
                     {% for image in follow.store_image.all %}
                     {% if forloop.counter == 1 %}
@@ -186,7 +186,7 @@
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center my-3">{{follow.name}}</h5>
-                      <p class="card-text small">
+                      <p class="card-text small mx-3">
                         {{follow.items}}
                       </p>
                     </div>
@@ -219,7 +219,7 @@
 
                 {% for follow in store_following %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
                     {% for image in follow.store_image.all %}
                     {% if forloop.counter == 1 %}
@@ -227,8 +227,8 @@
                     {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center">{{follow.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{follow.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{follow.items}}
                       </p>
                     </div>
@@ -265,7 +265,7 @@
               <div class='slide-track'>
                 {% for review in store_review %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
                     {% for image in review.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -273,8 +273,8 @@
                           {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top">
-                      <h5 class="card-title text-center">{{review.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{review.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{review.items}}
                       </p>
                       <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
@@ -307,7 +307,7 @@
 
                 {% for review in store_review %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
                     {% for image in review.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -315,8 +315,8 @@
                           {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top">
-                      <h5 class="card-title text-center">{{review.name}}</h5>
-                      <p class="card-text small">
+                      <h5 class="card-title text-center my-3">{{review.name}}</h5>
+                      <p class="card-text small mx-3">
                         {{review.items}}
                       </p>
                       <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
