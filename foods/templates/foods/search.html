@@ -3,114 +3,154 @@
 {% load tag_check %}
 {% load static %}
 {% block content %}
-<h1 class='text-center my-5'>{{ text }}</h1>
-<div class='container'>
-    {% if field == '3' %}
-    <div class="accordion" id="accordionExample">
-        {% for r in result %}
-        <div class="accordion-item">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
-                <table class="table table-borderless">
-                    <thead>
-                        <tr>
-                            <th class='col-2'>
-                                {% if review.grade == 5 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% elif review.grade == 4 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% elif review.grade == 3 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% elif review.grade == 2 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% elif review.grade == 1 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% endif %}
-                            </th>
-                            <th class='col-6' style="width: 100%;
-                            text-overflow: ellipsis;
-                            overflow: hidden;
-                            word-break: break-word;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 1;
-                            -webkit-box-orient: vertical;">{{ review.content }}</th>
-                            <th class='col-2'>{{ review.user.username }}</th>
-                            <th class='col-2'>{{ review.created_at|date:'Y.m.d A h:i' }}</th>
-                        </tr>
-                    </thead>
-                </table>
-            </button>
-        
-            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    {{ review|tag_check|safe }}
-                    <div class='row'>
-                        {% for image in review.review_image.all %}
-                        <div class='col-3'>
-                            <img class='my-2' src="{{ image.image.url }}" style='width:100%'>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% if request.user == review.user %}
-                    <div class='d-flex justify-content-end'>
-                        <a class='btn btn-danger' data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</a>
-                        <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                리뷰를 삭제하시겠습니까?
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-                                <a class="btn btn-danger" href="{% url 'foods:restaurant_review_delete' restaurant.team_id restaurant.pk review.pk %}">삭제</a>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
+<h2 class='text-center my-5 fw-bold'>{{ team.name }} 구장의 "{{ searched }}" 매점 {{ text }}</h2>
+<div class="container slide-in" id="page2" >
+  <div class="symbol d-flex">
+    <img class="team_logo" src="{{ team.logo.url }}" alt="">
+    <div id="map" style="width:100%;height:400px;"></div>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex  p-3">
+    {% for r in result %}
+      <div class="d-flex justify-content-center p-1">
+        <div class="border border-1 rounded-1 bg-white p-3 h-100 position-relative">
+          <a href="{% url 'foods:store_detail' team.pk r.pk %}">
+            {% for image in r.store_image.all %}
+              {% if forloop.counter == 1 %}
+                <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+              {% endif %}
+            {% endfor %}
+          </a>
+          <div class="card-body py-2 border-top mb-5">
+            <h5 class="card-title text-center">{{ r.name }}</h5>
+            <p class="card-text small text-center">
+            {{ r.items }}
+            </p>
+          </div>
+          <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+            <p class="small m-0 text-center">{{ r.team.stadium.name}}</p>
+            <p class="small m-0 text-center">
+              {% if r.cnt_followings %}
+              <span class='small m-0'>팔로우 {{ r.cnt_followings }}</span>
+              {% else %}
+              <span class='small m-0'>팔로우가 없습니다</span>
+              {% endif %}
+            </p>
+            <p class="small m-0 text-center">
+              {% if r.store_reviews.all.count == 0 %}
+                <span class='small m-0'>평가가 없습니다</span>
+              {% else %}
+              {% for i in ""|ljust:r.avg_grade %}
+                <span>⭐</span>
+              {% endfor %}
+                <span>{{ r.avg_grade }}({{ r.cnt_reviews }}명 평가)</span>
+              {% endif %}
+              </p>
+          </div>
         </div>
-        {% endfor %}  
-    </div>
-    {% elif field == '1' %}
-    <table class='table table-borderless'>
-        <tbody>
-            {% for r in result %}
-                <tr>   
-                    <td><a href='{% url "foods:store_detail" team.pk r.pk %}'>{{ r.name }}</a></td>
-                    <td>{{ r.items }}</td>
-                    <td>{{ r.detail }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% elif field == '2' %}
-    <table class='table table-borderless'>
-        <tbody>
-            {% for r in result %}
-                <tr>   
-                    <td><a href='{% url "foods:restaurant_detail" team.pk r.pk %}'>{{ r.name }}</a></td>
-                    <td>{{ r.address }}</td>
-                    <td>{{ r.content }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
+      </div>
+    {% endfor %}
+  </div>
 </div>
+
+{% block script %}
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
+<script>
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+  mapOption = { 
+      center: new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }}), // 지도의 중심좌표
+      level: 2 // 지도의 확대 레벨
+  };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var new_dicts = {};
+var positions = [];
+
+// 마커를 표시할 위치와 title 객체 배열입니다 
+  {% for r in result %}
+      var name = "{{ r.name }}";
+      var lat = {{ r.lat }};
+      var lon = {{ r.lon }};
+      new_dicts['name'] = name;
+      new_dicts['latlng'] = new kakao.maps.LatLng(lat,lon)
+      positions.push(new_dicts);
+      var new_dicts = {};
+  {% endfor %}
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+  
+for (var i = 0; i < positions.length; i ++) {
+  // 마커 이미지의 이미지 크기 입니다
+  var imageSize = new kakao.maps.Size(24, 35); 
+  
+  // 마커 이미지를 생성합니다    
+  var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+  
+  // 마커를 생성합니다
+  var marker = new kakao.maps.Marker({
+      map: map, // 마커를 표시할 지도
+      position: positions[i].latlng, // 마커를 표시할 위치
+      title : positions[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+      image : markerImage // 마커 이미지 
+  });
+}
+
+var coords = new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }});
+
+var marker = new kakao.maps.Marker({
+  map: map,
+  position: coords
+});
+
+var customOverlay = new kakao.maps.CustomOverlay({
+  map: map,
+  clickable: true,
+  content: '<div class="customOverlay">{{ stadium.name }}</div>',
+  position: new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }}),
+  xAnchor: 0.5,
+  yAnchor: 2,
+  
+});
+
+customOverlay.setMap(null)
+// 마커에 마우스오버 이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseover', function() {
+  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+  customOverlay.setMap(map)
+});
+
+// 마커에 마우스아웃 이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'mouseout', function() {
+  // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+  customOverlay.setMap(null)
+});
+  {% comment %} var geocoder = new kakao.maps.services.Geocoder();
+
+  geocoder.addressSearch("{{ stadium.address }}", function(result, status) {
+  
+      // 정상적으로 검색이 완료됐으면 
+       if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+          // 결과값으로 받은 위치를 마커로 표시합니다
+          var marker = new kakao.maps.Marker({
+              map: map,
+              position: coords
+          });
+  
+          // 인포윈도우로 장소에 대한 설명을 표시합니다
+          var infowindow = new kakao.maps.InfoWindow({
+              content: '<div style="width:auto;text-align:center;padding:6px 0;">{{ stadium.name }}</div>'
+          });
+
+          infowindow.open(map, marker);
+          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+          map.setCenter(35.19545081038179,129.06733276110197);
+      } 
+  var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+  // 주소로 좌표를 검색합니다
+  }); {% endcomment %}
+</script>
+{% endblock script %}
 {% endblock %}

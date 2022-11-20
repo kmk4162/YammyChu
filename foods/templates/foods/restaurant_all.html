@@ -12,6 +12,7 @@
       color:white;
     }
     li#page-notnow > a.page-link {
+        background-color: ;
         border-color:{{ team.color }};
         color:{{ team.color }};
     }
@@ -25,47 +26,47 @@
     }
 </style>
 <div class="container slide-in" id="page2" >
-    <h1 class="food_title fw-bold">{{ team.name }}</h1>
+    <h1 class="food_title">{{ team.name }}</h1>
     <div class="symbol">
         <img class="team_logo" src="{{ team.logo.url }}" alt="">
         <div id="map" style="width:100%;height:400px;"></div>
     </div>
     <div class="container text-center py-3" style="border-top: 0.5rem solid {{ team.color }}; border-bottom: 0.5rem solid {{ team.color }}">
-        <h1 class="fw-bold">구장 내 스낵바</h1>
+        <h1>구장 밖 음식점</h1>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex justify-content-around p-3">
-            {% for store in stores %}
+            {% for restaurant in restaurants %}
             <div class="d-flex justify-content-center p-1">
                 <div class="border border-1 bg-white p-0 position-relative train-card">
-                    <a href="{% url 'foods:store_detail' team.pk store.pk %}">
-                    {% for image in store.store_image.all %}
+                    <a href="{% url 'foods:restaurant_detail' team.pk restaurant.pk %}">
+                    {% for image in restaurant.restaurant_image.all %}
                     {% if forloop.counter == 1 %}
                     <img src="{{ image.image.url }}" class="card-img-top" alt="...">
                     {% endif %}
                     {% endfor %}
                     </a>
                     <div class="card-body py-2 border-top mb-5">
-                        <h5 class="card-title text-center my-3">{{ store.name }}</h5>
+                        <h5 class="card-title text-center my-3">{{ restaurant.name }}</h5>
                         <p class="card-text small mx-3">
-                        {{ store.items }}
+                        {{ restaurant.items }}
                         </p>
                     </div>
                     <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
-                        <p class="small m-0">{{ store.team.stadium.name}}</p>
+                        <p class="small m-0">{{ restaurant.team.stadium.name}}</p>
                         <p class="small m-0 text-center">
-                            {% if store.cnt_followings %}
-                            <span class='small m-0'>팔로우 {{ store.cnt_followings }}</span>
+                            {% if restaurant.cnt_followings %}
+                            <span class='small m-0'>팔로우 {{ restaurant.cnt_followings }}</span>
                             {% else %}
                             <span class='small m-0'>팔로우가 없습니다</span>
                             {% endif %}
                           </p>
                         <p class="small m-0">
-                        {% if store.store_reviews.all.count == 0 %}
+                        {% if restaurant.restaurant_reviews.all.count == 0 %}
                         <span class='small m-0'>평가가 없습니다</span>
                         {% else %}
-                        {% for i in ""|ljust:store.avg_grade %}
+                        {% for i in ""|ljust:restaurant.avg_grade %}
                         <span>⭐</span>
                         {% endfor %}
-                        <span>{{ store.avg_grade|floatformat:"1" }}({{ store.cnt_reviews }}명 평가)</span>
+                        <span>{{ restaurant.avg_grade|floatformat:"1" }}({{ restaurant.cnt_reviews }}명 평가)</span>
                         {% endif %}
                         </p>
                     </div>
@@ -75,9 +76,9 @@
         </div>
         <ul class="pagination justify-content-center">
             <!-- 이전페이지 -->
-            {% if stores.has_previous %}
+            {% if restaurants.has_previous %}
             <li class="page-item mx-0" id="page-pre">
-                <a class="page-link" href="?page={{ stores.previous_page_number }}">이전</a>
+                <a class="page-link" href="?page={{ restaurants.previous_page_number }}">이전</a>
             </li>
             {% else %}
             <li class="page-item disabled mx-0" id="page-pre">
@@ -85,9 +86,9 @@
             </li>
             {% endif %}
             <!-- 페이지리스트 -->
-            {% for page_number in stores.paginator.page_range %}
-            {% if page_number >= stores.number|add:-3 and page_number <= stores.number|add:3 %}
-            {% if page_number == stores.number %}
+            {% for page_number in restaurants.paginator.page_range %}
+            {% if page_number >= restaurants.number|add:-3 and page_number <= restaurants.number|add:3 %}
+            {% if page_number == restaurants.number %}
             <li class="page-item active mx-0" aria-current="page" id="page-now">
                 <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
             </li>
@@ -99,9 +100,9 @@
             {% endif %}
             {% endfor %}
             <!-- 다음페이지 -->
-            {% if stores.has_next %}
+            {% if restaurants.has_next %}
             <li class="page-item mx-0" id="page-next">
-                <a class="page-link" href="?page={{ stores.next_page_number }}">다음</a>
+                <a class="page-link" href="?page={{ restaurants.next_page_number }}">다음</a>
             </li>
             {% else %}
             <li class="page-item disabled mx-0" id="page-next">
@@ -126,10 +127,10 @@ var new_dicts = {};
 var positions = [];
 
 // 마커를 표시할 위치와 title 객체 배열입니다 
-    {% for store in stores %}
-        var name = "{{ store.name }}";
-        var lat = {{ store.lat }};
-        var lon = {{ store.lon }};
+    {% for restaurant in restaurants %}
+        var name = "{{ restaurant.name }}";
+        var lat = {{ restaurant.lat }};
+        var lon = {{ restaurant.lon }};
         new_dicts['name'] = name;
         new_dicts['latlng'] = new kakao.maps.LatLng(lat,lon)
         positions.push(new_dicts);

@@ -14,38 +14,44 @@ from django.db.models import Count, Avg
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
+    store = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews'))
+    restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews'))
     
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
-        stores = Store.objects.filter(team=middle[1])
-        restaurants = Restaurant.objects.filter(team=middle[1])
+
+        store = store.filter(team=middle[1])
+        restaurant = restaurant.filter(team=middle[1])
     else:
-        stores = Store.objects.filter(team=team)
-        restaurants = Restaurant.objects.filter(team=team)
-        print(stores)
+        store = store.filter(team=team)
+        restaurant = restaurant.filter(team=team)
 
-    # 구장별 매점별 사진 넘기기 기능
-    store_lst = []
-    for store in stores:
-        store_imgs = StoreImage.objects.filter(store_id=store.pk)
-        if store_imgs:
-            store_img = store_imgs[0]
-            store_lst.append((store, store_img))
+    store_review = store.order_by('-cnt_reviews')[:5]
+    store_following = store.order_by('-cnt_followings')[:5]
+    store_grade = store.order_by('-avg_grade')[:5]
 
-    restaurant_lst = []
-    for restaurant in restaurants:
-        restaurant_imgs = RestaurantImage.objects.filter(restaurant_id=restaurant.pk)
-        if restaurant_imgs:
-            restaurant_img = restaurant_imgs[0]
-            restaurant_lst.append((restaurant, restaurant_img))
-    print(restaurant_lst)
+    restaurant_review = restaurant.order_by('-cnt_reviews')[:5]
+    restaurant_following = restaurant.order_by('-cnt_followings')[:5]
+    restaurant_grade = restaurant.order_by('-avg_grade')[:5]
+
+    # restaurants = Restaurant.objects.filter(team=team)
+    # restaurant_lst = []
+    # for restaurant in restaurants:
+    #     restaurant_imgs = RestaurantImage.objects.filter(restaurant_id=restaurant.pk)
+    #     restaurant_img = restaurant_imgs[0]
+    #     restaurant_lst.append((restaurant, restaurant_img))
+
     context = {
         "team": team,
         "stadium": stadium,
-        "stores": stores,
-        'store_lst':store_lst,
-        'restaurants': restaurants,
-        "restaurant_lst": restaurant_lst,
+        # 'restaurants': restaurants,
+        # "restaurant_lst": restaurant_lst,
+        "store_review": store_review,
+        "store_grade": store_grade,
+        "store_following": store_following,
+        "restaurant_review": restaurant_review,
+        "restaurant_grade": restaurant_grade,
+        "restaurant_following": restaurant_following,
     }
     return render(request, "foods/home.html", context)
 
@@ -146,6 +152,25 @@ def restaurant_detail(request, team_pk, restaurant_pk):
     reviewimage_form = ReviewImageForm()
     context = {'team': team, 'restaurant': restaurant, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/restaurant_detail.html', context)
+
+def restaurant_all(request, team_pk):
+    page = request.GET.get("page", "1")
+    team = Team.objects.get(pk=team_pk)
+    stadium = Stadium.objects.get(pk=team.stadium_id)
+    if team.pk == 3:
+        middle = Team.objects.filter(stadium_id=team.stadium_id)
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=middle[1])
+    else:
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=team)
+    paginator = Paginator(restaurant, 8)
+    page_obj = paginator.get_page(page)
+    context = {
+        "team":team,
+        "restaurants":page_obj,
+        "stadium":stadium,
+    }
+    return render(request, "foods/restaurant_all.html", context)
+
 
 @login_required
 def restaurant_follow(request, team_pk, restaurant_pk):
@@ -254,9 +279,10 @@ def search(request, team_pk):
     searched = request.GET.get("searched", False)
     field = request.GET.get("field")
     team = Team.objects.get(pk=team_pk)
+    stadium = Stadium.objects.get(pk=team.stadium_id)
     # 내부 매장
     if field == "1":
-        result = Store.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
+        result = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
     # 외부 가게
     elif field == "2":
         result = Restaurant.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
@@ -270,11 +296,14 @@ def search(request, team_pk):
         text = "검색 결과가 없습니다."
     else:
         text = "검색 결과"
+    print(result)
     context = {
         "result": result,
         "text": text,
         'field': field,
         'team' : team,
+        'searched': searched,
+        'stadium': stadium,
     }
     return render(request, "foods/search.html", context)
     
