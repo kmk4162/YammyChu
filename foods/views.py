@@ -14,34 +14,25 @@ from django.db.models import Count, Avg
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
-    store = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews'))
-    restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews'))
     
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
-
-        store = store.filter(team=middle[1])
-        restaurant = restaurant.filter(team=middle[1])
+        stores = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=middle[1])
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=middle[1])
     else:
-        store = store.filter(team=team)
-        restaurant = restaurant.filter(team=team)
+        stores = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=team)
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=team)
 
-    store_review = store.order_by('-cnt_reviews')[:5]
-    store_following = store.order_by('-cnt_followings')[:5]
-    store_grade = store.order_by('-avg_grade')[:5]
+    store_review = stores.order_by('-cnt_reviews')[:5]
+    store_following = stores.order_by('-cnt_followings')[:5]
+    store_grade = stores.order_by('-avg_grade')[:5]
 
     restaurant_review = restaurant.order_by('-cnt_reviews')[:5]
     restaurant_following = restaurant.order_by('-cnt_followings')[:5]
     restaurant_grade = restaurant.order_by('-avg_grade')[:5]
 
-    # restaurants = Restaurant.objects.filter(team=team)
-    # restaurant_lst = []
-    # for restaurant in restaurants:
-    #     restaurant_imgs = RestaurantImage.objects.filter(restaurant_id=restaurant.pk)
-    #     restaurant_img = restaurant_imgs[0]
-    #     restaurant_lst.append((restaurant, restaurant_img))
-
     context = {
+        'stores': stores,
         "team": team,
         "stadium": stadium,
         # 'restaurants': restaurants,
