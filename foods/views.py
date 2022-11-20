@@ -18,23 +18,26 @@ def home(request, team_pk):
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
         stores = Store.objects.filter(team=middle[1])
+        restaurants = Restaurant.objects.filter(team=middle[1])
     else:
         stores = Store.objects.filter(team=team)
+        restaurants = Restaurant.objects.filter(team=team)
+        print(stores)
 
     # 구장별 매점별 사진 넘기기 기능
     store_lst = []
-    stores = Store.objects.filter(team=team)
     for store in stores:
         store_imgs = StoreImage.objects.filter(store_id=store.pk)
-        store_img = store_imgs[0]
-        store_lst.append((store, store_img))
+        if store_imgs:
+            store_img = store_imgs[0]
+            store_lst.append((store, store_img))
 
-    restaurants = Restaurant.objects.filter(team=team)
     restaurant_lst = []
     for restaurant in restaurants:
         restaurant_imgs = RestaurantImage.objects.filter(restaurant_id=restaurant.pk)
-        restaurant_img = restaurant_imgs[0]
-        restaurant_lst.append((restaurant, restaurant_img))
+        if restaurant_imgs:
+            restaurant_img = restaurant_imgs[0]
+            restaurant_lst.append((restaurant, restaurant_img))
     print(restaurant_lst)
     context = {
         "team": team,
