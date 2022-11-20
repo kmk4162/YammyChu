@@ -14,11 +14,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
         username = self.scope["user"].nickname
-        print(connected_user)
         if username in connected_user:
             pass
         else:
+            print(connected_user)
             connected_user.append(username)
+            print(connected_user)
             message = username + "님이 입장하셨습니다"
             await self.channel_layer.group_send(
                 self.room_group_name, 

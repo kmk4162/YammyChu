@@ -124,7 +124,7 @@
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:profile' request.user.pk %}">
-              <span id="user-nickname" data-user-id="{{ request.user.pk }}">{{ request.user.nickname }}님의 프로필</span>
+              <span><span id="user-nickname"data-user-id="{{ request.user.pk }}">{{ request.user.nickname }}</span>님의 프로필</span>
             </a>
           </li>
           <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:logout' %}">로그아웃</a>
