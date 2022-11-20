@@ -14,20 +14,17 @@ from django.db.models import Count, Avg
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
+    store = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews'))
     
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
-        stores = Store.objects.filter(team=middle[1])
+        store = store.filter(team=middle[1])
     else:
-        stores = Store.objects.filter(team=team)
+        store = store.filter(team=team)
 
-    # 구장별 매점별 사진 넘기기 기능
-    store_lst = []
-    stores = Store.objects.filter(team=team)
-    for store in stores:
-        store_imgs = StoreImage.objects.filter(store_id=store.pk)
-        store_img = store_imgs[0]
-        store_lst.append((store, store_img))
+    store_review = store.order_by('-cnt_reviews')[:5]
+    store_following = store.order_by('-cnt_followings')[:5]
+    store_grade = store.order_by('-avg_grade')[:5]
 
     restaurants = Restaurant.objects.filter(team=team)
     restaurant_lst = []
@@ -35,14 +32,15 @@ def home(request, team_pk):
         restaurant_imgs = RestaurantImage.objects.filter(restaurant_id=restaurant.pk)
         restaurant_img = restaurant_imgs[0]
         restaurant_lst.append((restaurant, restaurant_img))
-    print(restaurant_lst)
+
     context = {
         "team": team,
         "stadium": stadium,
-        "stores": stores,
-        'store_lst':store_lst,
         'restaurants': restaurants,
         "restaurant_lst": restaurant_lst,
+        "store_review": store_review,
+        "store_grade": store_grade,
+        "store_following": store_following,
     }
     return render(request, "foods/home.html", context)
 

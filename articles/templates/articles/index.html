@@ -24,6 +24,7 @@
 </div>
 {% endif %}
 
+
 <div class="movie-box">
   <div class="jb-box d-flex align-items-center">
     <video class="banner-mv" muted autoplay>
@@ -88,7 +89,7 @@
               <div class='slide-track'>
                 {% for grade in store_grade %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
                     {% for image in grade.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -130,7 +131,7 @@
 
                 {% for grade in store_grade %}
                 <div class='slide'>
-                  <div class="train-card bg-white p-3 position-relative">
+                  <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
                     {% for image in grade.store_image.all %}
                       {% if forloop.counter == 1 %}
@@ -138,7 +139,7 @@
                       {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center">{{grade.name}}</h5>
+                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
                       <p class="card-text small">
                         {{grade.items}}
                       </p>
@@ -184,7 +185,7 @@
                     {% endif %}
                     {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center">{{follow.name}}</h5>
+                      <h5 class="card-title text-center my-3">{{follow.name}}</h5>
                       <p class="card-text small">
                         {{follow.items}}
                       </p>
