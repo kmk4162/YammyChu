@@ -278,9 +278,10 @@ def search(request, team_pk):
     searched = request.GET.get("searched", False)
     field = request.GET.get("field")
     team = Team.objects.get(pk=team_pk)
+    stadium = Stadium.objects.get(pk=team.stadium_id)
     # 내부 매장
     if field == "1":
-        result = Store.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
+        result = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
     # 외부 가게
     elif field == "2":
         result = Restaurant.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
@@ -294,11 +295,14 @@ def search(request, team_pk):
         text = "검색 결과가 없습니다."
     else:
         text = "검색 결과"
+    print(result)
     context = {
         "result": result,
         "text": text,
         'field': field,
         'team' : team,
+        'searched': searched,
+        'stadium': stadium,
     }
     return render(request, "foods/search.html", context)
     

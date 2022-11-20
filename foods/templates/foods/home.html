@@ -68,7 +68,23 @@
       <input class="search_input form-control me-2" type="search" placeholder="검색어 입력" name='searched'>
       <input type="image" class="search_img" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
     </div>
-  </form>
+    <form class="d-flex mx-auto mt-5 justify-content-center" style="width: 50%;" role="search" method='GET' action="{% url 'foods:search' team.pk %}">
+        <select class="select search_select me-2" style="width: 30%;" aria-label="Default select example" name='field'>
+            <option value="1">내부 매장</option>
+            <option value="2">외부 매장</option>
+            <option value="3">리뷰</option>
+        </select>
+        <div class="search">
+            <input class="search_input form-control me-2" type="search" placeholder="검색어 입력" name='searched'>
+            <input type="image" class="search_img" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+        </div>
+      </form>
+    <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }}; border-bottom: 3px solid {{ team.color }}">
+        <div class="d-flex position-relative flex-column align-items-center mt-3">
+            <h2 class="fw-bold" style="font-size:2.5rem;">구장 내 스낵바</h2>
+            <p class="" style="color:gray; font-size:1.2rem;">구장 내 가장 인기 있는 스낵바를 찾아보세요🍕</p>
+            <a href="{% url 'foods:store_all' team.pk %}" class="position-absolute top-50 end-0"><div style="color:gray; font-size:1.2rem;"><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" style="width:1rem; height: 1rem;"><path d="M69.844 43.388 33.842 13.386a6.003 6.003 0 0 0-7.688 9.223L56.624 48l-30.47 25.39a6.003 6.003 0 0 0 7.688 9.223l36.002-30.001a6.01 6.01 0 0 0 0-9.223Z" fill="#808080" class="fill-000000"></path></svg>전체 보기</div></a>
+        </div>
 
 
 <!--스토어 카드-->
@@ -178,8 +194,8 @@
 <div>
     <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }}; border-bottom: 3px solid {{ team.color }}">
         <div class="d-flex flex-column align-items-center mt-3">
-            <h2 class="fw-bold" style="font-size:2.5rem;">주변 맛집</h2>
-            <p class="" style="color:gray; font-size:1.2rem;">가장 인기있는 리뷰를 찾아보세요💯</p>
+            <h2 class="fw-bold" style="font-size:2.5rem;">구장 주변 맛집</h2>
+            <p class="" style="color:gray; font-size:1.2rem;">구장 주변 가장 인기있는 맛집을 찾아보세요💯</p>
             <a class="align-self-end" href="{% url 'foods:restaurant_all' team.pk %}"><div style="color:gray; font-size:1.2rem;"><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" style="width:1rem; height: 1rem;"><path d="M69.844 43.388 33.842 13.386a6.003 6.003 0 0 0-7.688 9.223L56.624 48l-30.47 25.39a6.003 6.003 0 0 0 7.688 9.223l36.002-30.001a6.01 6.01 0 0 0 0-9.223Z" fill="#808080" class="fill-000000"></path></svg>전체 보기</div></a>
         </div>
         <div class='slider'>
