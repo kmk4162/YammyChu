@@ -19,6 +19,7 @@ def home(request, team_pk):
     
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
+
         store = store.filter(team=middle[1])
         restaurant = restaurant.filter(team=middle[1])
     else:
