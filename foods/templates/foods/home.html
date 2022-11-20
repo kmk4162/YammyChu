@@ -183,45 +183,89 @@
         </div>
         <div class='slider'>
 
+            <!-- 카드 슬라이더 효과 -->
             <div class='slide-track'>
-            {% for restaurant, restaurant_img in restaurant_lst %}
-              <div class='slide'>
-                <div class="train-card bg-white" style="width:350px;">
-                  <a href="{% url 'foods:restaurant_detail' team_pk=team.pk restaurant_pk=restaurant.pk %}">
-                    <img src="{{restaurant_img.image.url}}" class="card-img-top" alt="...">
-                  </a>
-                  <div class="card-body py-2 border-top" style="height:40%;">
-                    <div class="d-flex flex-column justify-content-center align-items-center" style="height:100%;">
-                        <h5 class="card-title text-center">{{ restaurant.name }}</h5>
-                        <p class="small m-0 ms-3">매장 위치 : {{ restaurant.detail }}</p>
-                        <p class="card-text small ms-3">
-                        메뉴 : {{ restaurant.items }}
-                        </p>
+            {% for grade in restaurant_grade %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-0 position-relative">
+                    <a href="{% url 'foods:restaurant_detail' team_pk=grade.team_id restaurant_pk=grade.pk %}" class="text-decoration-none text-dark">
+                    {% for image in grade.restaurant_image.all %}
+                      {% if forloop.counter == 1 %}
+                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                      {% endif %}
+                    {% endfor %}
+                    <div class="card-body py-2 border-top mb-5 pb-3">
+                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
+                      <p class="card-text small mx-3">
+                        {{grade.content}}
+                      </p>
                     </div>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                      <p class="small m-0 text-center">{{ grade.address }}</p>
+                      <p class="small m-0 text-center">
+                        {% if grade.cnt_followings %}
+                        <span class='small m-0'>팔로우 {{ grade.cnt_followings }}</span>
+                        {% else %}
+                        <span class='small m-0'>팔로우가 없습니다</span>
+                        {% endif %}
+                      </p>
+                      <p class="small m-0 text-center">
+                        {% if grade.restaurant_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                        {% else %}
+                        {% for i in ""|ljust:grade.avg_grade %}
+                        <span>⭐</span>
+                        {% endfor %}
+                        <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
+                        {% endif %}
+                      </p>
                   </div>
-                </div>
-              </div>
-            {% endfor %}
-    
-            <!-- 한번 더 반복하기 -->
-    
-              
-            {% for restaurant, restaurant_img in restaurant_lst %}
-              <div class='slide'>
-                <div class="train-card bg-white" style="width:350px;>
-                  <a href="{% url 'foods:restaurant_detail' team_pk=team.pk restaurant_pk=restaurant.pk %}">
-                    <img src="{{restaurant_img.image.url}}" class="card-img-top" alt="...">
                   </a>
-                  <div class="card-body py-2 border-top">
-                    <h5 class="card-title text-center">{{ restaurant.name }}</h5>
-                    <p class="small m-0 ms-3">매장 위치 : {{ restaurant.detail }}</p>
-                    <p class="card-text small ms-3">
-                      메뉴 : {{ restaurant.items }}
-                    </p>
                   </div>
                 </div>
-              </div>
-            {% endfor %}
+                {% endfor %}
+
+                <!-- 한번 더 반복하기 -->
+
+                {% for grade in restaurant_grade %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-0 position-relative">
+                    <a href="{% url 'foods:restaurant_detail' team_pk=grade.team_id restaurant_pk=grade.pk %}" class="text-decoration-none text-dark">
+                    {% for image in grade.restaurant_image.all %}
+                      {% if forloop.counter == 1 %}
+                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                      {% endif %}
+                    {% endfor %}
+                    <div class="card-body py-2 border-top mb-5 pb-3">
+                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
+                      <p class="card-text small mx-3">
+                        {{grade.content}}
+                      </p>
+                    </div>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                      <p class="small m-0 text-center">{{ grade.address }}</p>
+                      <p class="small m-0 text-center">
+                        {% if grade.cnt_followings %}
+                        <span class='small m-0'>팔로우 {{ grade.cnt_followings }}</span>
+                        {% else %}
+                        <span class='small m-0'>팔로우가 없습니다</span>
+                        {% endif %}
+                      </p>
+                      <p class="small m-0 text-center">
+                      {% if grade.restaurant_reviews.all.count == 0 %}
+                      <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                      {% for i in ""|ljust:grade.avg_grade %}
+                      <span>⭐</span>
+                      {% endfor %}
+                      <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
+                      {% endif %}
+                      </p>
+                  </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
             </div>
         <a class='btn btn-primary' href='{% url "foods:restaurant_create" team.pk %}'>가게 추가하기</a>
         
