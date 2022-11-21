@@ -373,13 +373,13 @@
         </div>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link text-dark active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">별점순</button>
-            <button class="nav-link text-dark" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">팔로우순</button>
-            <button class="nav-link text-dark" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">리뷰순</button>
+            <button class="nav-link text-dark active" id="nav-star-tab" data-bs-toggle="tab" data-bs-target="#nav-star" type="button" role="tab" aria-controls="nav-star" aria-selected="true">별점순</button>
+            <button class="nav-link text-dark" id="nav-fol-tab" data-bs-toggle="tab" data-bs-target="#nav-fol" type="button" role="tab" aria-controls="nav-fol" aria-selected="false">팔로우순</button>
+            <button class="nav-link text-dark" id="nav-re-tab" data-bs-toggle="tab" data-bs-target="#nav-re" type="button" role="tab" aria-controls="nav-re" aria-selected="false">리뷰순</button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+          <div class="tab-pane fade show active" id="nav-star" role="tabpanel" aria-labelledby="nav-star-tab" tabindex="0">
             <!-- 카드 슬라이더 효과 -->
             <div class='slider'>
               <div class='slide-track'>
@@ -387,11 +387,15 @@
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:restaurant_detail' team_pk=grade.team_id restaurant_pk=grade.pk %}" class="text-decoration-none text-dark">
-                    {% for image in grade.restaurant_image.all %}
-                      {% if forloop.counter == 1 %}
-                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                      {% endif %}
-                    {% endfor %}
+                    {% if grade.restaurant_image.all %}
+                      {% for image in grade.restaurant_image.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
+                    {% endif %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center my-3">{{grade.name}}</h5>
                       <p class="card-text small mx-3">
@@ -429,11 +433,15 @@
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:restaurant_detail' team_pk=grade.team_id restaurant_pk=grade.pk %}" class="text-decoration-none text-dark">
-                    {% for image in grade.restaurant_image.all %}
-                      {% if forloop.counter == 1 %}
-                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                      {% endif %}
-                    {% endfor %}
+                    {% if grade.restaurant_image.all %}
+                      {% for image in grade.restaurant_image.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
+                    {% endif %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center my-3">{{grade.name}}</h5>
                       <p class="card-text small mx-3">
@@ -467,7 +475,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+          <div class="tab-pane fade" id="nav-fol" role="tabpanel" aria-labelledby="nav-fol-tab" tabindex="0">
             <!-- 카드 슬라이더 효과 -->
             <div class='slider'>
               <div class='slide-track'>
@@ -475,11 +483,15 @@
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:restaurant_detail' team_pk=follow.team_id restaurant_pk=follow.pk %}" class="text-decoration-none text-dark">
-                    {% for image in follow.restaurant_image.all %}
-                    {% if forloop.counter == 1 %}
-                    <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                    {% if follow.restaurant_image.all %}
+                      {% for image in follow.restaurant_image.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
                     {% endif %}
-                    {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center my-3">{{follow.name}}</h5>
                       <p class="card-text small mx-3">
@@ -517,11 +529,15 @@
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:restaurant_detail' team_pk=follow.team_id restaurant_pk=follow.pk %}" class="text-decoration-none text-dark">
-                    {% for image in follow.restaurant_image.all %}
-                    {% if forloop.counter == 1 %}
-                    <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                    {% if follow.restaurant_image.all %}
+                      {% for image in follow.restaurant_image.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
                     {% endif %}
-                    {% endfor %}
                     <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center my-3">{{follow.name}}</h5>
                       <p class="card-text small mx-3">
@@ -555,7 +571,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+          <div class="tab-pane fade" id="nav-re" role="tabpanel" aria-labelledby="nav-re-tab" tabindex="0">
             <!-- 카드 슬라이더 효과 -->
             <div class='slider'>
               <div class='slide-track'>
@@ -563,11 +579,15 @@
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:restaurant_detail' team_pk=review.team_id restaurant_pk=review.pk %}" class="text-decoration-none text-dark">
-                    {% for image in review.restaurant_image.all %}
-                      {% if forloop.counter == 1 %}
-                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                          {% endif %}
-                    {% endfor %}
+                    {% if review.restaurant_image.all %}
+                      {% for image in review.restaurant_image.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
+                    {% endif %}
                     <div class="card-body py-2 border-top">
                       <h5 class="card-title text-center my-3">{{review.name}}</h5>
                       <p class="card-text small mx-3">
@@ -605,11 +625,15 @@
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
                     <a href="{% url 'foods:restaurant_detail' team_pk=review.team_id restaurant_pk=review.pk %}" class="text-decoration-none text-dark">
-                    {% for image in review.restaurant_image.all %}
-                      {% if forloop.counter == 1 %}
-                          <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                          {% endif %}
-                    {% endfor %}
+                    {% if review.restaurant_image.all %}
+                      {% for image in review.restaurant_image.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
+                    {% endif %}
                     <div class="card-body py-2 border-top">
                       <h5 class="card-title text-center my-3">{{review.name}}</h5>
                       <p class="card-text small mx-3">
