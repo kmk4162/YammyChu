@@ -81,12 +81,22 @@
 }
 
 div[class="overlay"] {
-    width: 20rem;
-    height: 7rem;
-    border-radius: 1rem;
-    background-color: rgba(255, 255, 255, .7);
+    width: auto;
+    height: 5rem;
+    border-radius: 10rem;
+    background-color: rgba(18, 139, 232, 0.7);
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 2rem;
+    color: white
+}
+
+div[class="overlay"] svg {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: .5rem;
 }
 
 div[class="overlay_middle"] {
@@ -116,7 +126,17 @@ div[class="overlay_middle"] button p {
 
 div[class="overlay_name"] {
     padding-left: 1rem;
-    font-size: 30px;
+    font-size: 25px;
+}
+
+div[class="overlay_name"] a {
+    text-decoration: none;
+    color: white;
+}
+
+div[class="overlay_name"] a:hover {
+    text-decoration: none;
+    color: black;
 }
 
 div[class="content_add"] {

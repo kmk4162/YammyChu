@@ -313,8 +313,26 @@
     });
 
     // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map)
-    map.setCenter(markerPosition);   
+marker.setMap(map)
+map.setCenter(markerPosition);
+var customOverlay = new kakao.maps.CustomOverlay({
+    clickable: true,
+    content: '<div class="customOverlay">{{ store.name }}</div>',
+    position: new kakao.maps.LatLng({{ store.lat }}, {{ store.lon }}),
+    xAnchor: 0.5,
+    yAnchor: 2,
+    
+});
+    kakao.maps.event.addListener(marker, 'mouseover', function() {
+        // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+        customOverlay.setMap(map)
+      });
+      
+    // 마커에 마우스아웃 이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, 'mouseout', function() {
+        // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+        customOverlay.setMap(null)
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
