@@ -91,8 +91,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     {% if user.is_authenticated and user.team %}
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="col-xl-8 col-xxl-6 row justify-content-center">
+    <div class="collapse navbar-collapse" style="width:65vw;"id="navbarNav">
+      <div class="col-12 row justify-content-center">
         <ul class="navbar-nav col-xl-8 d-flex justify-content-center align-items-center">
           <li class="nav-item dropdown mb-2">
             <a class="nav-main-menu dropdown-toggle" style='color:black; font-size: 1.2rem;' href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -119,7 +119,7 @@
             {% comment %} <a href="{% url 'chat:room' user.team.ename %}"><button id="create-btn">{{ user.team.name }}팀 채팅방</button></a> {% endcomment %}
           </li>
         </ul>
-        <ul class="navbar-nav col-xl-4 my-3 d-flex justify-content-end align-items-center">
+        <ul class="navbar-nav col-xl-4 my-3 d-flex justify-content-start align-items-center">
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:profile' request.user.pk %}">
