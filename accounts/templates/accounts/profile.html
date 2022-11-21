@@ -347,9 +347,9 @@
       const isFollowed = response.data.is_followed
       const followBtn = document.querySelector('#follow-form > input[type=submit]')
       if (isFollowed === true) {
-        followBtn.value = "언팔로우"
+        followBtn.value = '언팔로우'
       } else {
-        followBtn.value = "팔로우"
+        followBtn.value = '팔로우'
       }
       const followersCountTag = document.querySelector('#followers-count')
       const followingsCountTag = document.querySelector('#followings-count')
