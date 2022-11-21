@@ -117,7 +117,7 @@
                     <div class="row w-100">
                         <div class='col-12'>
                             <p class="fw-bold" style="font-size:20px;">리뷰</p>
-                            <p class="my-1">{{user.username}}님 후기를 남겨주세요.</p>
+                            <p class="my-1">{{user.nickname}}님 후기를 남겨주세요.</p>
                         </div>
                         <!-- Button trigger modal -->
                         <form action="{% url 'foods:restaurant_review_create' restaurant.team_id restaurant.pk %}" id="myform" class="col-12">
