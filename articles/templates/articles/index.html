@@ -77,103 +77,12 @@
       </div>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link text-dark active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">별점순</button>
-            <button class="nav-link text-dark" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">팔로우순</button>
+            <button class="nav-link text-dark active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">팔로우순</button>
             <button class="nav-link text-dark" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">리뷰순</button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-            <!-- 카드 슬라이더 효과 -->
-            <div class='slider'>
-              <div class='slide-track'>
-                {% for grade in store_grade %}
-                <div class='slide'>
-                  <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
-                    {% for image in grade.store_image.all %}
-                      {% if forloop.counter == 1 %}
-                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                      {% endif %}
-                    {% endfor %}
-                    <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
-                      <p class="card-text small mx-3">
-                        {{grade.items}}
-                      </p>
-                    </div>
-                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
-                      <p class="small m-0 text-center">{{ grade.team.stadium.name }}</p>
-                      <p class="small m-0 text-center">{{ grade.detail }}</p>
-                      <p class="small m-0 text-center">
-                        {% if grade.cnt_followings %}
-                        <span class='small m-0'>팔로우 {{ grade.cnt_followings }}</span>
-                        {% else %}
-                        <span class='small m-0'>팔로우가 없습니다</span>
-                        {% endif %}
-                      </p>
-                      <p class="small m-0 text-center">
-                        {% if grade.store_reviews.all.count == 0 %}
-                        <span class='small m-0'>평가가 없습니다</span>
-                        {% else %}
-                        {% for i in ""|ljust:grade.avg_grade %}
-                        <span>⭐</span>
-                        {% endfor %}
-                        <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
-                        {% endif %}
-                      </p>
-                  </div>
-                  </a>
-                  </div>
-                </div>
-                {% endfor %}
-
-                <!-- 한번 더 반복하기 -->
-
-                {% for grade in store_grade %}
-                <div class='slide'>
-                  <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
-                    {% for image in grade.store_image.all %}
-                      {% if forloop.counter == 1 %}
-                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                      {% endif %}
-                    {% endfor %}
-                    <div class="card-body py-2 border-top mb-5 pb-3">
-                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
-                      <p class="card-text small mx-3">
-                        {{grade.items}}
-                      </p>
-                    </div>
-                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
-                      <p class="small m-0 text-center">{{ grade.team.stadium.name }}</p>
-                      <p class="small m-0 text-center">{{ grade.detail }}</p>
-                      <p class="small m-0 text-center">
-                        {% if grade.cnt_followings %}
-                        <span class='small m-0'>팔로우 {{ grade.cnt_followings }}</span>
-                        {% else %}
-                        <span class='small m-0'>팔로우가 없습니다</span>
-                        {% endif %}
-                      </p>
-                      <p class="small m-0 text-center">
-                      {% if grade.store_reviews.all.count == 0 %}
-                      <span class='small m-0'>평가가 없습니다</span>
-                      {% else %}
-                      {% for i in ""|ljust:grade.avg_grade %}
-                      <span>⭐</span>
-                      {% endfor %}
-                      <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
-                      {% endif %}
-                      </p>
-                  </div>
-                  </a>
-                  </div>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+          <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
             <!-- 카드 슬라이더 효과 -->
             <div class='slider'>
               <div class='slide-track'>
