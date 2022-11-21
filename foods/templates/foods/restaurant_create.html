@@ -105,10 +105,16 @@
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
+        var marker = new kakao.maps.Marker({ 
+          // 지도 중심좌표에 마커를 생성합니다 
+          map: map,
+          position: coords,
+        });
+          map.setCenter(coords);
       } else {
         alert('정확한 주소를 입력해 주세요. \n( 지번 또는 도로명주소 포맷을 지원합니다. )')
       }
+    
     });
   }
 </script>
