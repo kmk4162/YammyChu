@@ -17,7 +17,7 @@ def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
     
-    if team.pk == 3:
+    if team.pk == 3 or team.pk == 9:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
         stores = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=middle[1])
         restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=middle[0])|Q(team=middle[1]))
@@ -50,7 +50,7 @@ def home(request, team_pk):
 @require_safe
 def store_detail(request, team_pk, store_pk):
     team = Team.objects.get(pk=team_pk)
-    store = Store.objects.annotate(grade_avg=Avg('store_reviews__grade')).get(pk=store_pk, team=team)
+    store = Store.objects.annotate(grade_avg=Avg('store_reviews__grade')).get(pk=store_pk)
     store.items.replace("등", "")
     items = store.items.split(",")
     lat = float(store.lat)
@@ -139,7 +139,7 @@ def store_review_delete(request, team_pk, store_pk, review_pk):
 @require_safe
 def restaurant_detail(request, team_pk, restaurant_pk):
     team = Team.objects.get(pk=team_pk)
-    restaurant = Restaurant.objects.annotate(grade_avg=Avg('restaurant_reviews__grade')).get(pk=restaurant_pk, team=team)
+    restaurant = Restaurant.objects.annotate(grade_avg=Avg('restaurant_reviews__grade')).get(pk=restaurant_pk)
     restaurant_img = RestaurantImage.objects.get(restaurant_id = restaurant_pk)
     lat = float(restaurant.lat)
     lon = float(restaurant.lon)
@@ -153,7 +153,7 @@ def restaurant_all(request, team_pk):
     page = request.GET.get("page", "1")
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
-    if team.pk == 3:
+    if team.pk == 3 or team.pk == 9:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
         restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=middle[0])|Q(team=middle[1]))
     else:
@@ -276,6 +276,7 @@ def search(request, team_pk):
     field = request.GET.get("field")
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
+    middle = Team.objects.filter(stadium_id=team.stadium_id)
     store = Store.objects.filter(team=team)
     restaurant = Restaurant.objects.filter(team=team)
     result_store = []
@@ -286,14 +287,20 @@ def search(request, team_pk):
     text2 = ""
     # 내부 매장
     if field == "1":
-        result = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
+        if team.pk == 3 or team.pk == 9:
+            result = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter((Q(team=middle[0]) | Q(team=middle[1])) & (Q(name__contains=searched) | Q(items__contains=searched)))
+        else :
+            result = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
         if len(result) == 0:
             text = "검색 결과가 없습니다."
         else:
             text = "검색 결과"
     # 외부 가게
     elif field == "2":
-        result = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
+        if team.pk == 3 or team.pk == 9:
+            result = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter((Q(team=middle[0]) | Q(team=middle[1])) & (Q(name__contains=searched) | Q(content__contains=searched)))
+        else :    
+            result = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
         if len(result) == 0:
             text = "검색 결과가 없습니다."
         else:
