@@ -43,7 +43,7 @@
 </style>
 {% endblock css %}
 {% block content %}
-<div class="container">
+<div class="container mt-3">
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'articles:index' %}" style="color:black; font_weight:bold;">Home</a></li>
@@ -55,7 +55,7 @@
     <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
     <div class="d-flex flex-column mt-3">
       <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
-      <p class="" style="color:gray; font-size:1.2rem;">{{ team.name }}의 먹거리 정보🍕</p>
+      <p class="" style="color:gray; font-size:calc(0.8rem + 0.5vw);">{{ team.name }}의 먹거리 정보🍕</p>
     </div>
   </div>
   <div class="symbol mb-3">
@@ -79,7 +79,7 @@
   <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }}; border-bottom: 3px solid {{ team.color }}">
     <div class="d-flex position-relative flex-column align-items-center mt-3">
       <h2 class="fw-bold" style="font-size:2.5rem;">구장 내 스낵바</h2>
-      <p class="" style="color:gray; font-size:1.2rem;">구장 내 가장 인기 있는 스낵바를 찾아보세요🍕</p>
+      <p class="" style="color:gray; font-size:calc(0.8rem + 0.5vw);">구장 내 가장 인기 있는 스낵바를 찾아보세요🍕</p>
       <a class="align-self-end" style="text-decoration:none;" href="{% url 'foods:store_all' team.pk %}"><div style="color:gray; font-size:1.2rem;"><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" style="width:1rem; height: 1rem;"><path d="M69.844 43.388 33.842 13.386a6.003 6.003 0 0 0-7.688 9.223L56.624 48l-30.47 25.39a6.003 6.003 0 0 0 7.688 9.223l36.002-30.001a6.01 6.01 0 0 0 0-9.223Z" fill="#808080" class="fill-000000"></path></svg>전체 보기</div></a>
     </div>
     <nav>
@@ -375,7 +375,7 @@
     <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }}; border-bottom: 3px solid {{ team.color }}">
         <div class="d-flex flex-column align-items-center mt-3">
             <h2 class="fw-bold" style="font-size:2.5rem;">구장 주변 맛집</h2>
-            <p class="" style="color:gray; font-size:1.2rem;">구장 주변 가장 인기있는 맛집을 찾아보세요💯</p>
+            <p class="" style="color:gray; font-size:calc(0.8rem + 0.5vw);">구장 주변 가장 인기있는 맛집을 찾아보세요💯</p>
             <a class="align-self-end" style="text-decoration:none;" href="{% url 'foods:restaurant_all' team.pk %}"><div style="color:gray; font-size:1.2rem;"><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" style="width:1rem; height: 1rem;"><path d="M69.844 43.388 33.842 13.386a6.003 6.003 0 0 0-7.688 9.223L56.624 48l-30.47 25.39a6.003 6.003 0 0 0 7.688 9.223l36.002-30.001a6.01 6.01 0 0 0 0-9.223Z" fill="#808080" class="fill-000000"></path></svg>전체 보기</div></a>
         </div>
         <nav>
