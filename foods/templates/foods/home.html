@@ -76,7 +76,7 @@
 
 <!--스토어 카드-->
 
-  <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }}; border-bottom: 3px solid {{ team.color }}">
+  <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }};">
     <div class="d-flex position-relative flex-column align-items-center mt-3">
       <h2 class="fw-bold" style="font-size:calc(1vw + 2rem);">구장 내 스낵바</h2>
       <p class="" style="color:gray; font-size:calc(0.8rem + 0.5vw);">구장 내 가장 인기 있는 스낵바를 찾아보세요🍕</p>
@@ -281,9 +281,9 @@
 <!-- 레스토랑 카드 -->
 
 <div>
-    <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-top: 3px solid {{ team.color }}; border-bottom: 3px solid {{ team.color }}">
+    <div class="container text-center py-3" style="backdrop-filter:blur(10px); border-bottom: 3px solid {{ team.color }}">
         <div class="d-flex flex-column align-items-center mt-3">
-            <h2 class="fw-bold" style="font-size:2.5rem;">구장 주변 맛집</h2>
+            <h2 class="fw-bold" style="font-size:calc(1vw + 2rem);">구장 주변 맛집</h2>
             <p class="" style="color:gray; font-size:calc(0.8rem + 0.5vw);">구장 주변 가장 인기있는 맛집을 찾아보세요💯</p>
             <a class="align-self-end" style="text-decoration:none;" href="{% url 'foods:restaurant_all' team.pk %}"><div style="color:gray; font-size:1.2rem;"><svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" style="width:1rem; height: 1rem;"><path d="M69.844 43.388 33.842 13.386a6.003 6.003 0 0 0-7.688 9.223L56.624 48l-30.47 25.39a6.003 6.003 0 0 0 7.688 9.223l36.002-30.001a6.01 6.01 0 0 0 0-9.223Z" fill="#808080" class="fill-000000"></path></svg>전체 보기</div></a>
         </div>
@@ -294,7 +294,103 @@
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-fol" role="tabpanel" aria-labelledby="nav-fol-tab" tabindex="0">
+          <div class="tab-pane fade show active" id="nav-star" role="tabpanel" aria-labelledby="nav-star-tab" tabindex="0">
+            <!-- 카드 슬라이더 효과 -->
+            <div class='slider'>
+              <div class='slide-track'>
+                {% for grade in restaurant_grade %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-0 position-relative">
+                    <a href="{% url 'foods:restaurant_detail' team_pk=grade.team_id restaurant_pk=grade.pk %}" class="text-decoration-none text-dark">
+                    {% if grade.restaurant_image.all %}
+                      {% for image in grade.restaurant_image.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
+                    {% endif %}
+                    <div class="card-body py-2 border-top mb-5 pb-3">
+                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
+                      <p class="card-text small mx-3">
+                        {{grade.content}}
+                      </p>
+                    </div>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                      <p class="small m-0 text-center">{{ grade.team.stadium.name }}</p>
+                      <p class="small m-0 text-center">
+                        {% if grade.cnt_followings %}
+                        <span class='small m-0'>팔로우 {{ grade.cnt_followings }}</span>
+                        {% else %}
+                        <span class='small m-0'>팔로우가 없습니다</span>
+                        {% endif %}
+                      </p>
+                      <p class="small m-0 text-center">
+                        {% if grade.restaurant_reviews.all.count == 0 %}
+                        <span class='small m-0'>평가가 없습니다</span>
+                        {% else %}
+                        {% for i in ""|ljust:grade.avg_grade %}
+                        <span>⭐</span>
+                        {% endfor %}
+                        <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
+                        {% endif %}
+                      </p>
+                  </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
+
+                <!-- 한번 더 반복하기 -->
+
+                {% for grade in restaurant_grade %}
+                <div class='slide'>
+                  <div class="train-card bg-white p-0 position-relative">
+                    <a href="{% url 'foods:restaurant_detail' team_pk=grade.team_id restaurant_pk=grade.pk %}" class="text-decoration-none text-dark">
+                    {% if grade.restaurant_image.all %}
+                      {% for image in grade.restaurant_image.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
+                    {% endif %}
+                    <div class="card-body py-2 border-top mb-5 pb-3">
+                      <h5 class="card-title text-center my-3">{{grade.name}}</h5>
+                      <p class="card-text small mx-3">
+                        {{grade.content}}
+                      </p>
+                    </div>
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                      <p class="small m-0 text-center">{{ grade.team.stadium.name }}</p>
+                      <p class="small m-0 text-center">
+                        {% if grade.cnt_followings %}
+                        <span class='small m-0'>팔로우 {{ grade.cnt_followings }}</span>
+                        {% else %}
+                        <span class='small m-0'>팔로우가 없습니다</span>
+                        {% endif %}
+                      </p>
+                      <p class="small m-0 text-center">
+                      {% if grade.restaurant_reviews.all.count == 0 %}
+                      <span class='small m-0'>평가가 없습니다</span>
+                      {% else %}
+                      {% for i in ""|ljust:grade.avg_grade %}
+                      <span>⭐</span>
+                      {% endfor %}
+                      <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
+                      {% endif %}
+                      </p>
+                  </div>
+                  </a>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-fol" role="tabpanel" aria-labelledby="nav-fol-tab" tabindex="0">
             <!-- 카드 슬라이더 효과 -->
             <div class='slider'>
               <div class='slide-track'>
@@ -314,7 +410,7 @@
                     <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center my-3">{{follow.name}}</h5>
                       <p class="card-text small mx-3">
-                        {{follow.items}}
+                        {{follow.content}}
                       </p>
                     </div>
                     <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
@@ -360,7 +456,7 @@
                     <div class="card-body py-2 border-top mb-5 pb-3">
                       <h5 class="card-title text-center my-3">{{follow.name}}</h5>
                       <p class="card-text small mx-3">
-                        {{follow.items}}
+                        {{follow.content}}
                       </p>
                     </div>
                     <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
@@ -410,7 +506,7 @@
                     <div class="card-body py-2 border-top">
                       <h5 class="card-title text-center my-3">{{review.name}}</h5>
                       <p class="card-text small mx-3">
-                        {{review.items}}
+                        {{review.content}}
                       </p>
                       <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
                         <p class="small m-0 text-center">{{ review.team.stadium.name }}</p>

@@ -177,7 +177,7 @@ def like(request, article_pk):
     }
     return JsonResponse(context)
 
-@require_safe
+
 def community(request):
     articles = Article.objects.all().order_by('-pk')
     # 입력 파라미터
@@ -185,7 +185,10 @@ def community(request):
     # 페이징
     paginator_all = Paginator(articles, 10)
     page_obg_all = paginator_all.get_page(page)
-    categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타', request.user.team.name ]
+    if request.user.is_authenticated:
+        categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타', request.user.team.name ]
+    else :
+        categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타']
     context = {
         'articles' : articles,
         'articles_all' : page_obg_all,
@@ -193,7 +196,7 @@ def community(request):
     }
     return render(request, 'articles/community.html', context)
 
-@require_safe
+
 def category(request, num):
     categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타', request.user.team.name]
     category_name = categorys[num]
@@ -214,7 +217,7 @@ def category(request, num):
     return render(request, 'articles/category.html', context)
 
 
-@require_safe
+
 def detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     comments = article.comment_set.all().order_by('pk')
