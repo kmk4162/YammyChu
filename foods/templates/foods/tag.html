@@ -55,6 +55,7 @@
                 <div class="accordion-body">
                     {% if review.restaurant_name == None %}
                     <h3><a class='text-decoration-none text-dark' href="{% url 'foods:store_detail' team.pk review.store_name.pk %}">{{ review.store_name.name }}</a></h3>
+                    <p>{{ review.store_name.detail }}</p>
                     {% else %}
                     <h3><a class='text-decoration-none text-dark' href="{% url 'foods:restaurant_detail' team.pk review.restaurant_name.pk %}">{{ review.restaurant_name.name }}</a></h3>
                     {% endif %}
