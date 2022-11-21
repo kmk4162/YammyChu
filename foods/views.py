@@ -256,14 +256,15 @@ def tag(request, team_pk, tag_pk):
     tag = Tag.objects.get(pk=tag_pk)
     store = Store.objects.filter(team=team)
     restaurant = Restaurant.objects.filter(team=team)
-    reviews = []
+    reviews_store = []
+    reviews_restaurant = []
     for review in tag.tag_articles.all():
         if review.store_name in store:
-            reviews.append(review)
+            reviews_store.append(review)
     for review in tag.tag_articles.all():
         if review.restaurant_name in restaurant:
-            reviews.append(review)
-    context={'team': team, 'tag': tag, 'reviews': reviews}
+            reviews_restaurant.append(review)
+    context={'team': team, 'tag': tag, 'reviews_store': reviews_store, 'reviews_restaurant': reviews_restaurant}
     return render(request, 'foods/tag.html', context)
 
 def search(request, team_pk):
