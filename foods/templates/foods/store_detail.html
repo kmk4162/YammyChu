@@ -198,12 +198,13 @@
                 <div>
                     <div class="d-flex justify-content-between">
                         <div style="font-size:16px; font-weight:bold;">{{ review.user.username }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span></div>
-                        <div class="btn" style="position:relative; right:0;" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <a class="btn border-0" style="position:relative; right:0;" data-bs-toggle="collapse" href="#collapse{{ review.pk }}" role="button" aria-expanded="false" aria-controls="collapse{{ review.pk }}">
                             <span class="material-symbols-outlined">
                             more_vert
                             </span>
-                        </div>
+                        </a>
                     </div>
+
                     <div class="mb-2">
                         {% if review.grade >= 5 %}
                         <i class="bi bi-star-fill text-warning"></i>
@@ -251,24 +252,24 @@
                     {% endfor %}
                 </div>
                 {% if request.user == review.user%}
-                <div class='d-flex justify-content-end'>
+                <div class='text-end collapse' id="collapse{{ review.pk }}">
                     <button style="text-decoration:none;" class="badge rounded-pill text-bg-dark" data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</button>
-                    <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            리뷰를 삭제하시겠습니까?
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-                            <a class="btn btn-danger" href="{% url 'foods:store_review_delete' store.team_id store.pk review.pk %}">삭제</a>
-                            </div>
+                </div>
+                <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <div class="modal-body">
+                        리뷰를 삭제하시겠습니까?
                         </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+                        <a class="btn btn-danger" href="{% url 'foods:store_review_delete' store.team_id store.pk review.pk %}">삭제</a>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 {% endif %}
