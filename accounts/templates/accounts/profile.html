@@ -47,7 +47,10 @@
     <div class="mt-4">
       {% if request.user.is_authenticated %}
         {% if request.user == request_user %}
-          <a href="{% url 'accounts:update' %}" class="btn btn-outline-dark w-100">정보 수정</a>
+          <form action="{% url 'accounts:update' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-outline-dark w-100" value="정보 수정">
+          </form>
         {% else %}
           <form id="follow-form" data-user-id="{{ request_user.pk }}">
             {% csrf_token %}

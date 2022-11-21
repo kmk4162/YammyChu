@@ -58,7 +58,7 @@
     <select class="select search_select me-2" style="width: 30%;" aria-label="Default select example" name='field'>
       <option value="1">내부 매장</option>
       <option value="2">외부 매장</option>
-      <option value="3">리뷰</option>
+      <option value="3"># 해시태그</option>
     </select>
     <div class="search">
       <input class="search_input form-control me-2" type="search" placeholder="검색어 입력" name='searched'>
@@ -380,8 +380,8 @@
                 {% for grade in restaurant_grade %}
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
-                    {% for image in grade.store_image.all %}
+                    <a href="{% url 'foods:restaurant_detail' team_pk=grade.team_id restaurant_pk=grade.pk %}" class="text-decoration-none text-dark">
+                    {% for image in grade.restaurant_image.all %}
                       {% if forloop.counter == 1 %}
                       <img src="{{ image.image.url }}" class="card-img-top" alt="...">
                       {% endif %}
@@ -402,7 +402,7 @@
                         {% endif %}
                       </p>
                       <p class="small m-0 text-center">
-                        {% if grade.store_reviews.all.count == 0 %}
+                        {% if grade.restaurant_reviews.all.count == 0 %}
                         <span class='small m-0'>평가가 없습니다</span>
                         {% else %}
                         {% for i in ""|ljust:grade.avg_grade %}
@@ -422,8 +422,8 @@
                 {% for grade in restaurant_grade %}
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:store_detail' team_pk=grade.team_id store_pk=grade.pk %}" class="text-decoration-none text-dark">
-                    {% for image in grade.store_image.all %}
+                    <a href="{% url 'foods:restaurant_detail' team_pk=grade.team_id restaurant_pk=grade.pk %}" class="text-decoration-none text-dark">
+                    {% for image in grade.restaurant_image.all %}
                       {% if forloop.counter == 1 %}
                       <img src="{{ image.image.url }}" class="card-img-top" alt="...">
                       {% endif %}
@@ -444,7 +444,7 @@
                         {% endif %}
                       </p>
                       <p class="small m-0 text-center">
-                      {% if grade.store_reviews.all.count == 0 %}
+                      {% if grade.restaurant_reviews.all.count == 0 %}
                       <span class='small m-0'>평가가 없습니다</span>
                       {% else %}
                       {% for i in ""|ljust:grade.avg_grade %}
@@ -468,8 +468,8 @@
                 {% for follow in restaurant_following %}
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
-                    {% for image in follow.store_image.all %}
+                    <a href="{% url 'foods:restaurant_detail' team_pk=follow.team_id restaurant_pk=follow.pk %}" class="text-decoration-none text-dark">
+                    {% for image in follow.restaurant_image.all %}
                     {% if forloop.counter == 1 %}
                     <img src="{{ image.image.url }}" class="card-img-top" alt="...">
                     {% endif %}
@@ -490,7 +490,7 @@
                         {% endif %}
                       </p>
                       <p class="small m-0 text-center">
-                      {% if follow.store_reviews.all.count == 0 %}
+                      {% if follow.restaurant_reviews.all.count == 0 %}
                       <span class='small m-0'>평가가 없습니다</span>
                       {% else %}
                       {% for i in ""|ljust:follow.avg_grade %}
@@ -510,8 +510,8 @@
                 {% for follow in restaurant_following %}
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:store_detail' team_pk=follow.team_id store_pk=follow.pk %}" class="text-decoration-none text-dark">
-                    {% for image in follow.store_image.all %}
+                    <a href="{% url 'foods:restaurant_detail' team_pk=follow.team_id restaurant_pk=follow.pk %}" class="text-decoration-none text-dark">
+                    {% for image in follow.restaurant_image.all %}
                     {% if forloop.counter == 1 %}
                     <img src="{{ image.image.url }}" class="card-img-top" alt="...">
                     {% endif %}
@@ -532,7 +532,7 @@
                         {% endif %}
                       </p>
                       <p class="small m-0 text-center">
-                      {% if follow.store_reviews.all.count == 0 %}
+                      {% if follow.restaurant_reviews.all.count == 0 %}
                       <span class='small m-0'>평가가 없습니다</span>
                       {% else %}
                       {% for i in ""|ljust:follow.avg_grade %}
@@ -556,8 +556,8 @@
                 {% for review in restaurant_review %}
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
-                    {% for image in review.store_image.all %}
+                    <a href="{% url 'foods:restaurant_detail' team_pk=review.team_id restaurant_pk=review.pk %}" class="text-decoration-none text-dark">
+                    {% for image in review.restaurant_image.all %}
                       {% if forloop.counter == 1 %}
                           <img src="{{ image.image.url }}" class="card-img-top" alt="...">
                           {% endif %}
@@ -577,7 +577,7 @@
                           {% endif %}
                         </p>
                         <p class="small m-0 text-center">
-                        {% if review.store_reviews.all.count == 0 %}
+                        {% if review.restaurant_reviews.all.count == 0 %}
                         <span class='small m-0'>평가가 없습니다</span>
                         {% else %}
                         {% for i in ""|ljust:review.avg_grade %}
@@ -598,8 +598,8 @@
                 {% for review in restaurant_review %}
                 <div class='slide'>
                   <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:store_detail' team_pk=review.team_id store_pk=review.pk %}" class="text-decoration-none text-dark">
-                    {% for image in review.store_image.all %}
+                    <a href="{% url 'foods:restaurant_detail' team_pk=review.team_id restaurant_pk=review.pk %}" class="text-decoration-none text-dark">
+                    {% for image in review.restaurant_image.all %}
                       {% if forloop.counter == 1 %}
                           <img src="{{ image.image.url }}" class="card-img-top" alt="...">
                           {% endif %}
@@ -619,7 +619,7 @@
                           {% endif %}
                         </p>
                         <p class="small m-0 text-center">
-                        {% if review.store_reviews.all.count == 0 %}
+                        {% if review.restaurant_reviews.all.count == 0 %}
                         <span class='small m-0'>평가가 없습니다</span>
                         {% else %}
                         {% for i in ""|ljust:review.avg_grade %}

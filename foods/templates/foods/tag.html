@@ -5,99 +5,104 @@
 {% block content %}
 <h1 class='text-center my-5'>{{ tag.content }}</h1>
 <div class='container'>
-    <div class="accordion" id="accordionExample">
-        {% for review in reviews %}
-        <div class="accordion-item">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
-                <table class="table table-borderless">
-                    <thead>
-                        <tr>
-                            <th class='col-2'>
-                                {% if review.grade == 5 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% elif review.grade == 4 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% elif review.grade == 3 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% elif review.grade == 2 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% elif review.grade == 1 %}
-                                <i class="bi bi-star-fill text-warning"></i>
-                                {% endif %}
-                            </th>
-                            <th class='col-6' style="width: 100%;
-                            text-overflow: ellipsis;
-                            overflow: hidden;
-                            word-break: break-word;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 1;
-                            -webkit-box-orient: vertical;">{{ review.content }}</th>
-                            <th class='col-2'>{{ review.user.username }}</th>
-                            <th class='col-2'>{{ review.created_at|date:'Y.m.d A h:i' }}</th>
-                        </tr>
-                    </thead>
-                </table>
-            </button>
+    <div class='row'>
+        <div class='col-6'>
+            <div class="accordion" id="accordionExample">
+                {% for review in reviews_store %}
+                <div class="accordion-item">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th class='col-3'>
+                                        {% if review.grade == 5 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 4 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 3 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 2 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% elif review.grade == 1 %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        {% endif %}
+                                    </th>
+                                    <th class='col-4' style="width: 100%;
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    word-break: break-word;
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 1;
+                                    -webkit-box-orient: vertical;">{{ review.content }}</th>
+                                    <th class='col-2'>{{ review.user.username }}</th>
+                                    <th class='col-3'>{{ review.created_at|date:'m.d A h:i' }}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </button>
+                        
+            
                 
-    
-        
-            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    {% if review.restaurant_name == None %}
-                    <h3><a class='text-decoration-none text-dark' href="{% url 'foods:store_detail' team.pk review.store_name.pk %}">{{ review.store_name.name }}</a></h3>
-                    <p>{{ review.store_name.detail }}</p>
-                    {% else %}
-                    <h3><a class='text-decoration-none text-dark' href="{% url 'foods:restaurant_detail' team.pk review.restaurant_name.pk %}">{{ review.restaurant_name.name }}</a></h3>
-                    {% endif %}
-                    <br>
-                    {{ review|tag_check|safe }}
-                    <div class='row'>
-                        {% for image in review.review_image.all %}
-                        <div class='col-3'>
-                            <img class='my-2' src="{{ image.image.url }}" style='width:100%'>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% if request.user == review.user %}
-                    <div class='d-flex justify-content-end'>
-                        <a class='btn btn-danger' data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</a>
-                        <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% if review.restaurant_name == None %}
+                            <h3><a class='text-decoration-none text-dark' href="{% url 'foods:store_detail' team.pk review.store_name.pk %}">{{ review.store_name.name }}</a></h3>
+                            <p>{{ review.store_name.detail }}</p>
+                            {% else %}
+                            <h3><a class='text-decoration-none text-dark' href="{% url 'foods:restaurant_detail' team.pk review.restaurant_name.pk %}">{{ review.restaurant_name.name }}</a></h3>
+                            {% endif %}
+                            <br>
+                            {{ review|tag_check|safe }}
+                            <div class='row'>
+                                {% for image in review.review_image.all %}
+                                <div class='col-3'>
+                                    <img class='my-2' src="{{ image.image.url }}" style='width:100%'>
                                 </div>
-                                <div class="modal-body">
-                                리뷰를 삭제하시겠습니까?
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-                                {% if review.restaurant_name == None %}
-                                <a class="btn btn-danger" href="{% url 'foods:store_review_delete' team.pk review.store_name.pk review.pk %}">삭제</a>
-                                {% else %}
-                                <a class="btn btn-danger" href="{% url 'foods:restaurant_review_delete' team.pk review.restaurant_name.pk review.pk %}">삭제</a>
-                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% if request.user == review.user %}
+                            <div class='d-flex justify-content-end'>
+                                <a class='btn btn-danger' data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</a>
+                                <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        리뷰를 삭제하시겠습니까?
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+                                        {% if review.restaurant_name == None %}
+                                        <a class="btn btn-danger" href="{% url 'foods:store_review_delete' team.pk review.store_name.pk review.pk %}">삭제</a>
+                                        {% else %}
+                                        <a class="btn btn-danger" href="{% url 'foods:restaurant_review_delete' team.pk review.restaurant_name.pk review.pk %}">삭제</a>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    {% endif %}
                 </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
+        
     </div>
 </div>
 {% endblock %}
