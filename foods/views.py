@@ -20,7 +20,7 @@ def home(request, team_pk):
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
         stores = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=middle[1])
-        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=middle[1])
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=middle[0])|Q(team=middle[1]))
     else:
         stores = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=team)
         restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=team)
@@ -28,7 +28,6 @@ def home(request, team_pk):
     store_review = stores.order_by('-cnt_reviews')[:5]
     store_following = stores.order_by('-cnt_followings')[:5]
     store_grade = stores.order_by('-avg_grade')[:5]
-
     restaurant_review = restaurant.order_by('-cnt_reviews')[:5]
     restaurant_following = restaurant.order_by('-cnt_followings')[:5]
     restaurant_grade = restaurant.order_by('-avg_grade')[:5]
@@ -156,7 +155,7 @@ def restaurant_all(request, team_pk):
     stadium = Stadium.objects.get(pk=team.stadium_id)
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
-        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=middle[1])
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=middle[0])|Q(team=middle[1]))
     else:
         restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=team)
     paginator = Paginator(restaurant, 8)
