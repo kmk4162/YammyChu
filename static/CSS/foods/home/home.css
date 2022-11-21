@@ -71,7 +71,16 @@
 
 /* marker css */
 
-.customOverlay {
+div[class="customOverlay"] {
+    border-radius: 2rem;
+    background-color: white;
+    width: auto;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+div[class="customOverlay_2"] {
     border-radius: 2rem;
     background-color: white;
     width: auto;
@@ -81,6 +90,7 @@
 }
 
 div[class="overlay"] {
+    position: relative;
     width: auto;
     height: 5rem;
     border-radius: 10rem;
@@ -90,6 +100,17 @@ div[class="overlay"] {
     padding-left: 1rem;
     padding-right: 2rem;
     color: white
+}
+
+div[class="overlay"]:after {
+    border-top: 10px solid rgba(18, 139, 232, 0.7);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 0px solid transparent;
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 46.5%;
 }
 
 div[class="overlay"] svg {
