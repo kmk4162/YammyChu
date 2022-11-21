@@ -130,12 +130,9 @@
         center: new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }}), // 지도의 중심좌표
         level: 2 // 지도의 확대 레벨
     };
-
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
- 
 var new_dicts = {};
 var positions = [];
-
 // 마커를 표시할 위치와 title 객체 배열입니다 
     {% for store in stores %}
         var name = "{{ store.name }}";
@@ -143,36 +140,84 @@ var positions = [];
         var lon = {{ store.lon }};
         new_dicts['name'] = name;
         new_dicts['latlng'] = new kakao.maps.LatLng(lat,lon)
+        new_dicts['pk'] = {{ store.pk }}
+        new_dicts['address'] = "{{ store.detail }}"
+        new_dicts['image'] = "{{ store.store_image }}"
         positions.push(new_dicts);
         var new_dicts = {};
     {% endfor %}
-
 // 마커 이미지의 이미지 주소입니다
 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-    
-for (var i = 0; i < positions.length; i ++) {
-    // 마커 이미지의 이미지 크기 입니다
-    var imageSize = new kakao.maps.Size(24, 35); 
-    
-    // 마커 이미지를 생성합니다    
-    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    
+// 마커 이미지의 이미지 크기 입니다
+var imageSize = new kakao.maps.Size(24, 35); 
+// 마커 이미지를 생성합니다    
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+var ClickOverlay = null;
+
+positions.forEach(function (pos) {
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커를 표시할 위치
-        title : positions[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        position: pos.latlng, // 마커를 표시할 위치
         image : markerImage // 마커 이미지 
     });
-}
-
+    var content = document.createElement("div");
+    content.className = 'overlay';
+    if ( {{ team.pk }} === 3) {
+        content.insertAdjacentHTML('beforeend', `
+        <div class="overlay_name">
+          <?xml version="1.0" ?><svg class="overlay_img" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg%22%3E<g id="Cutlery"><path d="M221.5239,63.48a10,10,0,0,0-10,10v70.7241H133.3452V73.48a10,10,0,0,0-20,0v90.189a57.5269,57.5269,0,0,0,9.9987,32.473,59.1926,59.1926,0,0,0,39.0907,25.3777v45.6246a50.883,50.883,0,0,0-23.0977,11.3508,10.0019,10.0019,0,0,0-3.48,7.5825V422.5435a36.5777,36.5777,0,1,0,73.1553,0V286.0771a10.0019,10.0019,0,0,0-3.48-7.5825,50.8832,50.8832,0,0,0-23.0976-11.3508V221.5192a59.1922,59.1922,0,0,0,39.0906-25.3777,57.5262,57.5262,0,0,0,9.9987-32.473V73.48A10,10,0,0,0,221.5239,63.48Z"/><path d="M172.4346,138.0181a10,10,0,0,0,10-10V73.48a10,10,0,0,0-20,0v54.5386A10,10,0,0,0,172.4346,138.0181Z"/><path d="M398.6553,137.2036c0-46.4971-31.4951-84.3252-70.208-84.3252s-70.209,37.8281-70.209,84.3252c0,42.4181,26.2171,77.6057,60.209,83.4551v46.4852A50.8844,50.8844,0,0,0,295.35,278.4946a9.999,9.999,0,0,0-3.4805,7.5825V422.5435a36.5777,36.5777,0,1,0,73.1553,0V286.0771a9.999,9.999,0,0,0-3.4805-7.5825,50.874,50.874,0,0,0-23.0966-11.3509v-46.485C372.4388,214.8093,398.6553,179.6217,398.6553,137.2036Zm-71.208,65.8247a8.5,8.5,0,0,1,0-17c20.2412,0,36.708-22.8,36.708-50.8247a8.5,8.5,0,0,1,17,0C381.1553,172.6021,357.0615,203.0283,327.4473,203.0283Z"/></g></svg>
+          ${pos.name} | 
+          <a class="address" href="/foods/9/store/${pos.pk}">
+              ${pos.address}
+          </a>
+        </div>
+    `);
+    }
+    else {
+    content.insertAdjacentHTML('beforeend', `
+    <div class="overlay_name">
+      <?xml version="1.0" ?><svg class="overlay_img" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg%22%3E<g id="Cutlery"><path d="M221.5239,63.48a10,10,0,0,0-10,10v70.7241H133.3452V73.48a10,10,0,0,0-20,0v90.189a57.5269,57.5269,0,0,0,9.9987,32.473,59.1926,59.1926,0,0,0,39.0907,25.3777v45.6246a50.883,50.883,0,0,0-23.0977,11.3508,10.0019,10.0019,0,0,0-3.48,7.5825V422.5435a36.5777,36.5777,0,1,0,73.1553,0V286.0771a10.0019,10.0019,0,0,0-3.48-7.5825,50.8832,50.8832,0,0,0-23.0976-11.3508V221.5192a59.1922,59.1922,0,0,0,39.0906-25.3777,57.5262,57.5262,0,0,0,9.9987-32.473V73.48A10,10,0,0,0,221.5239,63.48Z"/><path d="M172.4346,138.0181a10,10,0,0,0,10-10V73.48a10,10,0,0,0-20,0v54.5386A10,10,0,0,0,172.4346,138.0181Z"/><path d="M398.6553,137.2036c0-46.4971-31.4951-84.3252-70.208-84.3252s-70.209,37.8281-70.209,84.3252c0,42.4181,26.2171,77.6057,60.209,83.4551v46.4852A50.8844,50.8844,0,0,0,295.35,278.4946a9.999,9.999,0,0,0-3.4805,7.5825V422.5435a36.5777,36.5777,0,1,0,73.1553,0V286.0771a9.999,9.999,0,0,0-3.4805-7.5825,50.874,50.874,0,0,0-23.0966-11.3509v-46.485C372.4388,214.8093,398.6553,179.6217,398.6553,137.2036Zm-71.208,65.8247a8.5,8.5,0,0,1,0-17c20.2412,0,36.708-22.8,36.708-50.8247a8.5,8.5,0,0,1,17,0C381.1553,172.6021,357.0615,203.0283,327.4473,203.0283Z"/></g></svg>
+      ${pos.name} | 
+      <a class="address" href="/foods/{{ team.pk }}/store/${pos.pk}/">
+          ${pos.address}
+      </a>
+    </div>
+    `);
+    }
+    var overlay = new kakao.maps.CustomOverlay({
+        {% comment %} clickable: true, {% endcomment %}
+        content: content,
+        position: pos.latlng,
+        xAnchor: 0.5,
+        yAnchor: 1.5,
+    });
+    kakao.maps.event.addListener(marker, 'click', function() {
+      if (ClickOverlay) {
+        ClickOverlay.setMap(null);
+    }
+    overlay.setMap(map);
+    ClickOverlay = overlay;
+    map.setCenter(overlay.n)
+    });
+});
 var coords = new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }});
-
 var marker = new kakao.maps.Marker({
     map: map,
     position: coords
 });
 
+{% comment %} for (var i = 0; i < positions.length; i ++) {
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+} {% endcomment %}
 var customOverlay = new kakao.maps.CustomOverlay({
     map: map,
     clickable: true,
@@ -182,7 +227,6 @@ var customOverlay = new kakao.maps.CustomOverlay({
     yAnchor: 2,
     
 });
-
 customOverlay.setMap(null)
 // 마커에 마우스오버 이벤트를 등록합니다
 kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -195,32 +239,6 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
     customOverlay.setMap(null)
 });
-    {% comment %} var geocoder = new kakao.maps.services.Geocoder();
-
-    geocoder.addressSearch("{{ stadium.address }}", function(result, status) {
-    
-        // 정상적으로 검색이 완료됐으면 
-         if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
-            });
-    
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:auto;text-align:center;padding:6px 0;">{{ stadium.name }}</div>'
-            });
-
-            infowindow.open(map, marker);
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(35.19545081038179,129.06733276110197);
-        } 
-    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-    // 주소로 좌표를 검색합니다
-    }); {% endcomment %}
 </script>
 {% endblock script %}
 {% endblock content %}
