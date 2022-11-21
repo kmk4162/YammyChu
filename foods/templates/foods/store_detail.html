@@ -280,7 +280,10 @@
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-                        <a class="btn btn-danger" href="{% url 'foods:store_review_delete' store.team_id store.pk review.pk %}">삭제</a>
+                        <form action="{% url 'foods:store_review_delete' team.pk review.store_name.pk review.pk %}" id="myform1" method='POST'>
+                            {% csrf_token %}
+                            <button class="btn btn-danger">삭제</button>
+                        </form>
                         </div>
                     </div>
                     </div>

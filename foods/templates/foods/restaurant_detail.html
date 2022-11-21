@@ -265,7 +265,10 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-                            <a class="btn btn-danger" href="{% url 'foods:restaurant_review_delete' restaurant.team_id restaurant.pk review.pk %}">삭제</a>
+                            <form action="{% url 'foods:restaurant_review_delete' team.pk review.restaurant_name.pk review.pk %}" id="myform2" method='POST'>
+                                {% csrf_token %}
+                                <button class="btn btn-danger">삭제</button>
+                            </form>
                             </div>
                         </div>
                         </div>
