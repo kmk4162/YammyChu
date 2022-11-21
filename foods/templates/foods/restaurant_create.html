@@ -7,6 +7,14 @@
 <style>
 </style>
 <div class='container'>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'articles:index' %}" style="color:black; font_weight:bold;">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'foods:home' team.pk %}" style="color:black; font_weight:bold;">{{ team.name}}의 먹거리</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'foods:restaurant_all' team.pk %}" style="color:black; font_weight:bold;">구장 밖 음식점</a></li>
+      <li class="breadcrumb-item active" aria-current="page">음식점 추가하기</li>
+  </ol>
+</nav>
   <form name='mapform' action='' method='POST' enctype="multipart/form-data">
     {% csrf_token %}
     <label class='form-label' for='id_name'>가게명</label>

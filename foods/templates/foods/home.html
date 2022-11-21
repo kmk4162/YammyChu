@@ -44,6 +44,13 @@
 {% endblock css %}
 {% block content %}
 <div class="container">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'articles:index' %}" style="color:black; font_weight:bold;">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ team.name}}의 먹거리</li>
+  </ol>
+</nav>
+
   <div class="justify-content-center d-flex align-items-center">
     <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
     <div class="d-flex flex-column mt-3">

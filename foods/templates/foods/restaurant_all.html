@@ -30,6 +30,13 @@
 {% block content %}
 <div class="container slide-in" id="page2" >
     <div class="container">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'articles:index' %}" style="color:black; font_weight:bold;">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'foods:home' team.pk %}" style="color:black; font_weight:bold;">{{ team.name}}의 먹거리</a></li>
+        <li class="breadcrumb-item active" aria-current="page">구장 밖 음식점</li>
+    </ol>
+    </nav>
         <div class="justify-content-center d-flex align-items-center">
           <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
           <div class="d-flex flex-column mt-3">
