@@ -8,8 +8,11 @@ import json
 from django.core.paginator import Paginator  
 from news import news
 import json
+from django.utils import timezone
 from django.db.models import Count, Avg
+from django.views.decorators.http import require_http_methods, require_POST, require_safe
 
+@require_safe
 def index(request):
     teams = Team.objects.all()
     if request.user.is_authenticated and request.user.team :
@@ -32,16 +35,16 @@ def index(request):
     }
     return render(request, "articles/index.html", context)
 
-
 @login_required
 def create(request):
     if request.method == "POST":
-        article_form = ArticleForm(request.POST)
-        if article_form.is_valid():
-            article = article_form.save(commit=False)
-            article.user = request.user
-            article.save()
-            return redirect('articles:community')
+        if request.user.is_authenticated:
+            article_form = ArticleForm(request.POST)
+            if article_form.is_valid():
+                article = article_form.save(commit=False)
+                article.user = request.user
+                article.save()
+                return redirect('articles:community')
     else:
         article_form = ArticleForm()
     context = {
@@ -49,12 +52,10 @@ def create(request):
     }
     return render(request, 'articles/create.html', context)
 
-from django.utils import timezone
-
-@login_required
+@require_POST
 def update(request, article_pk):
     article = Article.objects.get(pk=article_pk)
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_authenticated:
         article.updated_at = timezone.localtime()
         article.save()
         article_form = ArticleForm(request.POST, instance=article)
@@ -68,39 +69,40 @@ def update(request, article_pk):
     }
     return render(request, 'articles/update.html', context)
 
-@login_required
+@require_POST
 def delete(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     if request.user == article.user:
         article.delete()
         return redirect('articles:index')
 
-@login_required
+@require_POST
 def comments_create(request, article_pk):
-    article = Article.objects.get(pk=article_pk)
-    comment_form = CommentForm(request.POST)
-    user = request.user.pk
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.article = article
-        comment.user = request.user
-        comment.save()
-    temp = Comment.objects.filter(article_id=article_pk).order_by('pk')
-    comment_data = []
-    for t in temp:
-        comment_data.append({
-            'userId': t.user_id, 
-            'userName': t.user.username, 
-            'nickname': t.user.nickname, 
-            'logo': Team.objects.get(pk=t.user.team_id).logo.url,
-            'content': t.content,
-            'commentPk': t.pk,
-        })
-    context = {
-        'comment_data': comment_data,
-        'article_pk': article_pk,
-        'user': user,
-    }
+    if request.user.is_authenticated:
+        article = Article.objects.get(pk=article_pk)
+        comment_form = CommentForm(request.POST)
+        user = request.user.pk
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.user = request.user
+            comment.save()
+        temp = Comment.objects.filter(article_id=article_pk).order_by('pk')
+        comment_data = []
+        for t in temp:
+            comment_data.append({
+                'userId': t.user_id, 
+                'userName': t.user.username, 
+                'nickname': t.user.nickname, 
+                'logo': Team.objects.get(pk=t.user.team_id).logo.url,
+                'content': t.content,
+                'commentPk': t.pk,
+            })
+        context = {
+            'comment_data': comment_data,
+            'article_pk': article_pk,
+            'user': user,
+        }
     return JsonResponse(context)
 
 @login_required
@@ -123,8 +125,6 @@ def comments_update(request, article_pk, comment_pk):
             'content': t.content,
             'commentPk': t.pk,
         })
-    
-        
     context = {
         'comment_data': comment_data,
         'comment_pk': comment_pk,
@@ -175,7 +175,7 @@ def like(request, article_pk):
     }
     return JsonResponse(context)
 
-
+@require_safe
 def community(request):
     articles = Article.objects.all().order_by('-pk')
     # 입력 파라미터
@@ -191,7 +191,7 @@ def community(request):
     }
     return render(request, 'articles/community.html', context)
 
-
+@require_safe
 def category(request, num):
     categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타']
     category_name = categorys[num]
@@ -206,6 +206,7 @@ def category(request, num):
     }
     return render(request, 'articles/category.html', context)
 
+@require_safe
 def detail(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     comments = article.comment_set.all().order_by('pk')
