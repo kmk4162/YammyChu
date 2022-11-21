@@ -276,33 +276,61 @@ def search(request, team_pk):
     field = request.GET.get("field")
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
+    store = Store.objects.filter(team=team)
+    restaurant = Restaurant.objects.filter(team=team)
+    result_store = []
+    result_restaurant = []
+    result = []
+    text = ""
+    text1 = ""
+    text2 = ""
     # 내부 매장
     if field == "1":
         result = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
+        if len(result) == 0:
+            text = "검색 결과가 없습니다."
+        else:
+            text = "검색 결과"
     # 외부 가게
     elif field == "2":
         result = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
+        if len(result) == 0:
+            text = "검색 결과가 없습니다."
+        else:
+            text = "검색 결과"
     # 리뷰
     elif field == "3":
-        hashtag_pk = Tag.objects.get(content=searched).pk
-        print(hashtag_pk)
-        return redirect('foods:tag', team_pk, hashtag_pk)
+        if Tag.objects.filter(content=searched).exists():
+            tag_pk = Tag.objects.get(content=searched).pk
+            tag = Tag.objects.get(pk=tag_pk)
+        
+            for review in tag.tag_articles.all():
+                if review.store_name in store:
+                    result_store.append(review)
+            for review in tag.tag_articles.all():
+                if review.restaurant_name in restaurant:
+                    result_restaurant.append(review)
+        else:
+            if len(result_store) == 0:
+                text1 = "검색 결과가 없습니다."
+            if len(result_restaurant) == 0:
+                text2 = "검색 결과가 없습니다."
     if not searched:
-        result = []
         text = "검색어를 입력하세요."
-    elif len(result) == 0:
-        text = "검색 결과가 없습니다."
-    else:
-        text = "검색 결과"
-    print(result)
+
+
     context = {
         "result": result,
         "text": text,
+        "text1": text1,
+        "text2": text2,
         'field': field,
         'team' : team,
         "team_pk": team_pk,
         'searched': searched,
         'stadium': stadium,
+        "reviews_store": result_store,
+        "reviews_restaurant": result_restaurant,
     }
     return render(request, "foods/search.html", context)
     
