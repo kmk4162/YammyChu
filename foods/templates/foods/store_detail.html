@@ -254,7 +254,7 @@
                         {% endif %}
                     </div>
                     <div class="d-flex justify-content-between">
-                        <div style="font-size:16px; font-weight:bold;"><img src="{{ review.user.team.logo.url }}" alt="" style="width: 30px; height: 30px; margin-right:5px;">{{ review.user.username }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span></div>
+                        <div style="font-size:16px; font-weight:bold;"><img src="{{ review.user.team.logo.url }}" alt="" style="width: 30px; height: 30px; margin-right:5px;">{{ review.user.nickname }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span></div>
                         <div class="btn" style="position:relative; right:0;" data-bs-toggle="collapse" href="#collapse{{ review.pk }}" role="button" aria-expanded="false" aria-controls="collapse{{ review.pk }}">
                             <span class="material-symbols-outlined">
                             more_vert
