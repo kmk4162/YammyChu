@@ -64,17 +64,7 @@
       <input class="search_input form-control me-2" type="search" placeholder="검색어 입력" name='searched'>
       <input type="image" class="search_img" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
     </div>
-    <form class="d-flex mx-auto mt-5 justify-content-center" style="width: 50%;" role="search" method='GET' action="{% url 'foods:search' team.pk %}">
-        <select class="select search_select me-2" style="width: 30%;" aria-label="Default select example" name='field'>
-            <option value="1">내부 매장</option>
-            <option value="2">외부 매장</option>
-            <option value="3">리뷰</option>
-        </select>
-        <div class="search">
-            <input class="search_input form-control me-2" type="search" placeholder="검색어 입력" name='searched'>
-            <input type="image" class="search_img" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-        </div>
-      </form>
+  </form>
 
 
 <!--스토어 카드-->
@@ -226,8 +216,8 @@
                         <span>{{ grade.avg_grade|floatformat:"1" }}({{ grade.cnt_reviews }}명 평가)</span>
                         {% endif %}
                       </p>
-                  </div>
-                  </a>
+                    </div>
+                    </a>
                   </div>
                 </div>
                 {% endfor %}
@@ -274,7 +264,6 @@
                 </div>
                 {% endfor %}
             </div>
-        <a class='btn btn-primary' href='{% url "foods:restaurant_create" team.pk %}'>가게 추가하기</a>
         
     </div>
 </div>
