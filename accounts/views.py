@@ -87,14 +87,12 @@ def follow(request, pk):
                 is_followed = True
             follow_user = user.followers.filter(pk=request.user.pk)
             following_user = user.followings.filter(pk=request.user.pk)
-            print(follow_user)
             follow_user_list = []
             following_user_list = []
             for follow in follow_user:
-                follow_user_list.append({'pk': follow.pk, 'username': follow.username,})
+                follow_user_list.append({'pk': follow.pk, 'nickname': follow.nickname, 'img': follow.team.logo.url})
             for following in following_user:
                 following_user_list.append({'pk': following.pk, 'username': following.username,})
-            print("팔로우됨?")
             context = {
                 'is_followed': is_followed,
                 'follow_user': follow_user_list,
