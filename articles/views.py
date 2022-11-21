@@ -10,6 +10,7 @@ from news import news
 import json
 from django.utils import timezone
 from django.db.models import Count, Avg
+from accounts.models import User
 from django.views.decorators.http import require_http_methods, require_POST, require_safe
 
 @require_safe
@@ -183,7 +184,7 @@ def community(request):
     # 페이징
     paginator_all = Paginator(articles, 10)
     page_obg_all = paginator_all.get_page(page)
-    categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타']
+    categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타', request.user.team.name ]
     context = {
         'articles' : articles,
         'articles_all' : page_obg_all,
@@ -193,9 +194,14 @@ def community(request):
 
 @require_safe
 def category(request, num):
-    categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타']
+    categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타', request.user.team.name]
     category_name = categorys[num]
-    articles_category = Article.objects.filter(category=category_name).order_by('-pk')
+    if num <= 5 :
+        articles_category = Article.objects.filter(category=category_name).order_by('-pk')
+    else :
+        team = Team.objects.get(name=category_name)
+        articles_category = Article.objects.filter(user__team=team).order_by('-pk')
+
     page = request.GET.get("page", "1")
     paginator_category = Paginator(articles_category, 10)
     page_obg_category = paginator_category.get_page(page)
@@ -205,6 +211,7 @@ def category(request, num):
         "category_name":category_name,
     }
     return render(request, 'articles/category.html', context)
+
 
 @require_safe
 def detail(request, article_pk):
