@@ -344,13 +344,7 @@
       headers: {'X-CSRFToken': csrftoken,},
     }) 
     .then((response) => {
-      const isFollowed = response.data.is_followed
-      const followBtn = document.querySelector('#follow-form > input[type=submit]')
-      if (isFollowed === true) {
-        followBtn.value = '언팔로우'
-      } else {
-        followBtn.value = '팔로우'
-      }
+      const follow_user = response.data.follow_user
       const followersCountTag = document.querySelector('#followers-count')
       const followingsCountTag = document.querySelector('#followings-count')
       const followersCount = response.data.followers_count
@@ -359,19 +353,31 @@
       followingsCountTag.innerText = followingsCount
       const followUser = document.querySelector('#follow-user')
       const followingUser = document.querySelector('#following-user')
-      followUser.textContent = ""
-      followingUser.textContent = ""
-      const follow_user = response.data.follow_user
+      followUser.innerText = "";
+      // followingUser.innerText = "";
+      console.log(follow_user)
+
+      const isFollowed = response.data.is_followed
+      const followBtn = document.querySelector('#follow-form > input[type=submit]')
+      if (isFollowed === true) {
+        followBtn.value = '언팔로우'
+      } else {
+        followBtn.value = '팔로우'
+      }
+      
       if (followersCount === 0) {
         followUser.insertAdjacentHTML('beforeend', `
           <p>팔로우한 사람이 없어요</p>
         `)
       }
       else {
-        console.log("follow")
+        
         for (let i = 0; i < follow_user.length; i++) {
           followUser.insertAdjacentHTML('beforeend', `
-            <a href="{% url 'accounts:profile' {{ follow_user.i.pk }}" class="text-decoration-none fw-bold text-dark">${follow_user[i].username}</a>   
+          <a href="/accounts/${follow_user[i].pk}/" class="text-decoration-none fw-bold text-dark">
+            <img src="${follow_user[i].img}" class="rounded-circle" style="width: 1.5rem; height: 1.5rem;">
+            ${follow_user[i].nickname}
+          </a> 
           `)
         }
       }
