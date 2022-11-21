@@ -47,7 +47,10 @@
     <div class="mt-4">
       {% if request.user.is_authenticated %}
         {% if request.user == request_user %}
-          <a href="{% url 'accounts:update' %}" class="btn btn-outline-dark w-100">정보 수정</a>
+          <form action="{% url 'accounts:update' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-outline-dark w-100" value="정보 수정">
+          </form>
         {% else %}
           <form id="follow-form" data-user-id="{{ request_user.pk }}">
             {% csrf_token %}
@@ -344,9 +347,9 @@
       const isFollowed = response.data.is_followed
       const followBtn = document.querySelector('#follow-form > input[type=submit]')
       if (isFollowed === true) {
-        followBtn.value = '팔로우'
-      } else {
         followBtn.value = '언팔로우'
+      } else {
+        followBtn.value = '팔로우'
       }
       const followersCountTag = document.querySelector('#followers-count')
       const followingsCountTag = document.querySelector('#followings-count')
@@ -357,9 +360,9 @@
       const followUser = document.querySelector('#follow-user')
       const followingUser = document.querySelector('#following-user')
       followUser.textContent = ""
+      followingUser.textContent = ""
       const follow_user = response.data.follow_user
-      console.log(follow_user[0].pk)
-      if (followersCount == 0) {
+      if (followersCount === 0) {
         followUser.insertAdjacentHTML('beforeend', `
           <p>팔로우한 사람이 없어요</p>
         `)
@@ -372,7 +375,20 @@
           `)
         }
       }
-    
+      const following_user = response.data.following_user
+      if (followingsCount === 0) {
+        followingUser.insertAdjacentHTML('beforeend', `
+          <p>팔로잉한 사람이 없어요</p>
+        `)
+      }
+      else {
+        console.log("following")
+        for (let i = 0; i < following_user.length; i++) {
+          followingUser.insertAdjacentHTML('beforeend', `
+            <a href="{% url 'accounts:profile' {{ following_user.i.pk }}" class="text-decoration-none fw-bold text-dark">${following_user[i].username}</a>   
+          `)
+        }
+      }
     })
     .catch((error) => {
       console.log(error.response)

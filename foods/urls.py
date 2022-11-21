@@ -13,6 +13,7 @@ urlpatterns = [
     path('<int:team_pk>/<int:tag_pk>/tag/', views.tag, name='tag'),
     path('<int:team_pk>/restaurant_create/', views.restaurant_create, name='restaurant_create'),
     path('<int:team_pk>/restaurant/<int:restaurant_pk>/', views.restaurant_detail, name='restaurant_detail'),
+    path('<int:team_pk>/restaurant/all/', views.restaurant_all, name='restaurant_all'),
     path('<int:team_pk>/restaurant/<int:restaurant_pk>/follow/', views.restaurant_follow, name='restaurant_follow'),
     path('<int:team_pk>/restaurant/<int:restaurant_pk>/create/', views.restaurant_review_create, name='restaurant_review_create'),
     path('<int:team_pk>/restaurant/<int:restaurant_pk>/<int:review_pk>/delete/', views.restaurant_review_delete, name='restaurant_review_delete'),

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block content %}
+<form action="{% url 'accounts:logout' %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Logout">
+</form>
+{% endblock content %}

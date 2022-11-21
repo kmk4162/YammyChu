@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <title>YammyChu</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -124,7 +123,7 @@
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:profile' request.user.pk %}">
-              <span id="user-nickname" data-user-id="{{ request.user.pk }}">{{ request.user.nickname }}님의 프로필</span>
+              <span><span id="user-nickname"data-user-id="{{ request.user.pk }}">{{ request.user.nickname }}</span>님의 프로필</span>
             </a>
           </li>
           <a class="nav-sub-menu ms-2" style='color:black;' href="{% url 'accounts:logout' %}">로그아웃</a>

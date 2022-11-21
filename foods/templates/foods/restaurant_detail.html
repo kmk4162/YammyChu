@@ -5,6 +5,7 @@
 {% bootstrap_css %}
 
 {% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
     .baseball {
       width: 2.5rem;
@@ -37,181 +38,260 @@
     #close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
-<div class='container'>
-    <div class='row d-flex justify-content-center'>
-        <div id="container">
-            <div id="rvWrapper">
-              <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
-              <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
-            </div>
-            <div id="mapWrapper">
-                <div id="map" style="width:100%; height:100%;"></div> <!-- 지도를 표시할 div 입니다 -->
-                {% comment %} <div id="map" class='my-3' style="width:100%;height:400px;"></div> {% endcomment %}
-                <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class='container'>
-    <div class='d-flex justify-content-start align-items-center my-3'>
-        <span class='h1 me-3' style="margin-bottom:0; font-size: 3rem; font-weight:500;">{{ restaurant.name }}</span>
-        {% if restaurant.restaurant_reviews.all.count == 0 %}
-        <div style="font-size:2rem;">⭐ 0</div>
-        {% else %}
-        <div style="font-size:2rem;">⭐ {{ restaurant.grade_avg|floatformat:"1" }}</div>
-        {% endif %}
-    </div>
-    <div class="d-flex justify-content-start align-items-center">
-        {% if request.user.is_authenticated %}
-            {% if request.user in restaurant.following_users.all %}
-            <div id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='baseball-fill' style="cursor:pointer"></div>
-            {% else %}
-            <div id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='baseball' style="cursor:pointer"></div>
-            {% endif %}
-        {% endif %}
-        <div style="font-size:1.5rem; margin-left: 5px;">팔로워 <b id='followers'>{{ restaurant.following_users.count }}</b></div>
-    </div>
-    <div class='d-flex justify-content-center'>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">홈</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false">리뷰 보기</button>
-            </li>
-            {% if request.user.is_authenticated %}
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="review-create-tab" data-bs-toggle="tab" data-bs-target="#review-create-tab-pane" type="button" role="tab" aria-controls="review-create-tab-pane" aria-selected="false">리뷰 작성</button>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-            <div class='my-4'>
-                <p style="font-size:1.5rem;">주소: {{ restaurant.address }}</p>
-                <p style="font-size:1.5rem;">소개: {{ restaurant.content }}</p>
-            </div>
-            {% if restaurant.restaurant_image.all.count < 4 %}
-                <div class='row'>
-                    {% for image in restaurant.restaurant_image.all %}
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <img src="{{ image.image.url }}" alt="{{ image.image }}" style="width:100%; height:246px; margin-top:2rem;"  class='rounded-4'>
+
+<div class='container mobile-active mt-0'>
+    <div class='d-flex  flex-column align-items-center'>
+        <div class='store-detail-box' style="width:100vw; max-width:760px; margin:0.6rem 0 0.6rem 0;padding:0 0 2rem 0;background-color:white;">
+            <div style="width:100vw;height:50vw; max-width:760px; max-height:300px; background-image:url('{{ restaurant_img.image.url }}'); background-position:center;"></div>
+            <div class="title-box d-flex justify-content-center align-items-center">
+                <div class='d-flex flex-column justify-content-center align-items-center fw-bold shadow-sm' style="position:relative; top:-40px; z-index:10; width:700px; height:200px; background-color:white; font-size: calc(1.5rem + 1.5vw); font-weight:500;">
+                    {{ restaurant.name }}
+                     <div class='d-flex justify-content-start align-items-center my-1'>
+                        {% if restaurant.restaurant_reviews.all.count == 0 %}
+                        <div style="font-size:1.4rem;">⭐ 0</div>
+                        {% else %}
+                        <div style="font-size:1.4rem;">⭐ {{ restaurant.grade_avg|floatformat:"1" }}</div>
+                        {% endif %}
                     </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-            <div class="slide-container swiper">
-                <div class="slide-content">
-                    <div class="card-wrapper swiper-wrapper">
-                        {% for image in restaurant.restaurant_image.all %}
-                        <div class="card swiper-slide border border-0">
-                            <img src="{{ image.image.url }}" alt="{{ image.image }}" style="width:100%; height:246px;"  class='rounded-4'>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="swiper-button-next swiper-navBtn text-white fw-bold"></div>
-                <div class="swiper-button-prev swiper-navBtn text-white fw-bold"></div>
-            </div>
-            {% endif %}
-        </div>
-        <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
-            <div class="accordion" id="accordionExample">
-                {% for review in restaurant.restaurant_reviews.all reversed %}
-                <div class="accordion-item">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
-                        <table class="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th class='col-2'>
-                                        {% if review.grade == 5 %}
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        {% elif review.grade == 4 %}
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        {% elif review.grade == 3 %}
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        {% elif review.grade == 2 %}
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        {% elif review.grade == 1 %}
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                        {% endif %}
-                                    </th>
-                                    <th class='col-6' style="width: 100%;
-                                    text-overflow: ellipsis;
-                                    overflow: hidden;
-                                    word-break: break-word;
-                                    display: -webkit-box;
-                                    -webkit-line-clamp: 1;
-                                    -webkit-box-orient: vertical;">{{ review.content }}</th>
-                                    <th class='col-2'>{{ review.user.username }}</th>
-                                    <th class='col-2'>{{ review.created_at|date:'Y.m.d A h:i' }}</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </button>
-                   
-                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            {{ review|tag_check|safe }}
-                            <div class='row'>
-                                {% for image in review.review_image.all %}
-                                <div class='col-3'>
-                                    <img class='my-2' src="{{ image.image.url }}" style='width:100%'>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            {% if request.user == review.user %}
-                            <div class='d-flex justify-content-end'>
-                                <a class='btn btn-danger' data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</a>
-                                <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          리뷰를 삭제하시겠습니까?
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
-                                          <a class="btn btn-danger" href="{% url 'foods:restaurant_review_delete' restaurant.team_id restaurant.pk review.pk %}">삭제</a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="d-flex justify-content-center">
+                        <div style="font-size:calc(1rem + 1vw); margin-left: 5px;">후기 {{ restaurant.restaurant_reviews.all.count }}•</div>
+                        <div style="font-size:calc(1rem + 1vw); margin-left: 5px;">팔로워 <b id='followers'>{{ restaurant.following_users.count }}</b>•</div>
+                        <div style="font-size:calc(1rem + 1vw); margin-left: 5px;">팔로우 :</div>
+                        <div class="d-flex justify-content-start align-items-center">
+                            {% if request.user in restaurant.following_users.all %}
+                            <div id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='baseball-fill' style="cursor:pointer"></div>
+                            {% else %}
+                            <div id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='baseball' style="cursor:pointer"></div>
                             {% endif %}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="px-5">
+                <div class="fw-bold py-1" style="font-size:23px;"><span class="material-symbols-outlined">
+                    location_on
+                    </span>위치 정보</div>
+                <div class="d-flex align-itmes-center">
+                    <p style="font-size:20px;">
+                    {{ restaurant.address }}</p>
+                </div>
+            </div>
+        </div>
+        <div class='store-detail-box' style="width:100vw; max-width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">
+            <div class="px-5">
+                <p class="fw-bold" style="font-size:25px;"><span class="material-symbols-outlined">
+                rate_review
+                </span>내용</p>
+                <div class="d-flex align-itmes-center">
+                    <p style="font-size:20px;">
+                    {{ restaurant.content }}</p>
+                </div>
+            </div>
+        </div>
+        <div class='store-detail-box' style="width:100vw; max-width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">
+            <div class="px-5">
+                <p class="fw-bold" style="font-size:20px;">사진</p>
+                <div class="row">
+                {% for image in restaurant.restaurant_image.all %}
+                    <img class="col-12 col-sm-6" src="{{ image.image.url }}" alt="{{ image.image }}" style="padding:2px; width:41vw; max-width:342px; height:41vw; max-height:342px;">
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class='store-detail-box' style="width:100vw; max-width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">
+            <div class="px-5">
+                <div class="d-flex justify-content-between">
+                    <div class="row w-100">
+                        <div class='col-12 col-md-5'>
+                            <p class="fw-bold" style="font-size:20px;">리뷰</p>
+                            <p class="my-1">{{user.username}}님 후기를 남겨주세요.</p>
+                        </div>
+                        <!-- Button trigger modal -->
+                        <form action="{% url 'foods:restaurant_review_create' restaurant.team_id restaurant.pk %}" id="myform" class="me-3 pe-5 col-12 col-md-6">
+                            <fieldset class="my-1">
+                                <input class="open-Star" type="button" name="star" value="5" id="rate1" data-id="5" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate1">⭐</label>
+                                <input class="open-Star" type="button" name="star" value="4" id="rate2" data-id="4" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate2">⭐</label>
+                                <input class="open-Star" type="button" name="star" value="3" id="rate3" data-id="3" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate3">⭐</label>
+                                <input class="open-Star" type="button" name="star" value="2" id="rate4" data-id="2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate4">⭐</label>
+                                <input class="open-Star" type="button" name="star" value="1" id="rate5" data-id="1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate5">⭐</label>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                <form action="{% url 'foods:restaurant_review_create' restaurant.team_id restaurant.pk %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <a type="a" class="secondary" data-bs-dismiss="modal" style="text-decoration:none; color:black;">취소</a>
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{restaurant.name}}</h1>
+                                        <button id="review-btn d-flex align-self-center" style="width:40px; text-decoration:none; background-color:#00000000; border:0; color:rgb(57,125,246);" type="submit">등록</button>
+                                    </div>
+                                    <hr>
+                                    {% bootstrap_form review_form %}
+                                    {% bootstrap_form reviewimage_form %}
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='store-detail-box' style="width:100vw; max-width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">                    
+            <div class="px-5">
+                <p class="fw-bold" style="font-size:20px;">전체•<span style="color:skyblue; font-size:20px;">{{restaurant.restaurant_reviews.all.count}}<span></p>
+                <div class="d-flex">
+                    {% if restaurant.restaurant_reviews.all.count == 0 %}
+                    <div style="font-size:1.4rem; margin-right:10px;">⭐ 0</div>
+                    {% else %}
+
+                    
+                    <div style="transform:scale(1.5);" class="ms-4 mt-1">
+                        {% if restaurant.grade_avg >= 5 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {% elif restaurant.grade_avg >= 4 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif restaurant.grade_avg >= 3 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif restaurant.grade_avg >= 2 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif restaurant.grade_avg >= 1 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% endif %}
+                        
+                    </div>
+                    
+                </div>
+                {% endif %}
+                {% for review in restaurant.restaurant_reviews.all reversed %}
+                <hr>
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <div style="font-size:16px; font-weight:bold;"><img src="{{ review.user.team.logo.url }}" alt="" style="width: 30px; height: 30px; margin-right:5px;">{{ review.user.username }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span></div>
+                        <div class="btn" style="position:relative; right:0;" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <span class="material-symbols-outlined">
+                            more_vert
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        {% if review.grade >= 5 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        {% elif review.grade >= 4 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif review.grade >= 3 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif review.grade >= 2 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% elif review.grade >= 1 %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        <i class="bi bi-star-fill text-secondary"></i>
+                        {% endif %}
+                    </div>
+                </div>
+                {{ review|tag_check|safe }}
+                <div class='row'>
+                    {% for image in review.review_image.all %}
+                    <div class='col-3'>
+                        <img class='my-2' src="{{ image.image.url }}" style='width:100%'>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if request.user == review.user%}
+                <div class='d-flex justify-content-end'>
+                    <button style="text-decoration:none;" class="badge rounded-pill text-bg-dark" data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</button>
+                    <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="delete{{ review.pk }}label">리뷰 삭제</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            리뷰를 삭제하시겠습니까?
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+                            <a class="btn btn-danger" href="{% url 'foods:restaurant_review_delete' restaurant.team_id restaurant.pk review.pk %}">삭제</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                             
                 {% endfor %}
             </div>
         </div>
-        <div class="tab-pane fade" id="review-create-tab-pane" role="tabpanel" aria-labelledby="review-create-tab" tabindex="0">
-            <form action="{% url 'foods:restaurant_review_create' restaurant.team_id restaurant.pk %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_form review_form %}
-                {% bootstrap_form reviewimage_form %}
-                <div class="d-flex justify-content-end">
-                    <button id="review-btn" type="submit">작성하기</button>
+        <div class='store-detail-box' style="width:100vw; max-width:760px; margin:0.6rem 0 0.6rem 0;padding:0 0 2rem 0;background-color:white;">
+            <div class='px-5'>
+                <div class='col-12 col-md-5 mt-5'>
+                    <p class="fw-bold" style="font-size:20px; pt-0">로드뷰</p>
+                    <p class="my-3">로드뷰 버튼으로 위치를 확인하세요</p>
                 </div>
-            </form>
+                <div class='row d-flex justify-content-center'>
+                    <div id="container">
+                        <div id="rvWrapper">
+                        <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
+                        <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
+                        </div>
+                        <div id="mapWrapper">
+                            <div id="map" style="width:100%; height:100%;"></div> <!-- 지도를 표시할 div 입니다 -->
+                            {% comment %} <div id="map" class='my-3' style="width:100%;height:400px;"></div> {% endcomment %}
+                            <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>  
+    </div>
 </div>
+
+
 
 <!-- JavaScript Bundle with Popper -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>

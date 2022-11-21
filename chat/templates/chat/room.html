@@ -3,7 +3,86 @@
 {% load static %}
 
 {% block content %}
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
+a {
+    text-decoration: none;
+}
+
+.wrap {
+}
+
+.wrap .chat {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.wrap .chat .icon {
+    position: relative;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.wrap .chat .icon i {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    font-size: 2.5rem;
+    color: #aaa;
+    transform: translateX(-50%);
+}
+
+.wrap .chat .textbox {
+    position: relative;
+    display: inline-block;
+    max-width: calc(100% - 70px);
+    padding: 10px;
+    margin-top: 7px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+
+.wrap .chat .textbox::before {
+    position: absolute;
+    display: block;
+    top: 0;
+    font-size: 1.5rem;
+}
+
+.wrap .ch1 .textbox {
+    margin-left: 20px;
+    background-color: #ddd;
+}
+
+.wrap .ch1 .textbox::before {
+    left: -15px;
+    content: "◀";
+    color: #ddd;
+}
+
+.wrap .ch2 {
+    flex-direction: row-reverse;
+}
+
+.wrap .ch2 .textbox {
+    margin-right: 20px;
+    background-color: #F9EB54;
+}
+
+.wrap .ch2 .textbox::before {
+    right: -15px;
+    content: "▶";
+    color: #F9EB54;
+}
+</style>
 
 <section style="container">
     <div class="container py-3">
@@ -13,7 +92,7 @@
       </h1>
       <p class="text-center mb-5">자유롭게 실시간 채팅을 해보세요</p>
       <div class="row d-flex justify-content-center">
-        <div class="col-9">
+        <div class="col-12 col-lg-9">
           <div class="bg-white p-3 rounded-1" style="border: 0.3rem solid {{ team.color }}">
             <div class="card-header text-center p-3">
               <h5 class="mb-0"></h5>
@@ -32,7 +111,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-12 col-lg-3 mt-3 mt-lg-0">
           <div class="bg-white p-3 rounded-1 h-100" style="border: 0.3rem solid {{ team.color }}">
             <h5 class="text-center">채팅 참여자 목록</h5>
             <hr>
@@ -60,6 +139,7 @@
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             const userId = document.querySelector('#user-nickname').dataset.userId;
+            const userNickname = document.querySelector('#user-nickname').innerText
             chatLog = document.querySelector('#chat-log')
             const new_msg = data.message.split(':')
             const chatPart = document.querySelector('#chat-part');
@@ -77,13 +157,36 @@
               }
             }
             else {
-              chatLog.insertAdjacentHTML(`beforeend`, `
-                <div>
-                  <a href="/accounts/${ new_msg[2] }" class="text-decoration-none text-dark"><span class="fw-bold"> ${new_msg[0]}</span>님</a>
-                  |
-                  <span>${new_msg[1]}</span>
+              if (userNickname == new_msg[0]) {
+                chatLog.insertAdjacentHTML(`beforeend`, `
+                <div class="wrap">
+                  <div class="chat ch2">
+                    <a href="/accounts/${ new_msg[2] }/" class="text-decoration-none text-dark">
+                      <div class="d-flex flex-column" >
+                        <span class="fw-bol"> ${new_msg[0]}</span>
+                        <img style="width: 2rem; height: 2rem;" src="https://cdn-icons-png.flaticon.com/512/694/694606.png"></img>
+                      </div>
+                    </a>
+                    <span class="textbox">${new_msg[1]}</span>
+                  </div>
                 </div>
               `)
+              }
+              else {
+                chatLog.insertAdjacentHTML(`beforeend`, `
+                <div class="wrap">
+                  <div class="chat ch1">
+                    <a href="/accounts/${ new_msg[2] }/" class="text-decoration-none text-dark">
+                      <div class="d-flex flex-column" >
+                        <span class="fw-bol"> ${new_msg[0]}</span>
+                        <img style="width: 2rem; height: 2rem;" src="https://cdn-icons-png.flaticon.com/512/1729/1729943.png"></img>
+                      </div>
+                    </a>
+                    <span class="textbox">${new_msg[1]}</span>
+                  </div>
+                </div>
+              `)
+              }
             }
             document.getElementById('chat-log').scrollTop = document.getElementById('chat-log').scrollHeight;
         };

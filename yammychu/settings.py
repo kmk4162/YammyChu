@@ -107,6 +107,7 @@ WSGI_APPLICATION = 'yammychu.wsgi.application'
 
 DEBUG = os.getenv("DEBUG") == "True"
 
+
 if DEBUG:
     DATABASES = {
         'default': {
