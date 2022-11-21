@@ -142,6 +142,7 @@ def password(request):
     }
     return render(request, 'accounts/password.html', context)
 
+@login_required
 def delete(request):
     request.user.delete()
     auth_logout(request)

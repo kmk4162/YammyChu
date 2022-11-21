@@ -6,8 +6,8 @@
 <h1 class='text-center my-5'>{{ tag.content }}</h1>
 <div class='container'>
     <div class='row'>
-        <div class='col-6'>
-            <h2 class='text-center mb-5'>{{ team.name }} 구장 내 매점</h2>
+        <div class='col-12 col-md-6'>
+            <h2 class='text-center mb-5'>{{ team.stadium.name }} 내 매점</h2>
             <div class="accordion" id="accordionExample">
                 {% for review in reviews_store %}
                 <div class="accordion-item">
@@ -46,7 +46,7 @@
                                     -webkit-line-clamp: 1;
                                     -webkit-box-orient: vertical;">{{ review.content }}</th>
                                     <th class='col-2'>{{ review.user.username }}</th>
-                                    <th class='col-3'>{{ review.created_at|date:'m.d A h:i' }}</th>
+                                    <th class='col-3'>{{ review.store_name.name }}</th>
                                 </tr>
                             </thead>
                         </table>
@@ -103,12 +103,12 @@
                 {% endfor %}
             </div>
         </div>
-        <div class='col-6'>
-            <h2 class='text-center mb-5'>{{ team.name }} 구장 외부 맛집</h2>
+        <div class='col-12 col-md-6'>
+            <h2 class='text-center mb-5'>{{ team.stadium.name }} 외부 맛집</h2>
             <div class="accordion" id="accordionExample">
                 {% for review in reviews_restaurant %}
                 <div class="accordion-item">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}1" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}1">
                         <table class="table table-borderless">
                             <thead>
                                 <tr>
@@ -143,7 +143,7 @@
                                     -webkit-line-clamp: 1;
                                     -webkit-box-orient: vertical;">{{ review.content }}</th>
                                     <th class='col-2'>{{ review.user.username }}</th>
-                                    <th class='col-3'>{{ review.created_at|date:'m.d A h:i' }}</th>
+                                    <th class='col-3'>{{ review.restaurant_name.name }}</th>
                                 </tr>
                             </thead>
                         </table>
@@ -151,7 +151,7 @@
                         
             
                 
-                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+                    <div id="collapse{{ forloop.counter }}1" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             {% if review.restaurant_name == None %}
                             <h3><a class='text-decoration-none text-dark' href="{% url 'foods:store_detail' team.pk review.store_name.pk %}">{{ review.store_name.name }}</a></h3>
