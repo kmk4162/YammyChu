@@ -44,51 +44,59 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
 
 
-<div class='container mobile-active mt-0'>
+<div class='container mt-3'>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'articles:index' %}" style="color:black; font_weight:bold;">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'foods:home' team.pk %}" style="color:black; font_weight:bold;">{{ team.name}}의 먹거리</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ restaurant.name }}</li>
+  </ol>
+</nav>
     <div class='d-flex  flex-column align-items-center'>
         <div class='store-detail-box' style="width:100vw; max-width:760px; margin:0.6rem 0 0.6rem 0;padding:0 0 2rem 0;background-color:white;">
             <div style="width:100vw;height:50vw; max-width:760px; max-height:400px; background-image:url('{{ restaurant_img.image.url }}'); background-position:center;"></div>
-            <div class="title-box d-flex justify-content-center align-items-center">
-                <div class='d-flex flex-column justify-content-center align-items-center fw-bold shadow-sm' style="position:relative; top:-40px; z-index:10; width:700px; height:200px; background-color:white; font-size: calc(1.5rem + 1.5vw); font-weight:500;">
-                    {{ restaurant.name }}
-                     <div class='d-flex justify-content-start align-items-center my-1'>
-                        {% if restaurant.restaurant_reviews.all.count == 0 %}
-                        <div style="font-size:1.4rem;">⭐ 0</div>
-                        {% else %}
-                        <div style="font-size:1.4rem;">⭐ {{ restaurant.grade_avg|floatformat:"1" }}</div>
-                        {% endif %}
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div style="font-size:calc(0.8rem + 1vw); margin-left: 5px;">후기 {{ restaurant.restaurant_reviews.all.count }}•</div>
-                        <div style="font-size:calc(0.8rem + 1vw); margin-left: 5px;">팔로워 <b id='followers'>{{ restaurant.following_users.count }}</b>•</div>
-                        <div style="font-size:calc(0.8rem + 1vw); margin-left: 5px;">팔로우 :</div>
-                        <div class="d-flex justify-content-start align-items-center">
-                            {% if request.user in restaurant.following_users.all %}
-                            <div id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='baseball-fill' style="cursor:pointer"></div>
+                <div class="title-box d-flex justify-content-center align-items-center">
+                    <div class='d-flex flex-column justify-content-center align-items-center fw-bold shadow-sm' style="position:relative; top:-40px; z-index:10; width:700px; height:200px; background-color:white; font-size: calc(1.5rem + 1.5vw); font-weight:500;">
+                        {{ restaurant.name }}
+                        <div class='d-flex justify-content-start align-items-center my-1'>
+                            {% if restaurant.restaurant_reviews.all.count == 0 %}
+                            <div style="font-size:1.4rem;">⭐ 0</div>
                             {% else %}
-                            <div id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='baseball' style="cursor:pointer"></div>
+                            <div style="font-size:1.4rem;">⭐ {{ restaurant.grade_avg|floatformat:"1" }}</div>
                             {% endif %}
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div style="font-size:calc(0.8rem + 1vw); margin-left: 5px;">후기 {{ restaurant.restaurant_reviews.all.count }}•</div>
+                            <div style="font-size:calc(0.8rem + 1vw); margin-left: 5px;">팔로워 <b id='followers'>{{ restaurant.following_users.count }}</b>•</div>
+                            <div style="font-size:calc(0.8rem + 1vw); margin-left: 5px;">팔로우 :</div>
+                            <div class="d-flex justify-content-start align-items-center">
+                                {% if request.user in restaurant.following_users.all %}
+                                <div id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='baseball-fill' style="cursor:pointer"></div>
+                                {% else %}
+                                <div id='follow' data-restaurant-id='{{ restaurant.pk }}' data-team-id='{{ restaurant.team.pk }}' class='baseball' style="cursor:pointer"></div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="px-5">
-                <div class="fw-bold py-1" style="font-size:23px;">위치 정보<span class="material-symbols-outlined">
+                <div class="fw-bold py-1 d-flex align-items-center" style="font-size:20px;">위치 정보<span class="material-symbols-outlined">
                     location_on
-                    </span></div>
-                <div class="d-flex align-itmes-center">
-                    <p style="font-size:20px;">
+                    </span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <p style="font-size:16px;">
                     {{ restaurant.address }}</p>
                 </div>
             </div>
         </div>
         <div class='store-detail-box' style="width:100vw; max-width:760px; margin:0.6rem 0 0.6rem 0;padding:2rem 0 2rem 0;background-color:white;">
             <div class="px-5">
-                <p class="fw-bold" style="font-size:25px;">내용<span class="material-symbols-outlined">
+                <p class="fw-bold d-flex align-items-center" style="font-size:20px;">내용<span class="material-symbols-outlined">
                 rate_review
                 </span></p>
-                <div class="d-flex align-itmes-center">
-                    <p style="font-size:20px;">
+                <div class="d-flex align-items-center">
+                    <p style="font-size:16px;">
                     {{ restaurant.content }}</p>
                 </div>
             </div>
@@ -152,8 +160,6 @@
                     {% if restaurant.restaurant_reviews.all.count == 0 %}
                     <div style="font-size:1.4rem; margin-right:10px;">⭐ 0</div>
                     {% else %}
-
-                    
                     <div style="transform:scale(1.5);" class="ms-4 mt-1">
                         {% if restaurant.grade_avg >= 5 %}
                         <i class="bi bi-star-fill text-warning"></i>
@@ -189,8 +195,8 @@
                         
                     </div>
                     
-                </div>
                 {% endif %}
+                </div>
                 {% for review in restaurant.restaurant_reviews.all reversed %}
                 <hr>
                 <div>

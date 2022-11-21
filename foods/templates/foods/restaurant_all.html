@@ -28,15 +28,22 @@
 
 
 {% block content %}
-<div class="container slide-in" id="page2" >
-    <div class="container">
+<div class="container mt-0 slide-in" id="page2" >
+    <div class="container mt-3">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'articles:index' %}" style="color:black; font_weight:bold;">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'foods:home' team.pk %}" style="color:black; font_weight:bold;">{{ team.name}}의 먹거리</a></li>
+        <li class="breadcrumb-item active" aria-current="page">구장 밖 음식점</li>
+    </ol>
+    </nav>
         <div class="justify-content-center d-flex align-items-center">
           <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
           <div class="d-flex flex-column mt-3">
             <a class="text-decoration-none text-black" href="{% url 'foods:home' team.pk %}">
                 <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
             </a>
-            <p class="" style="color:gray; font-size:1.2rem;">{{ team.name }}근처의 식당 정보🍕</p>
+            <p class="" style="color:gray; font-size:calc(0.8rem + 0.5vw);">{{ team.name }}근처의 식당 정보🍕</p>
           </div>
         </div>
         <div class="symbol mb-3">
@@ -46,7 +53,7 @@
     <div class="container text-center py-3" style="border-top: 0.5rem solid {{ team.color }}; border-bottom: 0.5rem solid {{ team.color }}">
         <div class="d-flex flex-column">    
             <h2 class="fw-bold" style="font-size:2.5rem;">구장 밖 음식점</h2>
-            <p class="" style="color:gray; font-size:1.2rem;">구장 밖 맛집 정보🍔</p>
+            <p class="" style="color:gray; font-size:calc(0.8rem + 0.5vw);">구장 밖 맛집 정보🍔</p>
             <a class='btn align-self-end' style="border-width:3px; border-color:{{ team.color }};" href='{% url "foods:restaurant_create" team.pk %}'>가게 추가하기</a>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex justify-content-around p-3">
