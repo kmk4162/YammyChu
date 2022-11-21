@@ -141,11 +141,12 @@ def store_review_delete(request, team_pk, store_pk, review_pk):
 def restaurant_detail(request, team_pk, restaurant_pk):
     team = Team.objects.get(pk=team_pk)
     restaurant = Restaurant.objects.annotate(grade_avg=Avg('restaurant_reviews__grade')).get(pk=restaurant_pk, team=team)
+    restaurant_img = RestaurantImage.objects.get(restaurant_id = restaurant_pk)
     lat = float(restaurant.lat)
     lon = float(restaurant.lon)
     review_form = ReviewForm()
     reviewimage_form = ReviewImageForm()
-    context = {'team': team, 'restaurant': restaurant, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
+    context = {'team': team, 'restaurant': restaurant, 'restaurant_img' : restaurant_img, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/restaurant_detail.html', context)
 
 @require_safe
