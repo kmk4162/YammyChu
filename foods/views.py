@@ -10,7 +10,9 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.db.models import Count, Avg
+from django.views.decorators.http import require_http_methods, require_POST, require_safe
 
+@require_safe
 def home(request, team_pk):
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
@@ -18,7 +20,7 @@ def home(request, team_pk):
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
         stores = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=middle[1])
-        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=middle[1])
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=middle[0])|Q(team=middle[1]))
     else:
         stores = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(team=team)
         restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=team)
@@ -26,7 +28,6 @@ def home(request, team_pk):
     store_review = stores.order_by('-cnt_reviews')[:5]
     store_following = stores.order_by('-cnt_followings')[:5]
     store_grade = stores.order_by('-avg_grade')[:5]
-
     restaurant_review = restaurant.order_by('-cnt_reviews')[:5]
     restaurant_following = restaurant.order_by('-cnt_followings')[:5]
     restaurant_grade = restaurant.order_by('-avg_grade')[:5]
@@ -46,6 +47,7 @@ def home(request, team_pk):
     }
     return render(request, "foods/home.html", context)
 
+@require_safe
 def store_detail(request, team_pk, store_pk):
     team = Team.objects.get(pk=team_pk)
     store = Store.objects.annotate(grade_avg=Avg('store_reviews__grade')).get(pk=store_pk, team=team)
@@ -58,6 +60,7 @@ def store_detail(request, team_pk, store_pk):
     context = {'team': team, 'store': store, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon, 'items': items,}
     return render(request, 'foods/store_detail.html', context)
 
+@require_safe
 def store_all(request, team_pk):
     page = request.GET.get("page", "1")
     team = Team.objects.get(pk=team_pk)
@@ -76,8 +79,7 @@ def store_all(request, team_pk):
     }
     return render(request, "foods/store_all.html", context)
 
-
-@login_required
+@require_POST
 def store_follow(request, team_pk, store_pk):
     store = Store.objects.get(pk=store_pk)
     if request.user in store.following_users.all():
@@ -126,7 +128,7 @@ def store_review_create(request, team_pk, store_pk):
     }
     return render(request, "foods/store_detail.html", context)
 
-@ login_required
+@require_POST
 def store_review_delete(request, team_pk, store_pk, review_pk):
     team = Team.objects.get(pk=team_pk)
     review = Review.objects.get(pk=review_pk)
@@ -134,6 +136,7 @@ def store_review_delete(request, team_pk, store_pk, review_pk):
     review.delete()
     return redirect("foods:store_detail", team.pk, store.pk)
 
+@require_safe
 def restaurant_detail(request, team_pk, restaurant_pk):
     team = Team.objects.get(pk=team_pk)
     restaurant = Restaurant.objects.annotate(grade_avg=Avg('restaurant_reviews__grade')).get(pk=restaurant_pk, team=team)
@@ -145,13 +148,14 @@ def restaurant_detail(request, team_pk, restaurant_pk):
     context = {'team': team, 'restaurant': restaurant, 'restaurant_img' : restaurant_img, 'review_form': review_form, 'reviewimage_form': reviewimage_form, 'lat': lat, 'lon': lon}
     return render(request, 'foods/restaurant_detail.html', context)
 
+@require_safe
 def restaurant_all(request, team_pk):
     page = request.GET.get("page", "1")
     team = Team.objects.get(pk=team_pk)
     stadium = Stadium.objects.get(pk=team.stadium_id)
     if team.pk == 3:
         middle = Team.objects.filter(stadium_id=team.stadium_id)
-        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=middle[1])
+        restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=middle[0])|Q(team=middle[1]))
     else:
         restaurant = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(team=team)
     paginator = Paginator(restaurant, 8)
@@ -162,7 +166,6 @@ def restaurant_all(request, team_pk):
         "stadium":stadium,
     }
     return render(request, "foods/restaurant_all.html", context)
-
 
 @login_required
 def restaurant_follow(request, team_pk, restaurant_pk):
@@ -209,7 +212,7 @@ def restaurant_create(request, team_pk):
     }
     return render(request, "foods/restaurant_create.html", context)
 
-@login_required
+@require_POST
 def restaurant_review_create(request, team_pk, restaurant_pk):
     team = Team.objects.get(pk=team_pk)
     restaurant = Restaurant.objects.get(pk=restaurant_pk, team=team)
@@ -242,7 +245,7 @@ def restaurant_review_create(request, team_pk, restaurant_pk):
     }
     return render(request, "foods/restaurant_detail.html", context)
 
-@ login_required
+@require_POST
 def restaurant_review_delete(request, team_pk, restaurant_pk, review_pk):
     team = Team.objects.get(pk=team_pk)
     review = Review.objects.get(pk=review_pk)
@@ -257,14 +260,15 @@ def tag(request, team_pk, tag_pk):
     tag = Tag.objects.get(pk=tag_pk)
     store = Store.objects.filter(team=team)
     restaurant = Restaurant.objects.filter(team=team)
-    reviews = []
+    reviews_store = []
+    reviews_restaurant = []
     for review in tag.tag_articles.all():
         if review.store_name in store:
-            reviews.append(review)
+            reviews_store.append(review)
     for review in tag.tag_articles.all():
         if review.restaurant_name in restaurant:
-            reviews.append(review)
-    context={'team': team, 'tag': tag, 'reviews': reviews}
+            reviews_restaurant.append(review)
+    context={'team': team, 'tag': tag, 'reviews_store': reviews_store, 'reviews_restaurant': reviews_restaurant}
     return render(request, 'foods/tag.html', context)
 
 def search(request, team_pk):
@@ -277,10 +281,12 @@ def search(request, team_pk):
         result = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
     # 외부 가게
     elif field == "2":
-        result = Restaurant.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
+        result = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
     # 리뷰
     elif field == "3":
-        result = Review.objects.filter(Q(team=team) & (Q(content__contains=searched))).order_by("-pk")
+        hashtag_pk = Tag.objects.get(content=searched).pk
+        print(hashtag_pk)
+        return redirect('foods:tag', team_pk, hashtag_pk)
     if not searched:
         result = []
         text = "검색어를 입력하세요."
@@ -294,6 +300,7 @@ def search(request, team_pk):
         "text": text,
         'field': field,
         'team' : team,
+        "team_pk": team_pk,
         'searched': searched,
         'stadium': stadium,
     }

@@ -10,6 +10,7 @@ from django.contrib.auth import (
 from django.contrib.auth.decorators import login_required
 from articles.models import Team
 from django.http import JsonResponse, QueryDict
+from django.views.decorators.http import require_http_methods, require_POST, require_safe
 
 def signup(request):
     teams = Team.objects.all()
@@ -28,10 +29,6 @@ def signup(request):
         "teams":teams,
     }
     return render(request, "accounts/signup.html", context)
-
-
-
-
 
 def login(request):
     if request.method == "POST":
@@ -77,6 +74,7 @@ def profile(request, pk):
         }
     return render(request, 'accounts/profile.html', context)
 
+@require_POST
 def follow(request, pk):
     if request.user.is_authenticated:
         user = User.objects.get(pk=pk)
@@ -108,16 +106,18 @@ def follow(request, pk):
         return redirect('accounts:profile', user.pk)
     return redirect('accounts:login')
 
+@require_POST
 def update(request):
     teams = Team.objects.all()
     user = User.objects.get(pk=request.user.pk)
     if request.method == 'POST':
-        form = CustomUserChangeForm(data=request.POST, instance=request.user)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.team = Team.objects.get(pk=int(request.POST.get("team")))
-            user.save()
-            return redirect('accounts:profile', request.user.pk)
+        if request.user.is_authenticated:
+            form = CustomUserChangeForm(data=request.POST, instance=request.user)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.team = Team.objects.get(pk=int(request.POST.get("team")))
+                user.save()
+                return redirect('accounts:profile', request.user.pk)
     else:
         form = CustomUserChangeForm(instance=user)
     context = {
@@ -126,13 +126,15 @@ def update(request):
     }
     return render(request, 'accounts/update.html', context)
 
+@login_required
 def password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect('accounts:profile', request.user.pk)
+    if request.method == 'POST' :
+        if request.user.is_authenticated:
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                auth_login(request, user)
+                return redirect('accounts:profile', request.user.pk)
     else:
         form = PasswordChangeForm(request.user)
     context = {
@@ -140,6 +142,7 @@ def password(request):
     }
     return render(request, 'accounts/password.html', context)
 
+@login_required
 def delete(request):
     request.user.delete()
     auth_logout(request)

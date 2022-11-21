@@ -3,53 +3,128 @@
 {% load tag_check %}
 {% load static %}
 {% block content %}
-<h2 class='text-center my-5 fw-bold'>{{ team.name }} 구장의 "{{ searched }}" 매점 {{ text }}</h2>
-<div class="container slide-in" id="page2" >
-  <div class="symbol d-flex">
-    <img class="team_logo" src="{{ team.logo.url }}" alt="">
+<div class="container">
+  {% if field == '1' %}
+    <div class="justify-content-center d-flex align-items-center">
+      <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
+      <div class="d-flex flex-column mt-3">
+        <a class="text-decoration-none text-black" href="{% url 'foods:home' team.pk %}">
+            <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
+        </a>
+        <p class="" style="color:gray; font-size:1.2rem;">"{{ searched }}" 매점 정보🍕</p>
+      </div>
+    </div>
+    <div class="symbol mb-3">
+      <div id="map" style="width:100%;height:400px;"></div>
+    </div>
+    <div class="container text-center py-3" style="border-top: 0.5rem solid {{ team.color }}; border-bottom: 0.5rem solid {{ team.color }}">
+    <div class="row g-4 d-flex justify-content-around p-3">
+      {% if result %}
+        {% for r in result %}
+          <div class="col-8 col-sm-7 col-md-5 col-lg-3 col-xl-3 mx-0  d-flex justify-content-center p-1">
+            <div class="border border-1 bg-white p-0 position-relative train-card">
+              <a href="{% url 'foods:store_detail' team.pk r.pk %}">
+                {% for image in r.store_image.all %}
+                  {% if forloop.counter == 1 %}
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                  {% endif %}
+                {% endfor %}
+              </a>
+              <div class="card-body py-2 border-top mb-5">
+                <h5 class="card-title text-center my-3">{{ r.name }}</h5>
+                <p class="card-text small mx-3">
+                {{ r.items }}
+                </p>
+              </div>
+              <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                <p class="small m-0 text-center">{{ r.team.stadium.name}}</p>
+                <p class="small m-0 text-center">
+                  {% if r.cnt_followings %}
+                  <span class='small m-0'>팔로우 {{ r.cnt_followings }}</span>
+                  {% else %}
+                  <span class='small m-0'>팔로우가 없습니다</span>
+                  {% endif %}
+                </p>
+                <p class="small m-0 text-center">
+                  {% if r.store_reviews.all.count == 0 %}
+                    <span class='small m-0'>평가가 없습니다</span>
+                  {% else %}
+                  {% for i in ""|ljust:r.avg_grade %}
+                    <span>⭐</span>
+                  {% endfor %}
+                    <span>{{ r.avg_grade }}({{ r.cnt_reviews }}명 평가)</span>
+                  {% endif %}
+                  </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        {% else %}
+        <h3 class="">"{{ searched }}" 검색결과가 없습니다</h3>
+      {% endif %}
+      </div>
+    </div>
+  {% elif field == '2' %}
+  <div class="justify-content-center d-flex align-items-center">
+    <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
+    <div class="d-flex flex-column mt-3">
+      <a class="text-decoration-none text-black" href="{% url 'foods:home' team.pk %}">
+          <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
+      </a>
+      <p class="" style="color:gray; font-size:1.2rem;">"{{ searched }}" 주변 맛집 정보🍕</p>
+    </div>
+  </div>
+  <div class="symbol mb-3">
     <div id="map" style="width:100%;height:400px;"></div>
   </div>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex  p-3">
-    {% for r in result %}
-      <div class="d-flex justify-content-center p-1">
-        <div class="border border-1 rounded-1 bg-white p-3 h-100 position-relative">
-          <a href="{% url 'foods:store_detail' team.pk r.pk %}">
-            {% for image in r.store_image.all %}
-              {% if forloop.counter == 1 %}
-                <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-              {% endif %}
-            {% endfor %}
-          </a>
-          <div class="card-body py-2 border-top mb-5">
-            <h5 class="card-title text-center">{{ r.name }}</h5>
-            <p class="card-text small text-center">
-            {{ r.items }}
-            </p>
-          </div>
-          <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
-            <p class="small m-0 text-center">{{ r.team.stadium.name}}</p>
-            <p class="small m-0 text-center">
-              {% if r.cnt_followings %}
-              <span class='small m-0'>팔로우 {{ r.cnt_followings }}</span>
-              {% else %}
-              <span class='small m-0'>팔로우가 없습니다</span>
-              {% endif %}
-            </p>
-            <p class="small m-0 text-center">
-              {% if r.store_reviews.all.count == 0 %}
-                <span class='small m-0'>평가가 없습니다</span>
-              {% else %}
-              {% for i in ""|ljust:r.avg_grade %}
-                <span>⭐</span>
+  <div class="container text-center py-3" style="border-top: 0.5rem solid {{ team.color }}; border-bottom: 0.5rem solid {{ team.color }}">
+  <div class="row g-4 d-flex justify-content-around p-3">
+    {% if result %}
+      {% for r in result %}
+        <div class="col-8 col-sm-7 col-md-5 col-lg-3 col-xl-3 mx-0  d-flex justify-content-center p-1">
+          <div class="border border-1 bg-white p-0 position-relative train-card">
+            <a href="{% url 'foods:restaurant_detail' team.pk r.pk %}">
+              {% for image in r.restaurant_image.all %}
+                {% if forloop.counter == 1 %}
+                  <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                {% endif %}
               {% endfor %}
-                <span>{{ r.avg_grade }}({{ r.cnt_reviews }}명 평가)</span>
-              {% endif %}
+            </a>
+            <div class="card-body py-2 border-top mb-5">
+              <h5 class="card-title text-center my-3">{{ r.name }}</h5>
+              <p class="card-text small mx-3">
+              {{ r.address }}
               </p>
+            </div>
+            <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+              <p class="small m-0 text-center">{{ r.team.stadium.name}}</p>
+              <p class="small m-0 text-center">
+                {% if r.cnt_followings %}
+                <span class='small m-0'>팔로우 {{ r.cnt_followings }}</span>
+                {% else %}
+                <span class='small m-0'>팔로우가 없습니다</span>
+                {% endif %}
+              </p>
+              <p class="small m-0 text-center">
+                {% if r.restaurant_reviews.all.count == 0 %}
+                  <span class='small m-0'>평가가 없습니다</span>
+                {% else %}
+                {% for i in ""|ljust:r.avg_grade %}
+                  <span>⭐</span>
+                {% endfor %}
+                  <span>{{ r.avg_grade }}({{ r.cnt_reviews }}명 평가)</span>
+                {% endif %}
+                </p>
+            </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+      {% else %}
+      <h3 class="">"{{ searched }}" 검색결과가 없습니다</h3>
+    {% endif %}
+    </div>
   </div>
+  {% endif %}
 </div>
 
 {% block script %}
@@ -69,6 +144,7 @@ var positions = [];
 // 마커를 표시할 위치와 title 객체 배열입니다 
   {% for r in result %}
       var name = "{{ r.name }}";
+      console.log({{r.lat}})
       var lat = {{ r.lat }};
       var lon = {{ r.lon }};
       new_dicts['name'] = name;
