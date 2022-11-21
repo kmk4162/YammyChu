@@ -41,7 +41,7 @@
           <img class="team_logo me-2" src="{{ team.logo.url }}" style="width: 7rem; height: 7rem;" alt="">
           <div class="d-flex flex-column mt-3">
             <a class="text-decoration-none text-black" href="{% url 'foods:home' team.pk %}">
-                <h1 class="fw-bold" style="font-size:2.5rem;">{{ team.name }}<h1>
+                <h1 class="fw-bold" style="font-size:calc(1vw + 2rem);">{{ team.name }}<h1>
             </a>
             <p class="" style="color:gray; font-size:calc(0.8rem + 0.5vw);">{{ team.name }}근처의 식당 정보🍕</p>
           </div>
@@ -74,7 +74,7 @@
                     <div class="card-body py-2 border-top mb-5">
                         <h5 class="card-title text-center my-3">{{ restaurant.name }}</h5>
                         <p class="card-text small mx-3">
-                        {{ restaurant.items }}
+                        {{ restaurant.content }}
                         </p>
                     </div>
                     <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
