@@ -536,56 +536,51 @@
 
                 <!-- 한번 더 반복하기 -->
 
-                {% for review in restaurant_review %}
-                <div class='slide'>
-                  <div class="train-card bg-white p-0 position-relative">
-                    <a href="{% url 'foods:restaurant_detail' team_pk=review.team_id restaurant_pk=review.pk %}" class="text-decoration-none text-dark">
-                    {% if review.restaurant_image.all %}
-                      {% for image in review.restaurant_image.all %}
-                        {% if forloop.counter == 1 %}
-                        <img src="{{ image.image.url }}" class="card-img-top" alt="...">
-                        {% endif %}
-                      {% endfor %}
-                    {% else %}
-                      <img src="{% static 'images/logo.png' %}" class="card-img-top">
-                    {% endif %}
-                    <div class="card-body py-2 border-top">
-                      <h5 class="card-title text-center my-3">{{review.name}}</h5>
-                      <p class="card-text small mx-3">
-                        {{review.content}}
-                      </p>
-                      <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
-                        <p class="small m-0 text-center">{{ review.team.stadium.name }}</p>
-                        <p class="small m-0 text-center">
-                          {% if review.cnt_followings %}
-                          <span class='small m-0'>팔로우 {{ review.cnt_followings }}</span>
-                          {% else %}
-                          <span class='small m-0'>팔로우가 없습니다</span>
-                          {% endif %}
-                        </p>
-                        <p class="small m-0 text-center">
-                        {% if review.restaurant_reviews.all.count == 0 %}
-                        <span class='small m-0'>평가가 없습니다</span>
-                        {% else %}
-                        {% for i in ""|ljust:review.avg_grade %}
-                        <span>⭐</span>
-                        {% endfor %}
-                        <span>{{ review.avg_grade|floatformat:"1" }}({{ review.cnt_reviews }}명 평가)</span>
-                        {% endif %}
-                        </p>
-                    </div>
-                    </div>
-                  </a>
-                  </div>
-                </div>
+            {% for review in restaurant_review %}
+            <div class='slide'>
+              <div class="train-card bg-white p-0 position-relative">
+                <a href="{% url 'foods:restaurant_detail' team_pk=review.team_id restaurant_pk=review.pk %}" class="text-decoration-none text-dark">
+                {% for image in review.restaurant_image.all %}
+                  {% if forloop.counter == 1 %}
+                      <img src="{{ image.image.url }}" class="card-img-top" alt="...">
+                      {% endif %}
                 {% endfor %}
+                <div class="card-body py-2 border-top">
+                  <h5 class="card-title text-center my-3">{{review.name}}</h5>
+                  <p class="card-text small mx-3">
+                    {{review.items}}
+                  </p>
+                  <div class="position-absolute bottom-0 start-50 translate-middle-x w-100 pb-2">
+                    <p class="small m-0 text-center">{{ review.team.stadium.name }}</p>
+                    <p class="small m-0 text-center">{{ review.detail }}</p>
+                    <p class="small m-0 text-center">
+                      {% if review.cnt_followings %}
+                      <span class='small m-0'>팔로우 {{ review.cnt_followings }}</span>
+                      {% else %}
+                      <span class='small m-0'>팔로우가 없습니다</span>
+                      {% endif %}
+                    </p>
+                    <p class="small m-0 text-center">
+                    {% if review.restaurant_reviews.all.count == 0 %}
+                    <span class='small m-0'>평가가 없습니다</span>
+                    {% else %}
+                    {% for i in ""|ljust:review.avg_grade %}
+                    <span>⭐</span>
+                    {% endfor %}
+                    <span>{{ review.avg_grade|floatformat:"1" }}({{ review.cnt_reviews }}명 평가)</span>
+                    {% endif %}
+                    </p>
+                </div>
+                </div>
+              </a>
               </div>
             </div>
+            {% endfor %}
           </div>
         </div>
-        
+      </div>
     </div>
-</div>
+  </div>
 </div>
 {% block script %}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6bd32552e80c3bdb46ce44eb2fd8bdcc&libraries=services"></script>
