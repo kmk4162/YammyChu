@@ -702,7 +702,8 @@ var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerS
 var imageSize = new kakao.maps.Size(24, 35); 
 // 마커 이미지를 생성합니다    
 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    
+var ClickOverlay = null;
+
 positions.forEach(function (pos) {
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
@@ -731,7 +732,6 @@ positions.forEach(function (pos) {
     if ( {{ team.pk }} === 3) {
         content.insertAdjacentHTML('beforeend', `
         <div class="content_add">
-            <p>여기 이미지 어떻게 넣지</p>
             <div class="content_text">
                 <a class="address" href="/foods/9/store/${pos.pk}">
                     ${pos.address}
@@ -743,9 +743,8 @@ positions.forEach(function (pos) {
     else {
     content.insertAdjacentHTML('beforeend', `
     <div class="content_add">
-        <p>여기 이미지 어떻게 넣지</p>
         <div class="content_text">
-            <a class="address" href="/foods/{{ team.pk }}/store/${pos.pk}">
+            <a class="address" href="/foods/{{ team.pk }}/store/${pos.pk}/">
                 ${pos.address}
             </a>
         </div>
@@ -760,7 +759,12 @@ positions.forEach(function (pos) {
         yAnchor: 1.5,
     });
     kakao.maps.event.addListener(marker, 'click', function() {
-        overlay.setMap(map);
+      if (ClickOverlay) {
+        ClickOverlay.setMap(null);
+    }
+    overlay.setMap(map);
+    ClickOverlay = overlay;
+    map.setCenter(overlay.n)
     });
 });
 var coords = new kakao.maps.LatLng({{ stadium.lat }}, {{ stadium.lon }});
@@ -768,6 +772,7 @@ var marker = new kakao.maps.Marker({
     map: map,
     position: coords
 });
+
 {% comment %} for (var i = 0; i < positions.length; i ++) {
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new kakao.maps.InfoWindow({
