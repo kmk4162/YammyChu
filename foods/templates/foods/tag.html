@@ -87,9 +87,15 @@
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
                                         {% if review.restaurant_name == None %}
-                                        <a class="btn btn-danger" href="{% url 'foods:store_review_delete' team.pk review.store_name.pk review.pk %}">삭제</a>
+                                        <form action="{% url 'foods:store_review_delete' team.pk review.store_name.pk review.pk %}" id="myform1" method='POST'>
+                                            {% csrf_token %}
+                                            <button class="btn btn-danger">삭제</button>
+                                        </form>
                                         {% else %}
-                                        <a class="btn btn-danger" href="{% url 'foods:restaurant_review_delete' team.pk review.restaurant_name.pk review.pk %}">삭제</a>
+                                        <form action="{% url 'foods:restaurant_review_delete' team.pk review.restaurant_name.pk review.pk %}" id="myform2" method='POST'>
+                                            {% csrf_token %}
+                                            <button class="btn btn-danger">삭제</button>
+                                        </form>
                                         {% endif %}
                                         </div>
                                     </div>
