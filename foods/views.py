@@ -47,7 +47,7 @@ def home(request, team_pk):
     }
     return render(request, "foods/home.html", context)
 
-@require_safe
+@login_required
 def store_detail(request, team_pk, store_pk):
     team = Team.objects.get(pk=team_pk)
     store = Store.objects.annotate(grade_avg=Avg('store_reviews__grade')).get(pk=store_pk)
@@ -136,7 +136,7 @@ def store_review_delete(request, team_pk, store_pk, review_pk):
     review.delete()
     return redirect("foods:store_detail", team.pk, store.pk)
 
-@require_safe
+@login_required
 def restaurant_detail(request, team_pk, restaurant_pk):
     team = Team.objects.get(pk=team_pk)
     restaurant = Restaurant.objects.annotate(grade_avg=Avg('restaurant_reviews__grade')).get(pk=restaurant_pk)

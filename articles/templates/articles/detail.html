@@ -107,6 +107,7 @@
   </div>
 
   {% comment %} 댓글 작성 {% endcomment %}
+  {% if request.user.is_authenticated %}
   <form id="comment-form" data-article-id="{{ article.pk }}">
     {% csrf_token %}
     <div class="row mt-3 d-flex justify-context-space-between">
@@ -118,6 +119,7 @@
       </div>
     </div>
   </form>
+  {% endif %}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
