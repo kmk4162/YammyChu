@@ -53,31 +53,32 @@ def create(request):
     }
     return render(request, 'articles/create.html', context)
 
-@require_POST
+@login_required
 def update(request, article_pk):
     article = Article.objects.get(pk=article_pk)
-    if request.method == "POST" and request.user.is_authenticated:
-        article.updated_at = timezone.localtime()
-        article.save()
-        article_form = ArticleForm(request.POST, instance=article)
-        if article_form.is_valid():
-            article_form.save()
-            return redirect("articles:detail", article_pk)
-    else:
-        article_form = ArticleForm(instance=article)
-    context = {
-        "article_form": article_form,
-    }
-    return render(request, 'articles/update.html', context)
+    if article.user == request.user:
+        if request.method == "POST" and request.user.is_authenticated:
+            article.updated_at = timezone.localtime()
+            article.save()
+            article_form = ArticleForm(request.POST, instance=article)
+            if article_form.is_valid():
+                article_form.save()
+                return redirect("articles:detail", article_pk)
+        else:
+            article_form = ArticleForm(instance=article)
+        context = {
+            "article_form": article_form,
+        }
+        return render(request, 'articles/update.html', context)
 
-@require_POST
+@login_required
 def delete(request, article_pk):
     article = Article.objects.get(pk=article_pk)
     if request.user == article.user:
         article.delete()
-        return redirect('articles:index')
+        return redirect('articles:community')
 
-@require_POST
+@login_required
 def comments_create(request, article_pk):
     if request.user.is_authenticated:
         article = Article.objects.get(pk=article_pk)
