@@ -49,6 +49,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'articles:index' %}" style="color:black; font_weight:bold;">Home</a></li>
     <li class="breadcrumb-item"><a href="{% url 'foods:home' team.pk %}" style="color:black; font_weight:bold;">{{ team.name}}의 먹거리</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'foods:restaurant_all' team.pk %}" style="color:black; font_weight:bold;">구장 밖 음식점</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{ restaurant.name }}</li>
   </ol>
 </nav>
