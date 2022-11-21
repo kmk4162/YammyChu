@@ -63,13 +63,6 @@
             <div class="title-box d-flex justify-content-center align-items-center">
                 <div class='d-flex flex-column justify-content-center align-items-center fw-bold shadow-sm' style="position:relative; top:-40px; z-index:10; width:700px; height:200px; background-color:white; font-size: 3rem; font-weight:500;">
                     {{ store.name }}
-                     <div class='d-flex justify-content-start align-items-center my-1'>
-                        {% if store.store_reviews.all.count == 0 %}
-                        <div style="font-size:1.4rem;">⭐ 0</div>
-                        {% else %}
-                        <div style="font-size:1.4rem;">⭐ {{ store.grade_avg|floatformat:"1" }}</div>
-                        {% endif %}
-                    </div>
                     <div class="d-flex justify-content-center">
                         <div style="font-size:1.5rem; margin-left: 5px;">후기 {{ store.store_reviews.all.count }}•</div>
                         <div style="font-size:1.5rem; margin-left: 5px;">팔로워 <b id='followers'>{{ store.following_users.count }}</b>•</div>
@@ -124,7 +117,7 @@
                         <p class="my-1">{{user.username}}님 후기를 남겨주세요.</p>
                     </div>
                     <!-- Button trigger modal -->
-                    <form action="{% url 'foods:store_review_create' store.team_id store.pk value %}" id="myform" class="me-3 pe-5">
+                    <form action="{% url 'foods:store_review_create' store.team_id store.pk %}" id="myform" class="me-3 pe-5">
                         <fieldset class="my-1">
                             <input class="open-Star" type="button" name="star" value="5" id="rate1" data-id="5" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate1">⭐</label>
                             <input class="open-Star" type="button" name="star" value="4" id="rate2" data-id="4" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><label for="rate2">⭐</label>
@@ -143,7 +136,7 @@
                                     <div class="d-flex justify-content-between align-items-center w-100">
                                         <a type="a" class="secondary" data-bs-dismiss="modal" style="text-decoration:none; color:black;">취소</a>
                                         <h1 class="modal-title fs-5" id="staticBackdropLabel">{{store.name}}</h1>
-                                        <a id="review-btn d-flex align-self-center" style="width:28px; text-decoration:none; background-color:#00000000; border:0; color:rgb(57,125,246);" type="submit">등록</a>
+                                        <button id="review-btn d-flex align-self-center" style="width:40px; text-decoration:none; background-color:#00000000; border:0; color:rgb(57,125,246);" type="submit">등록</button>
                                     </div>
                                     <hr>
                                     {% bootstrap_form review_form %}
@@ -207,7 +200,7 @@
                 <hr>
                 <div>
                     <div class="d-flex justify-content-between">
-                        <div style="font-size:16px; font-weight:bold;">{{ review.user.username }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span></div>
+                        <div style="font-size:16px; font-weight:bold;"><img src="{{ review.user.team.logo.url }}" alt="" style="width: 30px; height: 30px; margin-right:5px;">{{ review.user.username }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span></div>
                         <div class="btn" style="position:relative; right:0;" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                             <span class="material-symbols-outlined">
                             more_vert
