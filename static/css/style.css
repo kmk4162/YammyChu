@@ -1,3 +1,10 @@
+@media (max-width: 777px) {
+  /*화면이 작을때 */
+  .mobile-active{
+    transform:scale(calc(100vw/777px));
+  }
+}
+
 .intro-box {
   width: 100vw;
   height: 100vh;
