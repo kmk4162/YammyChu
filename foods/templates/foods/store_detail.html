@@ -41,6 +41,15 @@
         'opsz' 48
     }
 
+    div[class="customOverlay"] {
+        border-radius: 2rem;
+        background-color: white;
+        width: auto;
+        margin: 0;
+        padding: 10px;
+        text-align: center;
+    }
+
     #container {overflow:hidden;height:300px;position:relative;}
     #mapWrapper {width:100%;height:300px;z-index:1;}
     #rvWrapper {width:50%;height:300px;top:0;right:0;position:absolute;z-index:0;}
@@ -317,19 +326,18 @@
 
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
+        map:map,
         position: markerPosition
     });
+    map.setCenter(markerPosition);
 
     // 마커가 지도 위에 표시되도록 설정합니다
-marker.setMap(map)
-map.setCenter(markerPosition);
 var customOverlay = new kakao.maps.CustomOverlay({
     clickable: true,
     content: '<div class="customOverlay">{{ store.name }}</div>',
     position: new kakao.maps.LatLng({{ store.lat }}, {{ store.lon }}),
     xAnchor: 0.5,
-    yAnchor: 2,
-    
+    yAnchor: 2,    
 });
     kakao.maps.event.addListener(marker, 'mouseover', function() {
         // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
