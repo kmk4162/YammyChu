@@ -276,7 +276,8 @@ def search(request, team_pk):
         result = Store.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('store_reviews__grade'), cnt_reviews=Count('store_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(items__contains=searched)))
     # 외부 가게
     elif field == "2":
-        result = Restaurant.objects.filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
+        result = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
+        print(result)
     # 리뷰
     elif field == "3":
         result = Review.objects.filter(Q(team=team) & (Q(content__contains=searched))).order_by("-pk")
