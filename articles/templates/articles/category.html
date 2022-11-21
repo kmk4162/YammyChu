@@ -74,7 +74,7 @@
           {% for article in articles_category %}
           <tr>
             <th scope="row">{{ article.category }}</th>
-            <td class="text-start"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }}</a></td>
+            <td class="text-start"><a href="{% url 'articles:detail' article.pk %}" class="text-black text-decoration-none">{{ article.title }} [{{ article.comment_set.count }}]</a></td>
             <td>{{ article.created_at|date:'Y-m-d H:i' }}</td>
             <td>{{ article.hits }}</td>
             <td>
