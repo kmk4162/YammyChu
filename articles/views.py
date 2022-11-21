@@ -198,7 +198,10 @@ def community(request):
 
 
 def category(request, num):
-    categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타', request.user.team.name]
+    if request.user.is_authenticated:
+        categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타', request.user.team.name ]
+    else :
+        categorys = ['잡담', '질문', '야구', '음식', '직관모집', '기타']
     category_name = categorys[num]
     if num <= 5 :
         articles_category = Article.objects.filter(category=category_name).order_by('-pk')
