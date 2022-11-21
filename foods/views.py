@@ -277,10 +277,11 @@ def search(request, team_pk):
     # 외부 가게
     elif field == "2":
         result = Restaurant.objects.annotate(cnt_followings=Count('following_users'), avg_grade=Avg('restaurant_reviews__grade'), cnt_reviews=Count('restaurant_reviews')).filter(Q(team=team) & (Q(name__contains=searched) | Q(content__contains=searched)))
-        print(result)
     # 리뷰
     elif field == "3":
-        result = Review.objects.filter(Q(team=team) & (Q(content__contains=searched))).order_by("-pk")
+        hashtag_pk = Tag.objects.get(content=searched).pk
+        print(hashtag_pk)
+        return redirect('foods:tag', team_pk, hashtag_pk)
     if not searched:
         result = []
         text = "검색어를 입력하세요."
@@ -294,6 +295,7 @@ def search(request, team_pk):
         "text": text,
         'field': field,
         'team' : team,
+        "team_pk": team_pk,
         'searched': searched,
         'stadium': stadium,
     }
