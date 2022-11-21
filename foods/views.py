@@ -94,7 +94,7 @@ def store_follow(request, team_pk, store_pk):
     )
 
 @login_required
-def store_review_create(request, team_pk, store_pk):
+def store_review_create(request, team_pk, store_pk, value):
     team = Team.objects.get(pk=team_pk)
     store = Store.objects.get(pk=store_pk, team=team)
     if request.method == "POST":
@@ -119,6 +119,8 @@ def store_review_create(request, team_pk, store_pk):
             return redirect("foods:store_detail", team.pk, store.pk)
     else:
         review_form = ReviewForm()
+        print(f' value : {value}')
+        review_form.grade = value
         reviewimage_form = ReviewImageForm()
     context = {
         "review_form": review_form, 
