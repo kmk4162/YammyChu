@@ -179,7 +179,6 @@
                     {% if store.store_reviews.all.count == 0 %}
                     <div style="font-size:1.4rem; margin-right:10px;">⭐ 0</div>
                     {% else %}
-
                     <div style="transform:scale(1.5);" class="ms-4 mt-1">
                         {% if store.grade_avg >= 5 %}
                         <i class="bi bi-star-fill text-warning"></i>
@@ -212,11 +211,10 @@
                         <i class="bi bi-star-fill text-secondary"></i>
                         <i class="bi bi-star-fill text-secondary"></i>
                         {% endif %}
-                        
                     </div>
-                    
+                    {% endif %}
                 </div>
-                {% endif %}
+                
                 {% for review in store.store_reviews.all reversed %}
                 <hr>
                 <div>
@@ -254,17 +252,15 @@
                         {% endif %}
                     </div>
                     <div class="d-flex justify-content-between">
-                        <div style="font-size:16px; font-weight:bold;"><img src="{{ review.user.team.logo.url }}" alt="" style="width: 30px; height: 30px; margin-right:5px;">{{ review.user.nickname }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span></div>
+                        <div style="font-size:16px; font-weight:bold;">
+                            <img src="{{ review.user.team.logo.url }}" alt="" style="width: 30px; height: 30px; margin-right:5px;">{{ review.user.nickname }} | <span style="font-size:14px; color:gray; font-weight:400;">{{review.created_at|date:'Y.m.d A h:i'}}</span>
+                        </div>
                         <div class="btn" style="position:relative; right:0;" data-bs-toggle="collapse" href="#collapse{{ review.pk }}" role="button" aria-expanded="false" aria-controls="collapse{{ review.pk }}">
                             <span class="material-symbols-outlined">
                             more_vert
                             </span>
-                        </a>
+                        </div>
                     </div>
-
-                    
-
-                    
                 </div>
                 {{ review|tag_check|safe }}
                 <div class='row'>
@@ -274,7 +270,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                {% if request.user == review.user%}
+                {% if request.user == review.user %}
                 <div class='text-end collapse' id="collapse{{ review.pk }}">
                     <button style="text-decoration:none;" class="badge rounded-pill text-bg-dark" data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</button>
                 </div>
