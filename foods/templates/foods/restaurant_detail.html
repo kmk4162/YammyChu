@@ -252,7 +252,7 @@
                     {% endfor %}
                 </div>
                 {% if request.user == review.user%}
-                <div class='d-flex justify-content-end collapse' id="collapse{{ review.pk }}">
+                <div class='text-end collapse' id="collapse{{ review.pk }}">
                     <button style="text-decoration:none;" class="badge rounded-pill text-bg-dark" data-bs-toggle="modal" data-bs-target="#delete{{ review.pk }}">삭제</button>
                     <div class="modal fade" id="delete{{ review.pk }}" tabindex="-1" aria-labelledby="delete{{ review.pk }}label" aria-hidden="true">
                         <div class="modal-dialog">
