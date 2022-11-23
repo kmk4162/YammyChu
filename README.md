@@ -291,7 +291,7 @@ SSG 랜더스 필드 내에 카페가 궁금하다구요?
 
 **김광표 - 팀원, 발표자**
 
-[](https://github.com/Pangpyo)
+[pangpyo - Overview](https://github.com/Pangpyo)
 
 **최근영 - 팀원**
 
